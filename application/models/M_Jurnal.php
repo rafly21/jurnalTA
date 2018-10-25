@@ -6,32 +6,49 @@ class M_Jurnal extends CI_Model{
 		$where =[
 			'id_fak'=>$id
 		];
-		$result = $this->db->get_where('fakultas',$where)->row();
-		return $result;
+		$result = $this->db->get_where('fakultas',$where);
+		if($result->num_rows() > 0){
+				return $result->result();
+		}else{
+			return false;
+		}
+
 	}
 
 	function getDepartemen($id=null){
 		$where =[
 			'id_dept'=>$id
 		];
-		$result = $this->db->get_where('departemen',$where)->row();
-		return $result;
+		$result = $this->db->get_where('departemen',$where);
+		if($result->num_rows() > 0){
+				return $result->result();
+		}else{
+			return false;
+		}
 	}
 
 	function getlembaga($id=null){
 		$where =[
 			'id_lembaga'=>$id
 		];
-		$result = $this->db->get_where('lembaga',$where)->row();
-		return $result;
+		$result = $this->db->get_where('lembaga',$where);
+		if($result->num_rows() > 0){
+				return $result->result();
+		}else{
+			return false;
+		}
 	}
 
 	function getlab($id=null){
 		$where =[
 			'id_lab'=>$id
 		];
-		$result = $this->db->get_where('lab',$where)->row();
-		return $result;
+		$result = $this->db->get_where('lab',$where);
+		if($result->num_rows() > 0){
+				return $result->result();
+		}else{
+			return false;
+		}
 	}
 
 	function tampil_data(){

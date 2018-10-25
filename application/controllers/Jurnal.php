@@ -20,16 +20,9 @@ class Jurnal extends CI_Controller {
 		$return = $this->M_Jurnal->tampil_data();
 		$data['data'] = $this->M_Jurnal->tampil_data();
     $data['data2'] = $this->M_Jurnal->tampil_data2();
-		$data['fakultas'] = $this->M_Jurnal->getFakultas($return[0]->id_fak);
-		$data['departemen'] = $this->M_Jurnal->getDepartemen($return[0]->id_dept);
-		$data['lembaga'] = $this->M_Jurnal->getlembaga($return[0]->id_lembaga);
-		$data['lab'] = $this->M_Jurnal->getlab($return[0]->id_lab);
-		// $query = $this->M_Jurnal->tampil_data();
-		// return $query;
-    // var_dump($data1);
-    //
     // var_dump($data);
     // die;
+		// echo json_encode($data);
 
 		$this->load->view('manajemen/v_jurnal',$data);
 	}
