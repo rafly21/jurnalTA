@@ -7,7 +7,14 @@
         <img src="<?php echo base_url('assets/template/back/dist') ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>Rafly</p>
+        <p> <?php
+        if (!empty($this->session->userdata())){
+          echo $this->session->userdata('name') ;
+
+        }
+
+
+        ?></p>
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>

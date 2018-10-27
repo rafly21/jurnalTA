@@ -64,7 +64,7 @@ $route['kelola_pengelola/edit_pass/(:num)'] = 'manajemen_user/Users/edit_pass/$i
 $route['kelola_pengelola/update_pass/(:num)'] = 'manajemen_user/Users/change_pass/$1';
 $route['kelola_pengelola'] = 'manajemen_user/Users';
 $route['jurnal'] = 'jurnal';
-$route['jurnal/tambah_jurnal'] = 'jurnal/add_jurnal';       
+$route['jurnal/tambah_jurnal'] = 'jurnal/add_jurnal';
 
 
 
@@ -76,3 +76,7 @@ $route['home_man'] = 'Manajemen';
 $route['cekpermission'] = 'Auth/cekpermission';
 $route['auth_process'] = 'Auth/auth_process';
 $route['logout'] = 'Logout';
+
+
+//api
+$route["api/(:any)"] = 'Api/getPenerbit/$1';

@@ -1,41 +1,50 @@
 <?php
-
 class M_Jurnal extends CI_Model{
-
 	function getFakultas($id=null){
 		$where =[
 			'id_fak'=>$id
 		];
-		$result = $this->db->get_where('fakultas',$where)->row();
-		return $result;
+		$result = $this->db->get_where('fakultas',$where);
+		if($result->num_rows() > 0){
+				return $result->result();
+		}else{
+			return false;
+		}
 	}
-
 	function getDepartemen($id=null){
 		$where =[
 			'id_dept'=>$id
 		];
-		$result = $this->db->get_where('departemen',$where)->row();
-		return $result;
+		$result = $this->db->get_where('departemen',$where);
+		if($result->num_rows() > 0){
+				return $result->result();
+		}else{
+			return false;
+		}
 	}
-
 	function getlembaga($id=null){
 		$where =[
 			'id_lembaga'=>$id
 		];
-		$result = $this->db->get_where('lembaga',$where)->row();
-		return $result;
+		$result = $this->db->get_where('lembaga',$where);
+		if($result->num_rows() > 0){
+				return $result->result();
+		}else{
+			return false;
+		}
 	}
-
 	function getlab($id=null){
 		$where =[
 			'id_lab'=>$id
 		];
-		$result = $this->db->get_where('lab',$where)->row();
-		return $result;
+		$result = $this->db->get_where('lab',$where);
+		if($result->num_rows() > 0){
+				return $result->result();
+		}else{
+			return false;
+		}
 	}
-
 	function tampil_data(){
-
   $this->db->select('*');
 	$this->db->from('jurnal');
   $this->db->join('data_pengelola','jurnal.id_pengelola = data_pengelola.id_pengelola');
@@ -43,7 +52,6 @@ class M_Jurnal extends CI_Model{
 	$query = $this->db->get()->result();
 	return $query;
   }
-
 	function tampil_data2(){
 	$this->db->select('penerbit.id_penerbit AS penerbit,
  		fakultas.nama_fak AS fakultas,
@@ -57,8 +65,14 @@ class M_Jurnal extends CI_Model{
 	$this->db->join('lab','penerbit.id_lab = lab.id_lab','left');
 	$query = $this->db->get()->result();
 	}
-
-
+	function getPengindeks(){
+		$this->db->select('nama,id_pengindeks');
+		return $this->db->get('pengindeks')->result();
+	}
+	function getPortal(){
+		$this->db->select('id_portal,nama_portal,');
+		return $this->db->get('portal')->result();
+	}
 	// function tampil_data_coba(){
   // 	$query= "SELECT
   //   jurnal.id_jurnal,
@@ -97,37 +111,27 @@ class M_Jurnal extends CI_Model{
 	// 	";
   // 	return $this->db->query($query);
   // }
-
-
-
 	function get_auth($tabel, $where)
 	{
 	 return	$this->db->get_where($tabel, $where)->row();
-
 	}
-
 	function input_data($tabel,$data)
   {
      $this->db->insert($tabel,$data);
   }
-
 	function edit($data){
   $this->db->where($data);
   $edit = $this->db->get('auth');
   return $edit->result();
   }
-
   function update($data,$id){
   	$this->db->where('id_user', $id);
   	$this->db->update('data_pengelola',$data);
   }
-
 	function updatepassword($data,$id){
-
 		$where = ['id_user'=> $id];
 		$query = $this->db->update('auth',$data,$where);
 		return $query;
-
 	}
 	function get_one($id)
 	 {
@@ -138,12 +142,10 @@ class M_Jurnal extends CI_Model{
 		 $param = array('id_user'=>$id);
 		 return $this->db->get_where('auth',$param)->result();
 	 }
-
 	 function update_photo($id,$data){
    $this->db->where('username', $id);
    $this->db->update('data_pengelola',$data);
    }
-
 	 function delete_pengelola($id)
 	 {
 		   $query1 = $this->db->delete('auth', array('id_user' => $id));
@@ -154,7 +156,6 @@ class M_Jurnal extends CI_Model{
 				 return false;
 			 }
 	 }
-
 	 function get_where()
  	 {
  			 $param = array('username'=> $this->input->post('inputusername'));
@@ -173,7 +174,6 @@ class M_Jurnal extends CI_Model{
    //     }
    //
    // }
-
    // function checkUserexist($userName) {
    //   $this->db->where('username', $username);
    //   $this-db->from('auth');
@@ -183,13 +183,8 @@ class M_Jurnal extends CI_Model{
    //   }
    //   return false;
    // }
-
-
    	// function tampil_data(){
    	// 	return $this->db->get('Users');
    	// }
-
-
    }
-
    ?>

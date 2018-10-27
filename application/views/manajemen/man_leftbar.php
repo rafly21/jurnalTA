@@ -7,8 +7,15 @@
         <img src="<?php echo base_url('assets/template/back/dist') ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>Rafly</p>
-        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        <p><?php
+        if (!empty($this->session->userdata())){
+          echo $this->session->userdata('name') ;
+
+        }
+
+
+        ?></p>
+        <a href="#"><i class="fa fa-circle text-success"></i> </a>
       </div>
     </div>
     <!-- search form -->
@@ -47,7 +54,7 @@
       <li class="treeview">
         <a href="#">
           <i class="fa fa-laptop"></i>
-          <span>Daftar Jurnal</span>
+          <span>Menu Jurnal</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -57,8 +64,10 @@
           <li><a href="#"><i class="fa fa-circle-o"></i> Jurnal Belum Terbit</a></li>
           <li><a href="#"><i class="fa fa-circle-o"></i> ____________</a></li>
           <li><a href="#"><i class="fa fa-circle-o"></i> ____________</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> ____________</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> ____________</a></li>
+          <li><a href="#"><i class="fa fa-circle-o"></i> Tambah Pengindeks</a></li>
+          <li><a href="#"><i class="fa fa-circle-o"></i> Tambah Lembaga</a></li>
+          <li><a href="#"><i class="fa fa-circle-o"></i> Tambah Lab</a></li>
+
         </ul>
       </li>
       <li class="treeview">

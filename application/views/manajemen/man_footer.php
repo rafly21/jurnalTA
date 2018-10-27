@@ -205,6 +205,7 @@
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url('assets/template/back/bower_components') ?>/select2/dist/js/select2.full.min.js"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
@@ -219,6 +220,57 @@
 <!-- ChartJS -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/Chart.js/Chart.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url('assets/template/back/dist') ?>/js/pages/dashboard2.js"></script>
+<!-- <script src="<?php echo base_url('assets/template/back/dist') ?>/js/pages/dashboard2.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/template/back/dist') ?>/js/demo.js"></script>
+<script>
+$(document).ready(function() {
+    $('#myModal').modal('show');
+    getPenerbit();
+    $('.select2').select2();
+    showFormAkreditasi();
+    appendFieldPengindex();
+});
+
+function getPenerbit() {
+    $(document).on('change', '#penerbit', function() {
+        var penerbit = $(this).val(),
+            url = "<?= base_url('api')?>/"+penerbit;
+        // console.log(url);
+        $.get(url, function(data) {
+            $('#auto-penerbit').empty();
+            $.each($.parseJSON(data), function(index, val){
+                $('#auto-penerbit').append('<option value="'+val.id+'">'+val.nama+'</option>');
+            });
+        });
+    });
+}
+
+function showFormAkreditasi() {
+    var radioBtn = $('.radio-akreditasi');
+    $(document).on('change', radioBtn, function(){
+        if ($('#aky').is(':checked')) {
+            $('#akreditasi').removeClass('hidden');
+            $('#akreditasi').show();
+        } else {
+            $('#akreditasi').addClass('hidden');
+            $('#akreditasi').hide();
+        }
+    });
+}
+
+function appendFieldPengindex() {
+    var container = $('#field-pengindeks'),
+        selector = $('#pengindeks');
+
+    $(document).on('change', selector, function() {
+        var id = selector.val(),
+            name = selector.find('option:selected').text(),
+            name = name.split(' ');
+        container.empty();
+        $.each(id, function(index, val) {
+            container.append('<input class="form-control" name="url_pengindeks[]" placeholder="URL '+name[index]+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
+        })
+    });
+}
+</script>

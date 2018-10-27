@@ -15,7 +15,12 @@ class M_users extends CI_Model{
 		ORDER BY id_pengelola";
   	return $this->db->query($query);
   }
+	function get_pengelola(){
+		$this->db->join('auth','data_pengelola.id_user=auth.id_user');
+		$this->db->where('permission','pengelola');
+	return $this->db->get('data_pengelola')->result();
 
+	}
 	function get_auth($tabel, $where)
 	{
 	 return	$this->db->get_where($tabel, $where)->row();
