@@ -65,6 +65,20 @@ $route['kelola_pengelola/update_pass/(:num)'] = 'manajemen_user/Users/change_pas
 $route['kelola_pengelola'] = 'manajemen_user/Users';
 $route['jurnal'] = 'jurnal';
 $route['jurnal/tambah_jurnal'] = 'jurnal/add_jurnal';
+$route['jurnal/submit_jurnal'] = 'jurnal/submitJurnal';
+$route['pengindeks'] = 'pengindeks';
+$route['pengindeks/tambah_pengindeks'] = 'pengindeks/add_pengindeks';
+$route['pengindeks/insert'] = 'pengindeks/insert_pengindeks';
+$route['pengindeks/delete/(:num)'] = 'pengindeks/delete_pengindeks/$1';
+$route['pengindeks/edit/(:num)'] = 'pengindeks/update_pengindeks/$1';
+$route['pengindeks/update/(:num)'] = 'pengindeks/edit_pengindeks/$1';
+
+
+
+
+
+
+
 
 
 

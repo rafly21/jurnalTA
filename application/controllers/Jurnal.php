@@ -21,19 +21,76 @@ class Jurnal extends CI_Controller {
 		// echo json_encode($data);
 		$this->load->view('manajemen/v_jurnal',$data);
 	}
-	// public function getFakultas($id){
-	// 	$return = $this->M_Jurnal->getFakultas($id);
-	// 	var_dump( $return);
-	// }
-	public function add_user()
- 	{
-		 $id = $this->uri->segment(3);
-		 $this->load->model('M_users');
-		 // edit ini cok, atas model dept, bawah karyawan
-		 $data['auth']   =  $this->M_users->tampil_data()->result();
-		 $data['record']=  $this->M_users->get_one($id)->row_array();
-		 $this->load->view('manajemen/v_add_user');
- 	}
+	public function submitJurnal(){
+		// $this->form_validation->set_rules('judul', 'Judul Jurnal', 'required');
+    // $this->form_validation->set_rules('nomorjurnal', 'Nomor Jurnal', 'required');
+    // $this->form_validation->set_rules('portal', 'Portal', 'required');
+		// $this->form_validation->set_rules('urlportal', 'URL', 'required');
+		// $this->form_validation->set_rules('penerbit', 'Penerbit', 'required');
+		// $this->form_validation->set_rules('sponsor', 'Sponsor', 'required');
+		// $this->form_validation->set_rules('pengelola', 'Pengelola', 'required');
+		// $this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
+		// $this->form_validation->set_rules('pissn', 'P-Issn', 'required');
+		// $this->form_validation->set_rules('eissn', 'E-Issn', 'required');
+		// $this->form_validation->set_rules('english', 'English', 'required');
+		// $this->form_validation->set_rules('mpgundip', 'MpgUndip', 'required');
+		// $this->form_validation->set_rules('doi', 'DOI', 'required');
+		// $this->form_validation->set_rules('thnmulai', 'Tahun Mulai', 'required');
+		// $this->form_validation->set_rules('blnterbit', 'Bulan Terbit', 'required');
+		// $this->form_validation->set_rules('terbitakhir', 'Terbit Terakhir', 'required');
+		// $this->form_validation->set_rules('noterakhir', 'Jumlah Nomor Terakhir', 'required');
+		// $this->form_validation->set_rules('pengindeks', 'Pengindeks', 'required');
+		// $this->form_validation->set_rules('akreditasi', 'Terakreditasi', 'required');
+		// $this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
+		// $this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
+		// $this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan SK', 'required');
+		// $this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
+		// $this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required');
+		// $this->form_validation->set_rules('urlsinta', 'URL SINTA', 'required');
+
+// if ($this->form_validation->run() == FALSE)
+// {
+// 		$this->add_jurnal();
+// }
+// else
+// {
+	$data = array(
+			'judul' => $this->input->post('judul'),
+			'no_jurnal' => $this->input->post('nomorjurnal'),
+			// 'nama_portal' => $this->input->post('portal'),
+			'url' => $this->input->post('urlportal'),
+			// 'grade' => $this->input->post('penerbit'),
+			'grade' => $this->input->post('sponsor'),
+			'id_pengelola' => $this->input->post('pengelola'),
+			'singkatan' => $this->input->post('singkatan'),
+			'p_issn' => $this->input->post('pissn'),
+			'e_issn' => $this->input->post('eissn'),
+			'english' => $this->input->post('english'),
+			'mpgundip' => $this->input->post('mpgundip'),
+			'doi' => $this->input->post('doi'),
+			'thn_mulai' => $this->input->post('thnmulai'),
+			// 'grade' => $this->input->post('blnterbit'),
+			'terbit_terakhir' => $this->input->post('terbitakhir'),
+			'no_terakhir' => $this->input->post('noterakhir'),
+			// 'grade' => $this->input->post('pengindeks'),
+			// 'grade' => $this->input->post('akreditasi'),
+			// 'grade' => $this->input->post('sk'),
+			// 'grade' => $this->input->post('mulaisk'),
+			// 'grade' => $this->input->post('tetapsk'),
+			// 'grade' => $this->input->post('akhirsk'),
+			'peringkat_sinta' => $this->input->post('peringkatsinta'),
+			'url_sinta' => $this->input->post('urlsinta'),
+
+
+		);
+var_dump($this->input->post());
+die();
+
+// }
+
+
+	}
+
 	public function add_jurnal()
  	{
 		 // $id = $this->uri->segment(3);

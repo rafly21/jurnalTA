@@ -263,14 +263,21 @@ function appendFieldPengindex() {
     var container = $('#field-pengindeks'),
         selector = $('#pengindeks');
 
-    $(document).on('change', selector, function() {
+    $('#pengindeks').on('change', function() {
         var id = selector.val(),
             name = selector.find('option:selected').text(),
-            name = name.split(' ');
-        container.empty();
+            name = name.split(' '),
+            url = "";
+
+        // container.empty();
         $.each(id, function(index, val) {
-            container.append('<input class="form-control" name="url_pengindeks[]" placeholder="URL '+name[index]+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
-        })
+          url = name[index];
+        });
+
+        if($('#pengindex_'+url) <= 0) {
+          container.append('<input class="form-control" name="url_pengindeks[]" id="pengindex_'+url+'" placeholder="URL '+url+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
+        }
+
     });
 }
 </script>

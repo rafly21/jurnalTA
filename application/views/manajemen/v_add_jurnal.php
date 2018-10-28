@@ -26,7 +26,7 @@
     <section class="content">
 
 
-       <form class="form-horizontal" action="<?php echo base_url()?>tambah_pengelola/submit_user" method="post">
+       <form class="form-horizontal" action="<?php echo base_url('jurnal/submit_jurnal')?>" method="post">
                     <div class="form-group">
                       <label for="judul" class="col-sm-2 control-label">Judul : </label>
                       <div class="col-md-9">
@@ -65,7 +65,7 @@
                       <div class="form-group">
                     <label for="inputpassword" class="col-sm-2 control-label">Penerbit : </label>
                       <div class="col-md-9">
-                    <select class="form-control "  id="penerbit">
+                    <select class="form-control" name="penerbit" id="penerbit">
                       <option >-- Pilih Penerbit --</option>
                       <option value="fakultas">Fakultas</option>
                       <option value="departemen">Departemen</option>
@@ -73,7 +73,7 @@
                       <option value="lembaga">Lembaga</option>
                     </select>
                   </br>
-                    <select class="form-control select2" name="penerbit" id="auto-penerbit">
+                    <select class="form-control select2" name="id_penerbit" id="auto-penerbit">
                       <option>-- pilih penerbit --</option>
                     </select>
                   </div>
@@ -175,7 +175,7 @@
                  <div class="form-group">
                <label for="inputpassword" class="col-sm-2 control-label">Bulan Terbit : </label>
                  <div class="col-md-9">
-               <select class="form-control select2" name="blnterbit" multiple data-placeholder='Bulan Terbit' >
+               <select class="form-control select2" name="blnterbit[]" multiple data-placeholder='Bulan Terbit' >
                  <option value="1">Januari</option>
                  <option value="2">Februari</option>
                  <option value="3">Maret</option>
@@ -207,7 +207,7 @@
                  <div class="form-group">
                <label for="#" class="col-sm-2 control-label">Pengindeks : </label>
                  <div class="col-md-9">
-               <select class="form-control select2" name="pengindeks" multiple data-placeholder="Pengindeks" id='pengindeks'>
+               <select class="form-control select2" name="pengindeks[]" multiple data-placeholder="Pengindeks" id='pengindeks'>
 
                   <?php foreach ($pengindeks as $a){?>
                     <option value='<?=$a->id_pengindeks?>'><?=$a->nama?> </option>
