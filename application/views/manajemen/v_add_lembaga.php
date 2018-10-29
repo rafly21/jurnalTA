@@ -18,68 +18,40 @@
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="#"> Manajemen Pengelola</a></li>
-            <li class="active">Tambah Pengelola</li>
+            <li><a href="<?php echo base_url()?>lembaga">Lembaga</a></li>
           </ol>
         </section>
       </div>
     </head>
-
     <section class="content">
 
 
-       <form class="form-horizontal" action="<?php echo base_url()?>tambah_pengelola/submit_user" method="post">
+       <form class="form-horizontal" action="<?php echo base_url("lembaga/insert")?>" method="post">
                     <div class="form-group">
-                      <label for="inputusername" class="col-sm-2 control-label">Username : </label>
+                      <label for="judul" class="col-sm-2 control-label">Nama Lembaga : </label>
                       <div class="col-md-9">
-                        <input class="form-control" name="inputusername" placeholder="Username" type="text" required/>
+                        <input class="form-control" name="nama" placeholder="Nama Lembaga" value="<?php echo set_value('nama'); ?>"type="text"/>
+                        <?php if(form_error('nama')) : ?>
+                          <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                              <?php echo form_error('nama'); ?>
+                          </div>
+                        <?php endif ?>
                       </div>
                     </div>
 
-                     <div class="form-group">
-                      <label for="inputpassword" class="col-sm-2 control-label">Password : </label>
-                      <div class="col-md-9">
-                        <input class="form-control" name="inputpassword" placeholder="Password" type="password" required/>
-                      </div>
-                      </div>
 
-      <!-- <input class="form-control" name="inputuser" type="hidden" value="auth" > -->
+                           <!-- <a onclick="return confirmSave()"> -->
+                             <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Tambah lembaga</b></button>
+                           <!-- </a> -->
+                         </div>
 
-                     <div class="form-group">
-                      <label for="inputnama" class="col-sm-2 control-label">Nama : </label>
-                      <div class="col-md-9">
-                        <input class="form-control" name="inputnama" placeholder="Nama" type="text" required/>
-                      </div>
-                      </div>
+           </form>
+           </section>
+       </div>
 
-                     <div class="form-group">
-                      <label for="inputemail" class="col-sm-2 control-label">Email : </label>
-                      <div class="col-md-9">
-                        <input class="form-control" name="inputemail" placeholder="Email" type="text" required/>
-
-                       </div>
-                      </div>
-
-                      <div class="form-group">
-                      <label for="inputtelepon" class="col-sm-2 control-label">Telepon : </label>
-                      <div class="col-md-9">
-                        <input class="form-control" name="inputtelepon" placeholder="Telepon" type="text" required/>
-
-                       </div>
-                     </div>
-
-                  <div>
-                    <!-- <a onclick="return confirmSave()"> -->
-                      <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Add new user</b></button>
-                    <!-- </a> -->
-                  </div>
-
-    </form>
-    </section>
-</div>
-
-<?php $this->load->view('manajemen/man_footer.php')?>
-</div>
-<!-- ./wrapper -->
-</body>
-</html>
+       <?php $this->load->view('manajemen/man_footer.php')?>
+       </div>
+       <!-- ./wrapper -->
+       </body>
+       </html>

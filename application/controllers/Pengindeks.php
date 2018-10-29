@@ -24,7 +24,8 @@ class Pengindeks extends CI_Controller {
  	{
 		 $this->load->view('manajemen/v_add_pengindeks');
  	}
-  public function insert_pengindeks(){
+  public function insert_pengindeks()
+  {
     // var_dump($this->input->post());
     // die;
     $this->form_validation->set_rules('nama', 'nama pengindeks', 'required');

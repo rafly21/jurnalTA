@@ -72,6 +72,12 @@ $route['pengindeks/insert'] = 'pengindeks/insert_pengindeks';
 $route['pengindeks/delete/(:num)'] = 'pengindeks/delete_pengindeks/$1';
 $route['pengindeks/edit/(:num)'] = 'pengindeks/update_pengindeks/$1';
 $route['pengindeks/update/(:num)'] = 'pengindeks/edit_pengindeks/$1';
+$route['lembaga'] = 'lembaga';
+$route['lembaga/tambah_lembaga'] = 'lembaga/add_lembaga';
+$route['lembaga/insert'] = 'lembaga/insert_lembaga';
+
+
+
 
 
 

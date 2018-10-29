@@ -114,6 +114,13 @@ class M_Jurnal extends CI_Model{
 		return $this->db->get('pengindeks')->row();
 
 	}
+	function tampil_lembaga(){
+		return $this->db->get('lembaga')->result();
+	}
+	function input_lembaga($data){
+
+		return $this->db->insert('lembaga', $data) ? true : false;
+	}
 	// function tampil_data_coba(){
   // 	$query= "SELECT
   //   jurnal.id_jurnal,

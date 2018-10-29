@@ -230,6 +230,7 @@ $(document).ready(function() {
     $('.select2').select2();
     showFormAkreditasi();
     appendFieldPengindex();
+    removeFieldPengindeks();
 });
 
 function getPenerbit() {
@@ -259,25 +260,60 @@ function showFormAkreditasi() {
     });
 }
 
+// function appendFieldPengindex() {
+//     var container = $('#field-pengindeks'),
+//         selector = $('#pengindeks');
+//
+//     $('#pengindeks').on('change', function() {
+//         var id = selector.val(),
+//             name = selector.find('option:selected').text(),
+//             name = name.split(' '),
+//             url = "";
+//
+//         // container.empty();
+//         $.each(id, function(index, val) {
+//           url = name[index];
+//         });
+//
+//         if($('#pengindex_'+url) <= 0) {
+//           container.append('<input class="form-control" name="url_pengindeks[]" id="pengindex_'+url+'" placeholder="URL '+url+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
+//         }
+//
+//     });
+// }
 function appendFieldPengindex() {
     var container = $('#field-pengindeks'),
         selector = $('#pengindeks');
+    $('#pengindeks').on('select2:select', function() {
+      var id = selector.val(),
+          name = selector.find('option:selected').text(),
+          name = name.split(' '),
+          url = "";
 
-    $('#pengindeks').on('change', function() {
-        var id = selector.val(),
-            name = selector.find('option:selected').text(),
-            name = name.split(' '),
-            url = "";
+      // container.empty();
+      $.each(id, function(index, val) {
+        url = name[index];
+      });
+        console.log(url);
+        container.append('<input class="form-control" name="url_pengindeks[]" id="url_pengindeks_'+url+'" placeholder="URL '+url+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
+    }).trigger('change');
+}
+function removeFieldPengindeks() {
+    var container = $('#field-pengindeks'),
+        selector = $('#pengindeks');
+    $('#pengindeks').on('select2:unselecting', function() {
+      var id = selector.val(),
+          name = selector.find('option:selected').text(),
+          name = name.split(' '),
+          url = "";
 
-        // container.empty();
-        $.each(id, function(index, val) {
-          url = name[index];
-        });
+      // container.empty();
+      $.each(id, function(index, val) {
+        url = name[index];
+      });
 
-        if($('#pengindex_'+url) <= 0) {
-          container.append('<input class="form-control" name="url_pengindeks[]" id="pengindex_'+url+'" placeholder="URL '+url+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
-        }
-
-    });
+        var input = container.find('input#url_pengideks_'+url);
+        input.remove();
+    }).trigger('change');
 }
 </script>
