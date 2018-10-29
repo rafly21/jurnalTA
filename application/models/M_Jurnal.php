@@ -121,6 +121,21 @@ class M_Jurnal extends CI_Model{
 
 		return $this->db->insert('lembaga', $data) ? true : false;
 	}
+	function delete_lembaga($id){
+		$this->db->where('id_lembaga', $id);
+		$this->db->delete('lembaga');
+		if($this->db->affected_rows() > 0)
+		{
+		    return true; // to the controller
+		} else {
+				return false;
+		}
+	}
+	function getLembagaById($id){
+		$this->db->where('id_lembaga',$id);
+		return $this->db->get('lembaga')->row();
+
+	}
 	// function tampil_data_coba(){
   // 	$query= "SELECT
   //   jurnal.id_jurnal,

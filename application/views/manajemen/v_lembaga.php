@@ -64,7 +64,7 @@
 
 
           <td colspan="3">
-            <a href="<?php echo base_url(''); ?>" class="btn btn-info"><b>Edit</b></a>
+            <a href="<?php echo base_url('lembaga/edit/'.$a->id_lembaga); ?>" class="btn btn-info"><b>Edit</b></a>
             <a href="#mDelIndex<?=$a->id_lembaga?>" data-toggle='modal' data-target='#mDelIndex<?=$a->id_lembaga?>' class="btn btn-danger"><b>Delete</b></a>
 
           </td>
@@ -80,7 +80,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>
-                <a href="<?php echo base_url('pengindeks/delete/'.$a->id_lembaga);?>" class="btn btn-danger"><b>Delete</b></a>
+                <a href="<?php echo base_url('lembaga/delete/'.$a->id_lembaga);?>" class="btn btn-danger"><b>Delete</b></a>
               </div>
             </div>
           </div>

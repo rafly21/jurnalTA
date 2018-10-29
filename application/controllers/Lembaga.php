@@ -46,5 +46,28 @@ class Lembaga extends CI_Controller {
         redirect('lembaga');
     }
   }
+	public function delete_lembaga($id){
+		$result =$this->M_Jurnal->delete_lembaga($id);
+		// var_dump($result);
+    // die;
+		if ($result) {
+				$this->session->set_flashdata('success_msg', 'Lembaga berhasil dihapus');
+		} else {
+				$this->session->set_flashdata('error_msg', 'Gagal menghapus lembaga. Silahkan coba lagi atau hubungi administrator');
+		}
+
+		redirect('lembaga');
+	}
+	public function edit_lembaga($id){
+    $data['lembaga']=$this->M_Jurnal->getLembagaById($id);
+    // var_dump($data);
+    // die();
+    $this->load->view('manajemen/v_edit_lembaga',$data);
+  }
+
+
+
+
+
 
 }
