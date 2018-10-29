@@ -64,7 +64,27 @@ $route['kelola_pengelola/edit_pass/(:num)'] = 'manajemen_user/Users/edit_pass/$i
 $route['kelola_pengelola/update_pass/(:num)'] = 'manajemen_user/Users/change_pass/$1';
 $route['kelola_pengelola'] = 'manajemen_user/Users';
 $route['jurnal'] = 'jurnal';
-$route['jurnal/tambah_jurnal'] = 'jurnal/add_jurnal';       
+$route['jurnal/tambah_jurnal'] = 'jurnal/add_jurnal';
+$route['jurnal/submit_jurnal'] = 'jurnal/submitJurnal';
+$route['pengindeks'] = 'pengindeks';
+$route['pengindeks/tambah_pengindeks'] = 'pengindeks/add_pengindeks';
+$route['pengindeks/insert'] = 'pengindeks/insert_pengindeks';
+$route['pengindeks/delete/(:num)'] = 'pengindeks/delete_pengindeks/$1';
+$route['pengindeks/edit/(:num)'] = 'pengindeks/update_pengindeks/$1';
+$route['pengindeks/update/(:num)'] = 'pengindeks/edit_pengindeks/$1';
+$route['lembaga'] = 'lembaga';
+$route['lembaga/tambah_lembaga'] = 'lembaga/add_lembaga';
+$route['lembaga/insert'] = 'lembaga/insert_lembaga';
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -76,3 +96,7 @@ $route['home_man'] = 'Manajemen';
 $route['cekpermission'] = 'Auth/cekpermission';
 $route['auth_process'] = 'Auth/auth_process';
 $route['logout'] = 'Logout';
+
+
+//api
+$route["api/(:any)"] = 'Api/getPenerbit/$1';

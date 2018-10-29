@@ -5,6 +5,7 @@ class Auth extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 		$this->load->model('M_auth');
+		$this->load->model('M_users');
 		$this->load->helper('url');
 
 		//TENDANG USER YG UDAH LOGIN KE HOME YANG SEHARUSNYA
@@ -34,13 +35,15 @@ class Auth extends CI_Controller {
 
 		$cek = $this->M_auth->auth_check("auth",$where);
 		if($cek->num_rows()>0){
+			$nama = $this->M_users->get_one($cek->row(0)->id_user)->row(0);
+
  				$data_session = array(
 				'username' => $username,
 				'status' => "login",
-				'name' => $cek->row(0)->name,
+				'name' => $nama->nama,
 				'permission' => $cek->row(0)->permission
 				);
- 		 			$this->db->where('username',$username);
+ 		 			// $this->db->where('username',$username);
  			$this->session->set_userdata($data_session);
 
  				if ($this->session->userdata('permission') === "manajemen"){
