@@ -29,7 +29,7 @@
         </div>
       </head>
       <section class="content">
-            <a href="<?php echo base_url('./jurnal/add_jurnal'); ?>" class="btn btn-info"><b>Tambah Jurnal</b></a>
+            <a href="<?php echo base_url('./jurnal/add_jurnal'); ?>" class="btn btn-success"><b>Tambah Jurnal</b></a>
       </br>
       </br>
       <table id="tableuser" class="table table-bordered table-striped scroll" style="background-color:white;">
@@ -70,6 +70,11 @@
           <td><?php echo $a->nama ?></td>
           <td colspan="3">
             <a href="<?php echo base_url('jurnal'.$a->id_jurnal); ?>" class="btn btn-default"><b>Detail Jurnal</b></a>
+            &nbsp;
+            <a href="<?php echo base_url('jurnal'.$a->id_jurnal); ?>" class="btn btn-info"><b>Edit</b></a>
+            &nbsp;
+            <a href="<?php echo base_url('jurnal'.$a->id_jurnal); ?>" class="btn btn-danger"><b>Delete</b></a>
+
           </td>
 
 

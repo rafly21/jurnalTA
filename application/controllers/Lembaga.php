@@ -64,10 +64,27 @@ class Lembaga extends CI_Controller {
     // die();
     $this->load->view('manajemen/v_edit_lembaga',$data);
   }
+	public function update_lembaga($id){
+    $this->form_validation->set_rules('nama_lembaga', 'nama lembaga', 'required');
+    // $id=$this->input->post('id_lembaga');
+    if ($this->form_validation->run() == FALSE)
+    {
+        $this->edit_lembaga($id);
+    }
+    else
+    {
 
-
-
-
-
+    $data = array(
+      'nama_lembaga' => $this->input->post('nama_lembaga'),
+		);
+    $result = $this->M_Jurnal->update_lembaga($id,$data);
+    if ($result) {
+        $this->session->set_flashdata('success_msg', 'Lembaga berhasil diupdate');
+    } else {
+        $this->session->set_flashdata('error_msg', 'Gagal update lembaga. Silahkan coba lagi atau hubungi administrator');
+    }
+    redirect('lembaga');
+  }
+  }
 
 }

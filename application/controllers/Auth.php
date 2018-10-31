@@ -41,7 +41,8 @@ class Auth extends CI_Controller {
 				'username' => $username,
 				'status' => "login",
 				'name' => $nama->nama,
-				'permission' => $cek->row(0)->permission
+				'permission' => $cek->row(0)->permission,
+				'id_pengelola'=>  $nama->id_pengelola
 				);
  		 			// $this->db->where('username',$username);
  			$this->session->set_userdata($data_session);

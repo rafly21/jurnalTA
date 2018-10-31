@@ -136,7 +136,51 @@ class M_Jurnal extends CI_Model{
 		return $this->db->get('lembaga')->row();
 
 	}
-	// function tampil_data_coba(){
+	function update_lembaga($id,$data){
+		$this->db->where('id_lembaga', $id);
+		$this->db->update('lembaga', $data);
+		if($this->db->affected_rows() > 0)
+		{
+		    return true; // to the controller
+		} else {
+				return false;
+		}
+}
+function tampil_lab(){
+	return $this->db->get('lab')->result();
+
+}
+function input_lab($data){
+
+	return $this->db->insert('lab', $data) ? true : false;
+}
+function delete_lab($id){
+	$this->db->where('id_lab', $id);
+	$this->db->delete('lab');
+	if($this->db->affected_rows() > 0)
+	{
+			return true; // to the controller
+	} else {
+			return false;
+	}
+}
+function getLabById($id){
+	$this->db->where('id_lab',$id);
+	return $this->db->get('lab')->row();
+
+}
+function update_lab($id,$data){
+	$this->db->where('id_lab', $id);
+	$this->db->update('lab', $data);
+	if($this->db->affected_rows() > 0)
+	{
+			return true; // to the controller
+	} else {
+			return false;
+	}
+}
+
+// function tampil_data_coba(){
   // 	$query= "SELECT
   //   jurnal.id_jurnal,
 	// 	jurnal.judul AS nama_jurnal,
