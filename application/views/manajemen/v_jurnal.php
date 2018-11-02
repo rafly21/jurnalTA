@@ -47,26 +47,24 @@
 
 
         <?php
+        // var_dump($data);
         $no=1;
         foreach($data as $a) {?>
-      <?php
-        $fakultas = $this->M_Jurnal->getFakultas($a->id_fak);
-        $departemen = $this->M_Jurnal->getDepartemen($a->id_dept);
-        $lembaga = $this->M_Jurnal->getlembaga($a->id_lembaga);
-        $lab = $this->M_Jurnal->getlab($a->id_lab);
-         //var_dump($departemen);die();
-      ?>
+        <?php
+          // $fakultas = $this->M_Jurnal->getFakultas($a->id_fak);
+          // $departemen = $this->M_Jurnal->getDepartemen($a->id_dept);
+          // $lembaga = $this->M_Jurnal->getlembaga($a->id_lembaga);
+          // $lab = $this->M_Jurnal->getlab($a->id_lab);
+          //var_dump($departemen);die();
+
+          $penerbit = $this->M_Jurnal->getPenerbitJurnal($a->id_jurnal);
+          // var_dump($penerbit);
+        ?>
         <tr>
           <td><?php echo $no++ ?></td>
           <td><font size="4px"><div class="label label-default"><?php echo $a->judul ?></div></font></td>
           <td><?php echo $a->singkatan ?></td>
-          <td>
-            <?php
-              if($lab != false){ echo $lab[0]->nama_lab;}else{ echo "-";}
-              if($lembaga != false){ echo $lembaga[0]->nama_lembaga;}else{ echo "-";}
-              if($fakultas != false){ echo $fakultas[0]->nama_fak;}else{ echo "-";}
-              if($departemen != false){ echo $departemen[0]->nama_dept;}else{ echo "-";}
-            ?></td>
+          <td><?=$penerbit->nama?></td>
           <td><?php echo $a->nama ?></td>
           <td colspan="3">
             <a href="<?php echo base_url('jurnal'.$a->id_jurnal); ?>" class="btn btn-default"><b>Detail Jurnal</b></a>
