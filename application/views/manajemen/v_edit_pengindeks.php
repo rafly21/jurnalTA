@@ -27,7 +27,7 @@
 
 
        <form class="form-horizontal" action="<?php echo base_url("pengindeks/update/".$pengindeks->id_pengindeks)?>" method="post">
-         <input type="hidden" name="id_pengindeks" value="<?php echo $pengindeks->id_pengindeks; ?>">
+         <!-- <input type="hidden" name="id_pengindeks" value="<?php echo $pengindeks->id_pengindeks; ?>"> -->
                     <div class="form-group">
                       <label for="judul" class="col-sm-2 control-label">Nama Pengindeks : </label>
                       <div class="col-md-9">

@@ -14,11 +14,11 @@
       <div class="bar">
         <section class="content-header">
           <h1>
-            Tambah Lab
+            Edit Lembaga
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?php echo base_url()?>Lab">Tambah Lab</a></li>
+            <li><a href="<?php echo base_url()?>lab">lab</a></li>
           </ol>
         </section>
       </div>
@@ -26,11 +26,11 @@
     <section class="content">
 
 
-       <form class="form-horizontal" action="<?php echo base_url("lab/insert")?>" method="post">
+       <form class="form-horizontal" action="<?php echo base_url("lab/update/".$lab->id_lab)?>" method="post">
                     <div class="form-group">
-                      <label for="judul" class="col-sm-2 control-label">Nama Lab : </label>
+                      <label for="judul" class="col-sm-2 control-label">Nama lab : </label>
                       <div class="col-md-9">
-                        <input class="form-control" name="nama_lab" placeholder="Nama Lab" value="<?php echo set_value('nama_lab'); ?>"type="text"/>
+                        <input class="form-control" name="nama_lab" placeholder="Nama lab" value="<?php echo $lab->nama_lab; ?>"type="text"/>
                         <?php if(form_error('nama_lab')) : ?>
                           <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -42,7 +42,7 @@
 
 
                            <!-- <a onclick="return confirmSave()"> -->
-                             <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Tambah Lab</b></button>
+                             <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Edit lab</b></button>
                            <!-- </a> -->
                          </div>
 
