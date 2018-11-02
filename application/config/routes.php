@@ -75,6 +75,25 @@ $route['pengindeks/update/(:num)'] = 'pengindeks/edit_pengindeks/$1';
 $route['lembaga'] = 'lembaga';
 $route['lembaga/tambah_lembaga'] = 'lembaga/add_lembaga';
 $route['lembaga/insert'] = 'lembaga/insert_lembaga';
+$route['lembaga/delete/(:num)'] = 'lembaga/delete_lembaga/$1';
+$route['lembaga/edit/(:num)'] = 'lembaga/edit_lembaga/$1';
+$route['lembaga/update/(:num)'] = 'lembaga/update_lembaga/$1';
+$route['lab'] = 'lab';
+$route['lab/tambah_lab'] = 'lab/add_lab';
+$route['lab/insert'] = 'lab/insert_lab';
+$route['lab/delete/(:num)'] = 'lab/delete_lab/$1';
+$route['lab/edit/(:num)'] = 'lab/edit_lab/$1';
+$route['lab/update/(:num)'] = 'lab/update_lab/$1';
+$route['jurnal-p'] = 'jurnal_pengelola';
+
+
+
+
+
+
+
+
+
 
 
 

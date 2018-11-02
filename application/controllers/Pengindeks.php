@@ -99,10 +99,10 @@ class Pengindeks extends CI_Controller {
     $this->load->view('manajemen/v_edit_pengindeks',$data);
   }
 
-  public function edit_pengindeks(){
+  public function edit_pengindeks($id){
     $this->form_validation->set_rules('nama', 'nama pengindeks', 'required');
     $this->form_validation->set_rules('tingkatan', 'Tingkatan', 'required');
-    $id=$this->input->post('id_pengindeks');
+    // $id=$this->input->post('id_pengindeks');
     if ($this->form_validation->run() == FALSE)
     {
         $this->update_pengindeks($id);

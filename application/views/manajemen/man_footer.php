@@ -231,20 +231,24 @@ $(document).ready(function() {
     showFormAkreditasi();
     appendFieldPengindex();
     removeFieldPengindeks();
+    $(document).on('change', '#penerbit', function() {
+        getPenerbit();
+    });
 });
 
 function getPenerbit() {
-    $(document).on('change', '#penerbit', function() {
-        var penerbit = $(this).val(),
+    // $(document).on('change', '#penerbit', function() {
+        var penerbit = $('#penerbit').val(),
             url = "<?= base_url('api')?>/"+penerbit;
-        // console.log(url);
-        $.get(url, function(data) {
-            $('#auto-penerbit').empty();
-            $.each($.parseJSON(data), function(index, val){
-                $('#auto-penerbit').append('<option value="'+val.id+'">'+val.nama+'</option>');
-            });
-        });
-    });
+        if(penerbit !== '' || penerbit !== null) {
+          $.get(url, function(data) {
+              $('#auto-penerbit').empty();
+              $.each($.parseJSON(data), function(index, val){
+                  $('#auto-penerbit').append('<option value="'+val.id+'">'+val.nama+'</option>');
+              });
+          });
+        }
+    // });
 }
 
 function showFormAkreditasi() {
@@ -282,38 +286,28 @@ function showFormAkreditasi() {
 //     });
 // }
 function appendFieldPengindex() {
-    var container = $('#field-pengindeks'),
-        selector = $('#pengindeks');
-    $('#pengindeks').on('select2:select', function() {
-      var id = selector.val(),
-          name = selector.find('option:selected').text(),
-          name = name.split(' '),
-          url = "";
-
-      // container.empty();
-      $.each(id, function(index, val) {
-        url = name[index];
-      });
-        console.log(url);
-        container.append('<input class="form-control" name="url_pengindeks[]" id="url_pengindeks_'+url+'" placeholder="URL '+url+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
+    $('#pengindeks').on('select2:select', function(e) {
+        var name = e.params.data.text;
+        var id = convertToSlug("url pengindeks "+name),
+            index = convertToSlug(name);
+        $('#field-pengindeks').append('<input class="form-control" name="url_pengindeks['+index+']" id="'+id+'" placeholder="URL '+name+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
     }).trigger('change');
 }
 function removeFieldPengindeks() {
-    var container = $('#field-pengindeks'),
-        selector = $('#pengindeks');
-    $('#pengindeks').on('select2:unselecting', function() {
-      var id = selector.val(),
-          name = selector.find('option:selected').text(),
-          name = name.split(' '),
-          url = "";
-
-      // container.empty();
-      $.each(id, function(index, val) {
-        url = name[index];
+    $('#pengindeks').on('select2:unselect', function(e) {
+      var field = $('#field-pengindeks').find('input');
+          // name = name.split(' ');
+      var id = convertToSlug("url pengindeks "+e.params.data.text);
+      field.each(function() {
+          if($(this).attr('id') == id) {
+              $(this).remove();
+          }
       });
-
-        var input = container.find('input#url_pengideks_'+url);
-        input.remove();
     }).trigger('change');
+}
+
+function convertToSlug(Text)
+{
+    return Text.toLowerCase().replace(/ /g,'_').replace(/[^\w-]+/g,'');
 }
 </script>

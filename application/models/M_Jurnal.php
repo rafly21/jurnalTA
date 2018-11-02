@@ -44,27 +44,75 @@ class M_Jurnal extends CI_Model{
 			return false;
 		}
 	}
-	function tampil_data(){
-  $this->db->select('*');
-	$this->db->from('jurnal');
-  $this->db->join('data_pengelola','jurnal.id_pengelola = data_pengelola.id_pengelola');
-	$this->db->join('penerbit','jurnal.id_penerbit = penerbit.id_penerbit');
-	$query = $this->db->get()->result();
-	return $query;
-  }
-	function tampil_data2(){
-	$this->db->select('penerbit.id_penerbit AS penerbit,
- 		fakultas.nama_fak AS fakultas,
- 		departemen.nama_dept AS departemen,
- 		lembaga.nama_lembaga AS lembaga,
- 		lab.nama_lab AS lab');
-	$this->db->from ('penerbit');
-	$this->db->join('fakultas',' penerbit.id_fak = fakultas.id_fak','left');
-	$this->db->join('departemen','penerbit.id_dept = departemen.id_dept','left');
-	$this->db->join('lembaga','penerbit.id_lembaga = lembaga.id_lembaga','left');
-	$this->db->join('lab','penerbit.id_lab = lab.id_lab','left');
-	$query = $this->db->get()->result();
+// 	function tampil_data(){
+// 		$this->db->select('*');
+// 			$this->db->from('jurnal');
+// 		$this->db->join('data_pengelola','jurnal.id_pengelola = data_pengelola.id_pengelola');
+// 			$this->db->join('penerbit','jurnal.id_penerbit = penerbit.id_penerbit');
+// 			$query = $this->db->get()->result();
+// 			return $query;
+//   }
+// 	function tampil_data2(){
+// 		$this->db->select('penerbit.id_penerbit AS penerbit,
+// 			fakultas.nama_fak AS fakultas,
+// 			departemen.nama_dept AS departemen,
+// 			lembaga.nama_lembaga AS lembaga,
+// 			lab.nama_lab AS lab');
+// 		$this->db->from ('penerbit');
+// 		$this->db->join('fakultas',' penerbit.id_fak = fakultas.id_fak','left');
+// 		$this->db->join('departemen','penerbit.id_dept = departemen.id_dept','left');
+// 		$this->db->join('lembaga','penerbit.id_lembaga = lembaga.id_lembaga','left');
+// 		$this->db->join('lab','penerbit.id_lab = lab.id_lab','left');
+// 		$query = $this->db->get()->result();
+// 	}
+
+	public function getPenerbitJurnal($jurnal) {
+		$this->db->select('jenis_penerbit as jenis, id_jenis as id');
+		$this->db->join('jurnal j', 'j.id_jurnal = p.id_jurnal');
+		$this->db->where('p.id_jurnal', $jurnal);
+		$penerbit = $this->db->get('penerbit p')->row();
+		
+		if ($penerbit->jenis === 'departemen') {
+			$fid = 'id_dept';
+			$fname = 'nama_dept';
+		}
+		if ($penerbit->jenis === 'fakultas') {
+			$fid = 'id_fak';
+			$fname = 'nama_fak';
+		}
+		if ($penerbit->jenis === 'lembaga') {
+			$fid = 'id_lembaga';
+			$fname = 'nama_lembaga';
+		}
+		if ($penerbit->jenis === 'lab') {
+			$fid = 'id_lab';
+			$fname = 'nama_lab';
+		}
+		return $this->getNamaPenerbit($penerbit->jenis, $fid, $fname, $penerbit->id)[0];
 	}
+
+	function getNamaPenerbit($table, $kolom_id, $kolom_nama, $id) {
+		if ($table === 'departemen') {
+			$this->db->where($kolom_id, $id);
+			$dept = $this->db->get($table)->row();
+			
+			$this->db->where('id_fak', $dept->id_fak);
+			$fak = $this->db->get('fakultas')->row();
+
+			return array((object)array('nama' => $dept->nama_dept.", ".$fak->nama_fak));
+		} else {
+			$this->db->select("$kolom_nama AS nama");
+			$this->db->where($kolom_id, $id);
+			return $this->db->get($table)->result();
+		}
+	}
+
+	function tampil_data() {
+		$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');
+		$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
+		return $this->db->get('jurnal j')->result();
+	}
+
 	function getPengindeks(){
 		$this->db->select('nama,id_pengindeks');
 		return $this->db->get('pengindeks')->result();
@@ -121,7 +169,69 @@ class M_Jurnal extends CI_Model{
 
 		return $this->db->insert('lembaga', $data) ? true : false;
 	}
+
+
 	// function tampil_data_coba(){
+	function delete_lembaga($id){
+		$this->db->where('id_lembaga', $id);
+		$this->db->delete('lembaga');
+		if($this->db->affected_rows() > 0)
+		{
+		    return true; // to the controller
+		} else {
+				return false;
+		}
+	}
+	function getLembagaById($id){
+		$this->db->where('id_lembaga',$id);
+		return $this->db->get('lembaga')->row();
+
+	}
+	function update_lembaga($id,$data){
+		$this->db->where('id_lembaga', $id);
+		$this->db->update('lembaga', $data);
+		if($this->db->affected_rows() > 0)
+		{
+		    return true; // to the controller
+		} else {
+				return false;
+		}
+}
+function tampil_lab(){
+	return $this->db->get('lab')->result();
+
+}
+function input_lab($data){
+
+	return $this->db->insert('lab', $data) ? true : false;
+}
+function delete_lab($id){
+	$this->db->where('id_lab', $id);
+	$this->db->delete('lab');
+	if($this->db->affected_rows() > 0)
+	{
+			return true; // to the controller
+	} else {
+			return false;
+	}
+}
+function getLabById($id){
+	$this->db->where('id_lab',$id);
+	return $this->db->get('lab')->row();
+
+}
+function update_lab($id,$data){
+	$this->db->where('id_lab', $id);
+	$this->db->update('lab', $data);
+	if($this->db->affected_rows() > 0)
+	{
+			return true; // to the controller
+	} else {
+			return false;
+	}
+}
+
+// function tampil_data_coba(){
   // 	$query= "SELECT
   //   jurnal.id_jurnal,
 	// 	jurnal.judul AS nama_jurnal,
@@ -234,5 +344,103 @@ class M_Jurnal extends CI_Model{
    	// function tampil_data(){
    	// 	return $this->db->get('Users');
    	// }
-   }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	public function add_jurnal($data, $isReturnId = null) {
+		if($isReturnId) {
+			$this->db->insert('jurnal', $data);
+			return $this->db->insert_id();
+		} else {
+			return $this->db->insert('jurnal', $data) ? true : false;
+		}
+	}
+
+	public function add_penerbitan($data) {
+		return $this->db->insert('bulan_penerbitan', $data) ? true : false;
+	}
+
+	public function add_penerbit($data) {
+		return $this->db->insert('penerbit', $data) ? true : false;
+	}
+
+	public function add_pengindeks($data) {
+		return $this->db->insert('jurnal_pengindeks', $data) ? true : false;
+	}
+
+	public function getPengindeksName($id) {
+		$this->db->select('nama');
+		$this->db->where('id_pengindeks', $id);
+		return $this->db->get('pengindeks')->row();
+	}
+
+	public function add_sk($data) {
+		return $this->db->insert('sk', $data) ? true : false;
+	}
+
+
+
+
+
+
+
+
+}
    ?>
