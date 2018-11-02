@@ -231,20 +231,24 @@ $(document).ready(function() {
     showFormAkreditasi();
     appendFieldPengindex();
     removeFieldPengindeks();
+    $(document).on('change', '#penerbit', function() {
+        getPenerbit();
+    });
 });
 
 function getPenerbit() {
-    $(document).on('change', '#penerbit', function() {
-        var penerbit = $(this).val(),
+    // $(document).on('change', '#penerbit', function() {
+        var penerbit = $('#penerbit').val(),
             url = "<?= base_url('api')?>/"+penerbit;
-        // console.log(url);
-        $.get(url, function(data) {
-            $('#auto-penerbit').empty();
-            $.each($.parseJSON(data), function(index, val){
-                $('#auto-penerbit').append('<option value="'+val.id+'">'+val.nama+'</option>');
-            });
-        });
-    });
+        if(penerbit !== '' || penerbit !== null) {
+          $.get(url, function(data) {
+              $('#auto-penerbit').empty();
+              $.each($.parseJSON(data), function(index, val){
+                  $('#auto-penerbit').append('<option value="'+val.id+'">'+val.nama+'</option>');
+              });
+          });
+        }
+    // });
 }
 
 function showFormAkreditasi() {
@@ -284,8 +288,9 @@ function showFormAkreditasi() {
 function appendFieldPengindex() {
     $('#pengindeks').on('select2:select', function(e) {
         var name = e.params.data.text;
-        var id = convertToSlug("url pengindeks "+name);
-        $('#field-pengindeks').append('<input class="form-control" name="url_pengindeks[]" id="'+id+'" placeholder="URL '+name+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
+        var id = convertToSlug("url pengindeks "+name),
+            index = convertToSlug(name);
+        $('#field-pengindeks').append('<input class="form-control" name="url_pengindeks['+index+']" id="'+id+'" placeholder="URL '+name+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
     }).trigger('change');
 }
 function removeFieldPengindeks() {
@@ -303,10 +308,6 @@ function removeFieldPengindeks() {
 
 function convertToSlug(Text)
 {
-    return Text
-        .toLowerCase()
-        .replace(/ /g,'_')
-        .replace(/[^\w-]+/g,'')
-        ;
+    return Text.toLowerCase().replace(/ /g,'_').replace(/[^\w-]+/g,'');
 }
 </script>

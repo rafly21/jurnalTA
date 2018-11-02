@@ -15,78 +15,113 @@ class Jurnal extends CI_Controller {
 	{
 		$return = $this->M_Jurnal->tampil_data();
 		$data['data'] = $this->M_Jurnal->tampil_data();
-    $data['data2'] = $this->M_Jurnal->tampil_data2();
+    // $data['data2'] = $this->M_Jurnal->tampil_data2();
     // var_dump($data);
     // die;
 		// echo json_encode($data);
 		$this->load->view('manajemen/v_jurnal',$data);
 	}
 	public function submitJurnal(){
-		// $this->form_validation->set_rules('judul', 'Judul Jurnal', 'required');
-    // $this->form_validation->set_rules('nomorjurnal', 'Nomor Jurnal', 'required');
-    // $this->form_validation->set_rules('portal', 'Portal', 'required');
-		// $this->form_validation->set_rules('urlportal', 'URL', 'required');
-		// $this->form_validation->set_rules('penerbit', 'Penerbit', 'required');
-		// $this->form_validation->set_rules('sponsor', 'Sponsor', 'required');
-		// $this->form_validation->set_rules('pengelola', 'Pengelola', 'required');
-		// $this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
-		// $this->form_validation->set_rules('pissn', 'P-Issn', 'required');
-		// $this->form_validation->set_rules('eissn', 'E-Issn', 'required');
-		// $this->form_validation->set_rules('english', 'English', 'required');
-		// $this->form_validation->set_rules('mpgundip', 'MpgUndip', 'required');
-		// $this->form_validation->set_rules('doi', 'DOI', 'required');
-		// $this->form_validation->set_rules('thnmulai', 'Tahun Mulai', 'required');
-		// $this->form_validation->set_rules('blnterbit', 'Bulan Terbit', 'required');
-		// $this->form_validation->set_rules('terbitakhir', 'Terbit Terakhir', 'required');
-		// $this->form_validation->set_rules('noterakhir', 'Jumlah Nomor Terakhir', 'required');
-		// $this->form_validation->set_rules('pengindeks', 'Pengindeks', 'required');
-		// $this->form_validation->set_rules('akreditasi', 'Terakreditasi', 'required');
-		// $this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
-		// $this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
-		// $this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan SK', 'required');
-		// $this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
-		// $this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required');
-		// $this->form_validation->set_rules('urlsinta', 'URL SINTA', 'required');
+		$this->form_validation->set_rules('judul', 'Judul Jurnal', 'required');
+    $this->form_validation->set_rules('nomorjurnal', 'Nomor Jurnal', 'required|numeric');
+    $this->form_validation->set_rules('portal', 'Portal', 'required');
+		$this->form_validation->set_rules('urlportal', 'URL', 'required');
+		$this->form_validation->set_rules('penerbit', 'Penerbit', 'required');
+		$this->form_validation->set_rules('id_penerbit', 'Penerbit', 'required');
+		$this->form_validation->set_rules('sponsor', 'Sponsor', 'required');
+		$this->form_validation->set_rules('pengelola', 'Pengelola', 'required');
+		$this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
+		$this->form_validation->set_rules('pissn', 'P-Issn', 'required');
+		$this->form_validation->set_rules('eissn', 'E-Issn', 'required');
+		$this->form_validation->set_rules('english', 'English', 'required');
+		$this->form_validation->set_rules('mpgundip', 'MpgUndip', 'required');
+		$this->form_validation->set_rules('doi', 'DOI', 'required');
+		$this->form_validation->set_rules('thnmulai', 'Tahun Mulai', 'required|numeric|exact_length[4]');
+		$this->form_validation->set_rules('blnterbit[]', 'Bulan Terbit', 'required');
+		$this->form_validation->set_rules('terbitakhir', 'Terbit Terakhir', 'required|numeric|exact_length[4]');
+		$this->form_validation->set_rules('noterakhir', 'Jumlah Nomor Terakhir', 'required|numeric');
+		$this->form_validation->set_rules('pengindeks[]', 'Pengindeks', 'required');
+		$this->form_validation->set_rules('akreditasi', 'Terakreditasi', 'required');
+		$this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
+		$this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
+		$this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan SK', 'required');
+		$this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
+		$this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required|alpha_numeric');
+		$this->form_validation->set_rules('urlsinta', 'URL SINTA', 'required|valid_url');
 
-// if ($this->form_validation->run() == FALSE)
-// {
-// 		$this->add_jurnal();
-// }
-// else
-// {
-	$data = array(
-			'judul' => $this->input->post('judul'),
-			'no_jurnal' => $this->input->post('nomorjurnal'),
-			// 'nama_portal' => $this->input->post('portal'),
-			'url' => $this->input->post('urlportal'),
-			// 'grade' => $this->input->post('penerbit'),
-			'grade' => $this->input->post('sponsor'),
-			'id_pengelola' => $this->input->post('pengelola'),
-			'singkatan' => $this->input->post('singkatan'),
-			'p_issn' => $this->input->post('pissn'),
-			'e_issn' => $this->input->post('eissn'),
-			'english' => $this->input->post('english'),
-			'mpgundip' => $this->input->post('mpgundip'),
-			'doi' => $this->input->post('doi'),
-			'thn_mulai' => $this->input->post('thnmulai'),
-			// 'grade' => $this->input->post('blnterbit'),
-			'terbit_terakhir' => $this->input->post('terbitakhir'),
-			'no_terakhir' => $this->input->post('noterakhir'),
-			// 'grade' => $this->input->post('pengindeks'),
-			// 'grade' => $this->input->post('akreditasi'),
-			// 'grade' => $this->input->post('sk'),
-			// 'grade' => $this->input->post('mulaisk'),
-			// 'grade' => $this->input->post('tetapsk'),
-			// 'grade' => $this->input->post('akhirsk'),
-			'peringkat_sinta' => $this->input->post('peringkatsinta'),
-			'url_sinta' => $this->input->post('urlsinta'),
+		if ($this->form_validation->run() == FALSE)
+		{
+			$this->add_jurnal();
+		}
+		else
+		{
+			// var_dump($this->M_Jurnal->getJenisPenerbit());
+			// die();
+			$dataJurnal = array(
+				'no_jurnal' => $this->input->post('nomorjurnal'),
+				'id_pengelola' => $this->input->post('pengelola'),
+				'judul' => $this->input->post('judul'),
+				'singkatan' => $this->input->post('singkatan'),
+				'sponsor' => $this->input->post('sponsor'),
+				'e_issn' => $this->input->post('eissn'),
+				'p_issn' => $this->input->post('pissn'),
+				'english' => $this->input->post('english'),
+				'thn_mulai' => $this->input->post('thnmulai'),
+				'no_terakhir' => $this->input->post('noterakhir'),
+				'terbit_terakhir' => $this->input->post('terbitakhir'),
+				'doi' => $this->input->post('doi'),
+				'mpgundip' => $this->input->post('mpgundip'),
+				'id_portal' => $this->input->post('portal'),
+				'url' => $this->input->post('urlportal'),
+				'peringkat_sinta' => $this->input->post('peringkatsinta'),
+				'url_sinta' => $this->input->post('urlsinta'),
+			);
+			$id_jurnal = $this->M_Jurnal->add_jurnal($dataJurnal, true);
 
-
-		);
-var_dump($this->input->post());
-die();
-
-// }
+			if($id_jurnal !== null) {
+				$bulan_terbit = $this->input->post('blnterbit');
+				foreach ($bulan_terbit as $key => $value) {
+					$dataPenerbitan = array(
+						'id_jurnal' => $id_jurnal,
+						'bulan_terbit' => $bulan_terbit[$key]
+					);
+					$this->M_Jurnal->add_penerbitan($dataPenerbitan);
+				}
+				
+				$dataPenerbit = array(
+					'id_jurnal' => $id_jurnal,
+					'jenis_penerbit' => $this->input->post('penerbit'),
+					'id_jenis' => $this->input->post('id_penerbit') 
+				);
+				$this->M_Jurnal->add_penerbit($dataPenerbit);
+	
+				$pengindeks = $this->input->post('pengindeks');
+				$url_pengindeks = $this->input->post('url_pengindeks');
+				foreach ($pengindeks as $key => $value) {
+					$name = strtolower(str_replace(' ', '_', $this->M_Jurnal->getPengindeksName($value)->nama));
+					$dataPengindeks = array(
+						'id_jurnal' => $id_jurnal,
+						'id_pengindeks' => $value,
+						'url' => $url_pengindeks[$name],
+					);
+					$this->M_Jurnal->add_pengindeks($dataPengindeks);
+				}
+				
+				$is_akreditasi = $this->input->post('akreditasi');
+				if($is_akreditasi === "true") {
+					$dataSK = array(
+						'id_jurnal' => $id_jurnal,
+						'no_sk' => $this->input->post('sk'),
+						'tanggal_mulai' => $this->input->post('mulaisk'),
+						'tanggal_berakhir' => $this->input->post('akhirsk'),
+						'tanggal_penetapan' => $this->input->post('tetapsk'),
+					);
+					$this->M_Jurnal->add_sk($dataSK);
+				}
+			}
+			
+			redirect('jurnal');
+		}
 
 
 	}
