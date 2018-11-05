@@ -188,12 +188,12 @@
             <div class="col-md-9 ">
               <div class="radio">
                 <label>
-                  <input type="radio" name="english" value="true" <?=set_value('english') === "true" ? 'checked' : ''?>>
+                  <input type="radio" name="english" value="1" <?=set_value('english') === "1" ? 'checked' : ''?>>
                   YA
                 </label>
                 &nbsp; &nbsp;
                 <label>
-                  <input type="radio" name="english"  value="false" <?=set_value('english') === "false" ? 'checked' : ''?>>
+                  <input type="radio" name="english"  value="0" <?=set_value('english') === "0" ? 'checked' : ''?>>
                   TIDAK
                 </label>
               </div>
@@ -204,12 +204,12 @@
               <div class="col-md-9 ">
                 <div class="radio">
                   <label>
-                    <input type="radio" name="mpgundip"  value="true" <?=set_value('mpgundip') === "true" ? 'checked' : ''?>>
+                    <input type="radio" name="mpgundip"  value="1" <?=set_value('mpgundip') === "1" ? 'checked' : ''?>>
                     YA
                   </label>
                   &nbsp; &nbsp;
                   <label>
-                    <input type="radio" name="mpgundip"  value="false" <?=set_value('mpgundip') === "false" ? 'checked' : ''?>>
+                    <input type="radio" name="mpgundip"  value="0" <?=set_value('mpgundip') === "0" ? 'checked' : ''?>>
                     TIDAK
                   </label>
                 </div>

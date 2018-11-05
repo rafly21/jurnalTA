@@ -58,14 +58,21 @@
         // var_dump($data);
         // die();
         $no=1;
-        foreach($data as $a) {?>
+        foreach($data as $a) {
+
+          $penerbit = $this->M_Jurnal->getPenerbitJurnal($a->id_jurnal);
+
+          ?>
+
         <tr>
           <td><?php echo $no++ ?></td>
           <td><font size="4px"><div class="label label-default"><?php echo $a->judul ?></div></font></td>
           <td><font size="4px"><div class="label label-default"><?php echo $a->singkatan ?></div></font></td>
-          <td><font size="4px"><div class="label label-default"><?php #?></div></font></td>
+          <td><font size="4px"><div class="label label-default"><?php echo $penerbit->nama ?></div></font></td>
 
-          <td colspan="3">
+         
+
+          <td>
             <a href="<?php echo base_url('#'); ?>" class="btn btn-info"><b>Detail</b></a>
             &nbsp;
             <a href="<?php echo base_url('#'); ?>" class="btn btn-info"><b>Edit</b></a>

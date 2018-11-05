@@ -71,7 +71,7 @@ class M_Jurnal extends CI_Model{
 		$this->db->join('jurnal j', 'j.id_jurnal = p.id_jurnal');
 		$this->db->where('p.id_jurnal', $jurnal);
 		$penerbit = $this->db->get('penerbit p')->row();
-		
+
 		if ($penerbit->jenis === 'departemen') {
 			$fid = 'id_dept';
 			$fname = 'nama_dept';
@@ -95,7 +95,7 @@ class M_Jurnal extends CI_Model{
 		if ($table === 'departemen') {
 			$this->db->where($kolom_id, $id);
 			$dept = $this->db->get($table)->row();
-			
+
 			$this->db->where('id_fak', $dept->id_fak);
 			$fak = $this->db->get('fakultas')->row();
 
@@ -110,7 +110,88 @@ class M_Jurnal extends CI_Model{
 	function tampil_data() {
 		$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');
 		$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
+		$this->db->order_by('j.id_jurnal','asc');
 		return $this->db->get('jurnal j')->result();
+	}
+	function detail_data($id){
+		// $this->db->select()
+		$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');
+		$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
+		// $this->db->join('jurnal_pengindeks jp', 'jp.id_jurnal = j.id_jurnal');
+		// $this->db->join('pengindeks ps', 'jp.id_pengindeks = ps.id_pengindeks');
+		$this->db->join('sk s', 'j.id_jurnal = s.id_jurnal');
+		$this->db->join('portal pt', 'j.id_portal = pt.id_portal');
+		// $this->db->join('bulan_penerbitan bp', 'j.id_jurnal = bp.id_jurnal');
+		$this->db->where('j.id_jurnal', $id);
+
+		// var_dump($this->db->get('jurnal j')->row());
+		// die();
+		return $this->db->get('jurnal j')->row();
+	}
+	function getJurnalPengindeks($jurnal){
+		$this->db->select('ps.nama, jp.url_pengindeks');
+		$this->db->join('jurnal j', 'jp.id_jurnal = j.id_jurnal');
+		$this->db->join('pengindeks ps', 'jp.id_pengindeks = ps.id_pengindeks');
+		$this->db->where('jp.id_jurnal',$jurnal);
+		return	$this->db->get('jurnal_pengindeks jp')->result();
+
+	}
+
+	function getNamaBulan($id) {
+			$id = intval($id);
+			if($id === 1) {
+					return 'Januari';
+			}
+			if($id === 2) {
+					return 'Februari';
+			}
+			if($id === 3) {
+					return 'Maret';
+			}
+			if($id === 4) {
+					return 'April';
+			}
+			if($id === 5) {
+					return 'Mei';
+			}
+			if($id === 6) {
+					return 'Juni';
+			}
+			if($id === 7) {
+					return 'Juli';
+			}
+			if($id === 8) {
+					return 'Agustus';
+			}
+			if($id === 9) {
+					return 'September';
+			}
+			if($id === 10) {
+					return 'Oktober';
+			}
+			if($id === 11) {
+					return 'November';
+			}
+			if($id === 12) {
+					return 'Desember';
+			}
+	}
+
+	public function getBulanTerbit($jurnal) {
+			$this->db->select('bp.bulan_terbit');
+			// $this->db->group_by('bp.id_jurnal');
+		 	$this->db->join('jurnal j', "j.id_jurnal = bp.id_jurnal");
+			$this->db->where("bp.id_jurnal", $jurnal);
+			$res = $this->db->get('bulan_penerbitan bp')->result_array();
+			$data = array();
+			// $db = array();
+			foreach ($res as $key => $value) {
+					foreach ($value as $k => $b) {
+							$db[$key] = $this->getNamaBulan($b);
+					}
+					array_push($data, $db[$key]);
+			}
+			return implode(', ',$data);
 	}
 
 	function getPengindeks(){
@@ -230,6 +311,33 @@ function update_lab($id,$data){
 			return false;
 	}
 }
+function tampil_sk()
+{
+	return $this->db->get('sk')->result();
+
+}
+function input_sk($data)
+{
+	return $this->db->insert('sk', $data) ? true : false;
+
+}
+function delete_sk($id){
+	$this->db->where('id_sk', $id);
+	$this->db->delete('sk');
+	if($this->db->affected_rows() > 0)
+	{
+			return true; // to the controller
+	} else {
+			return false;
+	}
+}
+function getSKById($id){
+	$this->db->where('id_sk',$id);
+	return $this->db->get('sk')->row();
+
+}
+
+
 
 // function tampil_data_coba(){
   // 	$query= "SELECT
@@ -344,65 +452,6 @@ function update_lab($id,$data){
    	// function tampil_data(){
    	// 	return $this->db->get('Users');
    	// }
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	public function add_jurnal($data, $isReturnId = null) {
 		if($isReturnId) {
