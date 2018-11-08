@@ -13,7 +13,7 @@ class Jurnal extends CI_Controller {
 	}
 	public function index()
 	{
-		$return = $this->M_Jurnal->tampil_data();
+		// $return = $this->M_Jurnal->tampil_data();
 		$data['data'] = $this->M_Jurnal->tampil_data();
     // $data['data2'] = $this->M_Jurnal->tampil_data2();
     // var_dump($data);
@@ -48,7 +48,6 @@ class Jurnal extends CI_Controller {
 		$this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
 		$this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required|alpha_numeric');
 		$this->form_validation->set_rules('urlsinta', 'URL SINTA', 'required|valid_url');
-
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->add_jurnal();
@@ -77,7 +76,6 @@ class Jurnal extends CI_Controller {
 				'url_sinta' => $this->input->post('urlsinta'),
 			);
 			$id_jurnal = $this->M_Jurnal->add_jurnal($dataJurnal, true);
-
 			if($id_jurnal !== null) {
 				$bulan_terbit = $this->input->post('blnterbit');
 				foreach ($bulan_terbit as $key => $value) {
@@ -87,14 +85,14 @@ class Jurnal extends CI_Controller {
 					);
 					$this->M_Jurnal->add_penerbitan($dataPenerbitan);
 				}
-				
+
 				$dataPenerbit = array(
 					'id_jurnal' => $id_jurnal,
 					'jenis_penerbit' => $this->input->post('penerbit'),
-					'id_jenis' => $this->input->post('id_penerbit') 
+					'id_jenis' => $this->input->post('id_penerbit')
 				);
 				$this->M_Jurnal->add_penerbit($dataPenerbit);
-	
+
 				$pengindeks = $this->input->post('pengindeks');
 				$url_pengindeks = $this->input->post('url_pengindeks');
 				foreach ($pengindeks as $key => $value) {
@@ -102,11 +100,11 @@ class Jurnal extends CI_Controller {
 					$dataPengindeks = array(
 						'id_jurnal' => $id_jurnal,
 						'id_pengindeks' => $value,
-						'url' => $url_pengindeks[$name],
+						'url_pengindeks' => $url_pengindeks[$name],
 					);
 					$this->M_Jurnal->add_pengindeks($dataPengindeks);
 				}
-				
+
 				$is_akreditasi = $this->input->post('akreditasi');
 				if($is_akreditasi === "true") {
 					$dataSK = array(
@@ -119,11 +117,9 @@ class Jurnal extends CI_Controller {
 					$this->M_Jurnal->add_sk($dataSK);
 				}
 			}
-			
+
 			redirect('jurnal');
 		}
-
-
 	}
 
 	public function add_jurnal()
@@ -137,6 +133,16 @@ class Jurnal extends CI_Controller {
 		 // $data['record']=  $this->M_users->get_one($id)->row_array();
 		 $this->load->view('manajemen/v_add_jurnal',$data);
  	}
+
+	// // public function detail_jurnal($id)
+	// {
+	// 	$data['detail']			= $this->M_Jurnal->detail_data($id);
+	// 	$data['penerbit']		= $this->M_Jurnal->getPenerbitJurnal($id);
+	//
+	// 	$this->load->
+	// }
+
+
 	public function submit_user()
   {
 		$this->form_validation->set_rules('inputusername', 'Username duplicate!', 'is_unique[auth.username]');

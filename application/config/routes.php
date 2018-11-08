@@ -85,6 +85,17 @@ $route['lab/delete/(:num)'] = 'lab/delete_lab/$1';
 $route['lab/edit/(:num)'] = 'lab/edit_lab/$1';
 $route['lab/update/(:num)'] = 'lab/update_lab/$1';
 $route['jurnal-p'] = 'jurnal_pengelola';
+$route['jurnal/detail_jurnal'] = 'jurnal/detail_jurnal';
+$route['sk'] = 'sk';
+$route['sk/tambah_sk'] = 'sk/add_sk';
+$route['sk/insert'] = 'sk/insert_sk';
+$route['sk/delete/(:num)'] = 'sk/delete_sk/$1';
+$route['sk/edit/(:num)'] = 'sk/edit_sk/$1';
+$route['sk/update/(:num)'] = 'sk/update_sk/$1';
+
+
+
+
 
 
 
