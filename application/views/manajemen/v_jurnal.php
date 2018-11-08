@@ -70,12 +70,16 @@
           <td><?php echo $a->singkatan ?></td>
           <td><?=$penerbit->nama?></td>
           <td><?php echo $a->nama ?></td>
-          <td colspan="3">
-            <a href="#mDetailJurnal<?=$a->id_jurnal?>"data-toggle="modal" data-target="#mDetailJurnal<?=$a->id_jurnal?>" class="btn btn-default"><b>Detail Jurnal</b></a>
-            &nbsp;
-            <a href="<?php echo base_url('jurnal'.$a->id_jurnal); ?>" class="btn btn-info"><b>Edit</b></a>
-            &nbsp;
-            <a href="<?php echo base_url('jurnal'.$a->id_jurnal); ?>" class="btn btn-danger"><b>Delete</b></a>
+          <td>
+            <span data-toggle="tooltip" title="Detail Jurnal" data-placement="top"><a href="#mDetailJurnal<?=$a->id_jurnal?>" data-toggle="modal" data-target="#mDetailJurnal<?=$a->id_jurnal?> " class="btn btn-sm btn-default "><i class="fa fa-bars" aria-hidden="true"></i></a></span>
+
+            <a href="<?php echo base_url('jurnal'.$a->id_jurnal); ?>" class="btn btn-sm btn-info"><b>Edit</b></a>
+
+            <a href="<?php echo base_url('jurnal'.$a->id_jurnal); ?>" class="btn btn-sm btn-danger"><b>Delete</b></a>
+
+            <a href="<?php echo base_url('#'); ?>" class="btn btn-sm btn-warning"><b>Riwayat SK</b></a>
+
+
 
           </td>
 
@@ -257,6 +261,11 @@
 
   <?php $this->load->view('manajemen/man_footer')?>
 </div>
+<script>
+$(document).ready(function(){
+    $('.tooltip').tooltip();
+});
+</script>
 <!-- ./wrapper -->
 </body>
 </html>

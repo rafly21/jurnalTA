@@ -72,5 +72,33 @@ class Sk extends CI_Controller {
     // die();
     $this->load->view('manajemen/v_edit_sk',$data);
   }
+	public function edit_sk($id){
+    // $this->form_validation->set_rules('no_sk', 'nomor sk', 'required');
+		// $this->form_validation->set_rules('tanggal_mulai', 'tanggal mulai SK', 'required');
+		// $this->form_validation->set_rules('tanggal_penetapan', 'tanggal penetapan SK', 'required');
+		// $this->form_validation->set_rules('tanggal_berakhir', 'tanggal berakhir SK', 'required');
+
+    if ($this->form_validation->run() == FALSE)
+    {
+        $this->update_sk($id);
+    }
+    else
+    {
+
+    $data = array(
+			'no_sk' => $this->input->post('sk'),
+			'tanggal_mulai' => $this->input->post('mulaisk') ,
+			'tanggal_penetapan' => $this->input->post('tetapsk') ,
+			'tanggal_berakhir' => $this->input->post('akhirsk') ,
+		);
+    $result = $this->M_Jurnal->update_sk($id,$data);
+    if ($result) {
+        $this->session->set_flashdata('success_msg', 'SK berhasil diupdate');
+    } else {
+        $this->session->set_flashdata('error_msg', 'Gagal update SK. Silahkan coba lagi atau hubungi administrator');
+    }
+    redirect('sk');
+  }
+  }
 
 }
