@@ -252,14 +252,15 @@ function getPenerbit() {
 }
 
 function showFormAkreditasi() {
-    var radioBtn = $('.radio-akreditasi');
-    $(document).on('change', radioBtn, function(){
+    var radioBtn = $('.radio-akreditasi'),
+        elem = '<div class="form-group"><label for="#" class="col-sm-2 control-label">SK Akreditasi : </label><div class="col-md-9"><select class="form-control select2" name="sk" data-placeholder="SK" id="sk" required><option>-- Pilih SK --</option><?php foreach ($sk as $s){?><option value="<?=$s->id_sk?>"><?=$s->no_sk?></option><?php  } ?></select></div></div><div class="form-group"><label for="#" class="col-sm-2 control-label">Peringkat SINTA : </label><div class="col-md-9"><input class="form-control" name="peringkatsinta" value="<?=set_value('peringkatsinta')?>" placeholder="Peringkat Sinta" type="text" required/><?php if(form_error('peringkatsinta')) : ?><div class="alert alert-danger alert-dismissible" style="margin-top:10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><?php echo form_error('peringkatsinta'); ?></div><?php endif ?></div></div>';
+    radioBtn.on('change', function(){
         if ($('#aky').is(':checked')) {
-            $('#akreditasi').removeClass('hidden');
-            $('#akreditasi').show();
+            // $('#akreditasi').removeClass('hidden');
+            // $('#akreditasi').show();
+            $('#akreditasi').append(elem);
         } else {
-            $('#akreditasi').addClass('hidden');
-            $('#akreditasi').hide();
+            $('#akreditasi').empty();
         }
     });
 }

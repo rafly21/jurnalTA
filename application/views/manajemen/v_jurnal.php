@@ -61,7 +61,8 @@
           $pengindeks= $this->M_Jurnal->getJurnalPengindeks($a->id_jurnal);
           $detail = $this->M_Jurnal->detail_data($a->id_jurnal);
           $bulan_terbit = $this->M_Jurnal->getBulanTerbit($a->id_jurnal);
-          // var_dump($pengindeks);
+          $skJurnal = $this->M_Jurnal->getSkJurnal($a->id_jurnal);
+          // var_dump($detail);
         ?>
         <tr>
           <td><?php echo $no++ ?></td>
@@ -230,8 +231,16 @@
                         </label>
                     </div>
                   <?php endforeach; ?>
-
-
+                  <?php if($skJurnal !== null): ?>
+                  <div class="row">
+                      <label class="col-sm-4">
+                        SK
+                      </label>
+                      <label class="col-sm-8">
+                        <?= $skJurnal->no_sk?>
+                      </label>
+                  </div>
+                  <?php endif; ?>
                </div>
               <div class="modal-footer">
                 <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>

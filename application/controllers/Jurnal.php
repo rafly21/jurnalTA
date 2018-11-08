@@ -23,8 +23,8 @@ class Jurnal extends CI_Controller {
 	}
 	public function submitJurnal(){
 		$this->form_validation->set_rules('judul', 'Judul Jurnal', 'required');
-    $this->form_validation->set_rules('nomorjurnal', 'Nomor Jurnal', 'required|numeric');
-    $this->form_validation->set_rules('portal', 'Portal', 'required');
+		$this->form_validation->set_rules('nomorjurnal', 'Nomor Jurnal', 'required|numeric');
+		$this->form_validation->set_rules('portal', 'Portal', 'required');
 		$this->form_validation->set_rules('urlportal', 'URL', 'required');
 		$this->form_validation->set_rules('penerbit', 'Penerbit', 'required');
 		$this->form_validation->set_rules('id_penerbit', 'Penerbit', 'required');
@@ -42,11 +42,15 @@ class Jurnal extends CI_Controller {
 		$this->form_validation->set_rules('noterakhir', 'Jumlah Nomor Terakhir', 'required|numeric');
 		$this->form_validation->set_rules('pengindeks[]', 'Pengindeks', 'required');
 		$this->form_validation->set_rules('akreditasi', 'Terakreditasi', 'required');
-		$this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
-		$this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
-		$this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan SK', 'required');
-		$this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
-		$this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required|alpha_numeric');
+		// $this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
+		// $this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan SK', 'required');
+		// $this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
+		if(!empty($this->input->post('peringkatsinta'))) {
+			$this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
+		}
+		if(!empty($this->input->post('peringkatsinta'))) {
+			$this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required|alpha_numeric');
+		}
 		$this->form_validation->set_rules('urlsinta', 'URL SINTA', 'required|valid_url');
 		if ($this->form_validation->run() == FALSE)
 		{
@@ -72,9 +76,11 @@ class Jurnal extends CI_Controller {
 				'mpgundip' => $this->input->post('mpgundip'),
 				'id_portal' => $this->input->post('portal'),
 				'url' => $this->input->post('urlportal'),
-				'peringkat_sinta' => $this->input->post('peringkatsinta'),
 				'url_sinta' => $this->input->post('urlsinta'),
 			);
+			if(!empty($this->input->post('peringkatsinta'))) {
+				$dataJurnal['peringkat_sinta'] = $this->input->post('peringkatsinta');
+			}
 			$id_jurnal = $this->M_Jurnal->add_jurnal($dataJurnal, true);
 			if($id_jurnal !== null) {
 				$bulan_terbit = $this->input->post('blnterbit');
@@ -109,12 +115,9 @@ class Jurnal extends CI_Controller {
 				if($is_akreditasi === "true") {
 					$dataSK = array(
 						'id_jurnal' => $id_jurnal,
-						'no_sk' => $this->input->post('sk'),
-						'tanggal_mulai' => $this->input->post('mulaisk'),
-						'tanggal_berakhir' => $this->input->post('akhirsk'),
-						'tanggal_penetapan' => $this->input->post('tetapsk'),
+						'id_sk' => $this->input->post('sk'),
 					);
-					$this->M_Jurnal->add_sk($dataSK);
+					$this->M_Jurnal->addSkJurnal($dataSK);
 				}
 			}
 
@@ -129,7 +132,8 @@ class Jurnal extends CI_Controller {
 		 // // edit ini cok, atas model dept, bawah karyawan
 		 $data['pengelola']   = $this->M_users->get_pengelola();
 		 $data['pengindeks']  = $this->M_Jurnal->getPengindeks();
-		 $data['portal']			= $this->M_Jurnal->getPortal();
+		 $data['portal']	  = $this->M_Jurnal->getPortal();
+		 $data['sk']		  = $this->M_Jurnal->tampil_sk();
 		 // $data['record']=  $this->M_users->get_one($id)->row_array();
 		 $this->load->view('manajemen/v_add_jurnal',$data);
  	}
