@@ -72,7 +72,7 @@ class Lembaga extends CI_Controller {
         $this->edit_lembaga($id);
     }
     else
-    {
+    {	
 
     $data = array(
       'nama_lembaga' => $this->input->post('nama_lembaga'),

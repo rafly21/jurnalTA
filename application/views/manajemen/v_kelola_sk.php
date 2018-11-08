@@ -72,7 +72,7 @@
 
 
           <td colspan="3">
-            <a href="<?php echo base_url('sk/update/'.$a->id_sk); ?>" class="btn btn-info"><b>Edit</b></a>
+            <a href="<?php echo base_url('sk/edit/'.$a->id_sk); ?>" class="btn btn-info"><b>Edit</b></a>
             <a href="#mDelIndex<?=$a->id_sk?>" data-toggle='modal' data-target='#mDelIndex<?=$a->id_sk?>' class="btn btn-danger"><b>Delete</b></a>
 
           </td>

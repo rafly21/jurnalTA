@@ -26,11 +26,11 @@
     <section class="content">
 
 
-       <form class="form-horizontal" action="<?php echo base_url("sk/insert")?>" method="post">
+       <form class="form-horizontal" action="<?php echo base_url("sk/update/".$sk->id_sk)?>" method="post">
          <div class="form-group">
            <label for="#" class="col-sm-2 control-label">No SK : </label>
            <div class="col-md-9">
-             <input class="form-control" name="sk" value="<?=set_value('sk')?>" placeholder="SK" type="text" required/>
+             <input class="form-control" name="sk" value="<?php echo $sk->no_sk; ?>" placeholder="SK" type="text" required/>
              <?php if(form_error('sk')) : ?>
                <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -42,7 +42,7 @@
          <div class="form-group">
            <label for="#" class="col-sm-2 control-label">Tanggal Mulai SK : </label>
            <div class="col-md-9">
-             <input class="form-control" name="mulaisk" value="<?=set_value('mulaisk')?>" placeholder="SK" type="date" required/>
+             <input class="form-control" name="mulaisk" value="<?php echo $sk->tanggal_mulai ;?>" placeholder="SK" type="date" required/>
              <?php if(form_error('mulaisk')) : ?>
                <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -54,7 +54,7 @@
          <div class="form-group">
            <label for="#" class="col-sm-2 control-label">Tanggal Penetapan SK : </label>
            <div class="col-md-9">
-             <input class="form-control" name="tetapsk" value="<?=set_value('tetapsk')?>" placeholder="SK" type="date" required/>
+             <input class="form-control" name="tetapsk" value="<?php echo $sk->tanggal_penetapan; ?>" placeholder="SK" type="date" required/>
              <?php if(form_error('tetapsk')) : ?>
                <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -66,7 +66,7 @@
          <div class="form-group">
            <label for="#" class="col-sm-2 control-label">Tanggal Berakhir SK : </label>
            <div class="col-md-9">
-             <input class="form-control" name="akhirsk" value="<?=set_value('akhirsk')?>" placeholder="SK" type="date" required/>
+             <input class="form-control" name="akhirsk" value="<?php echo $sk->tanggal_berakhir; ?>" placeholder="SK" type="date" required/>
              <?php if(form_error('akhirsk')) : ?>
                <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -76,7 +76,7 @@
            </div>
          </div>
                            <!-- <a onclick="return confirmSave()"> -->
-                             <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Tambah lembaga</b></button>
+                             <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Edit SK</b></button>
                            <!-- </a> -->
                          </div>
 
