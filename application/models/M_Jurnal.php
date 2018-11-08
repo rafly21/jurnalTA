@@ -119,8 +119,9 @@ class M_Jurnal extends CI_Model{
 		$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
 		// $this->db->join('jurnal_pengindeks jp', 'jp.id_jurnal = j.id_jurnal');
 		// $this->db->join('pengindeks ps', 'jp.id_pengindeks = ps.id_pengindeks');
-		$this->db->join('sk s', 'j.id_jurnal = s.id_jurnal');
 		$this->db->join('portal pt', 'j.id_portal = pt.id_portal');
+		// $this->db->join('sk_jurnal sj', 'sj.id_jurnal = j.id_jurnal', 'LEFT');
+		// $this->db->join('sk s', 's.id_sk = sj.id_sk');
 		// $this->db->join('bulan_penerbitan bp', 'j.id_jurnal = bp.id_jurnal');
 		$this->db->where('j.id_jurnal', $id);
 
@@ -336,7 +337,12 @@ function getSKById($id){
 	return $this->db->get('sk')->row();
 
 }
-
+function getSkJurnal($jurnal) {
+	$this->db->join('sk s', 's.id_sk = sj.id_sk');
+	$this->db->where('id_jurnal',$jurnal);
+	$this->db->order_by('id_sk_jurnal', 'desc');
+	return $this->db->get('sk_jurnal sj')->row();
+}
 
 
 // function tampil_data_coba(){
@@ -482,6 +488,10 @@ function getSKById($id){
 
 	public function add_sk($data) {
 		return $this->db->insert('sk', $data) ? true : false;
+	}
+
+	public function addSkJurnal($data) {
+		return $this->db->insert('sk_jurnal', $data) ? true : false;
 	}
 
 

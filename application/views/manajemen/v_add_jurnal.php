@@ -317,72 +317,12 @@
               </div>
             </div>
           </div>
-          <div id="akreditasi" class="hidden">
-            <div class="form-group">
-              <label for="#" class="col-sm-2 control-label">SK Akreditasi : </label>
-              <div class="col-md-9">
-                <input class="form-control" name="sk" value="<?=set_value('sk')?>" placeholder="SK" type="text" required/>
-                <?php if(form_error('sk')) : ?>
-                  <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <?php echo form_error('sk'); ?>
-                  </div>
-                <?php endif ?>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="#" class="col-sm-2 control-label">Tanggal Mulai SK : </label>
-              <div class="col-md-9">
-                <input class="form-control" name="mulaisk" value="<?=set_value('mulaisk')?>" placeholder="SK" type="date" required/>
-                <?php if(form_error('mulaisk')) : ?>
-                  <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <?php echo form_error('mulaisk'); ?>
-                  </div>
-                <?php endif ?>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="#" class="col-sm-2 control-label">Tanggal Penetapan SK : </label>
-              <div class="col-md-9">
-                <input class="form-control" name="tetapsk" value="<?=set_value('tetapsk')?>" placeholder="SK" type="date" required/>
-                <?php if(form_error('tetapsk')) : ?>
-                  <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <?php echo form_error('tetapsk'); ?>
-                  </div>
-                <?php endif ?>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="#" class="col-sm-2 control-label">Tanggal Berakhir SK : </label>
-              <div class="col-md-9">
-                <input class="form-control" name="akhirsk" value="<?=set_value('akhirsk')?>" placeholder="SK" type="date" required/>
-                <?php if(form_error('akhirsk')) : ?>
-                  <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <?php echo form_error('akhirsk'); ?>
-                  </div>
-                <?php endif ?>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="#" class="col-sm-2 control-label">Peringkat SINTA : </label>
-              <div class="col-md-9">
-                <input class="form-control" name="peringkatsinta" value="<?=set_value('peringkatsinta')?>" placeholder="SK" type="text" required/>
-                <?php if(form_error('peringkatsinta')) : ?>
-                  <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
-                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                      <?php echo form_error('peringkatsinta'); ?>
-                  </div>
-                <?php endif ?>
-              </div>
-            </div>
-          </div>
+          <div id="akreditasi"></div>
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">URL SINTA : </label>
             <div class="col-md-9">
-              <input class="form-control" name="urlsinta" value="<?=set_value('urlsinta')?>" placeholder="SK" type="text" required/>
+              <input class="form-control" name="urlsinta" value="<?=set_value('urlsinta')?>" placeholder="Url Sinta" type="text" required/>
+              <span class="help-block">Contoh : http://sinta2.ristekdikti.go.id/journals/detail/?id=918</span>
               <?php if(form_error('urlsinta')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
