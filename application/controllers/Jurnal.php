@@ -146,8 +146,9 @@ class Jurnal extends CI_Controller {
 		$data['sk']		  = $this->M_Jurnal->tampil_sk();
 		$data['penerbit'] = $this->M_Jurnal->getPenerbitJurnal($id);
 		$data['jurnal_pengindeks']= $this->M_Jurnal->getJurnalPengindeks($id);
+		$data['jurnal_pengindeks_id']= $this->M_Jurnal->getJurnalPengindeks($id, true);
 		// $detail = $this->M_Jurnal->detail_data($a->id_jurnal);
-		$data['bulan_terbit'] = $this->M_Jurnal->getBulanTerbit($id);
+		$data['bulan_terbit'] = $this->M_Jurnal->getBulanTerbit($id, true);
 		$data['skJurnal'] = $this->M_Jurnal->getSkJurnal($id);
 		$this->load->view('manajemen/v_edit_jurnal', $data);
 	}
