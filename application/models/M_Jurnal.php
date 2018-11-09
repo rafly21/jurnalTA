@@ -66,7 +66,7 @@ class M_Jurnal extends CI_Model{
 // 		$query = $this->db->get()->result();
 // 	}
 
-	public function getPenerbitJurnal($jurnal) {
+	public function getPenerbitJurnal($jurnal, $isFull = null) {
 		$this->db->select('jenis_penerbit as jenis, id_jenis as id');
 		$this->db->join('jurnal j', 'j.id_jurnal = p.id_jurnal');
 		$this->db->where('p.id_jurnal', $jurnal);
@@ -88,18 +88,24 @@ class M_Jurnal extends CI_Model{
 			$fid = 'id_lab';
 			$fname = 'nama_lab';
 		}
-		return $this->getNamaPenerbit($penerbit->jenis, $fid, $fname, $penerbit->id)[0];
+		if(!$isFull) {
+			$isFull = false;
+		}
+		return $this->getNamaPenerbit($penerbit->jenis, $fid, $fname, $penerbit->id, $isFull)[0];
 	}
 
-	function getNamaPenerbit($table, $kolom_id, $kolom_nama, $id) {
+	function getNamaPenerbit($table, $kolom_id, $kolom_nama, $id, $isFull = null) {
 		if ($table === 'departemen') {
 			$this->db->where($kolom_id, $id);
 			$dept = $this->db->get($table)->row();
 
-			$this->db->where('id_fak', $dept->id_fak);
-			$fak = $this->db->get('fakultas')->row();
-
-			return array((object)array('nama' => $dept->nama_dept.", ".$fak->nama_fak));
+			if($isFull) {
+				$this->db->where('id_fak', $dept->id_fak);
+				$fak = $this->db->get('fakultas')->row();
+				return array((object)array('nama' => $dept->nama_dept.", ".$fak->nama_fak));
+			} else {
+				return array((object)array('nama' => $dept->nama_dept));
+			}
 		} else {
 			$this->db->select("$kolom_nama AS nama");
 			$this->db->where($kolom_id, $id);
@@ -128,12 +134,25 @@ class M_Jurnal extends CI_Model{
 		// die();
 		return $this->db->get('jurnal j')->row();
 	}
-	function getJurnalPengindeks($jurnal){
-		$this->db->select('ps.nama, jp.url_pengindeks');
+	function getJurnalPengindeks($jurnal, $isReturnId = null){
 		$this->db->join('jurnal j', 'jp.id_jurnal = j.id_jurnal');
 		$this->db->join('pengindeks ps', 'jp.id_pengindeks = ps.id_pengindeks');
 		$this->db->where('jp.id_jurnal',$jurnal);
-		return	$this->db->get('jurnal_pengindeks jp')->result();
+		if($isReturnId) {
+			$this->db->select('jp.id_pengindeks');
+			$data = array();
+			$res = $this->db->get('jurnal_pengindeks jp')->result();
+			foreach ($res as $key => $value) {
+				foreach ($value as $k => $b) {
+					$db[$key] = $b;
+				}
+				array_push($data, $db[$key]);
+			}
+			return $data;
+		} else {
+			$this->db->select('ps.nama, jp.url_pengindeks');
+			return	$this->db->get('jurnal_pengindeks jp')->result();
+		}
 
 	}
 
@@ -177,7 +196,7 @@ class M_Jurnal extends CI_Model{
 			}
 	}
 
-	public function getBulanTerbit($jurnal) {
+	public function getBulanTerbit($jurnal, $isReturnId = null) {
 			$this->db->select('bp.bulan_terbit');
 			// $this->db->group_by('bp.id_jurnal');
 		 	$this->db->join('jurnal j', "j.id_jurnal = bp.id_jurnal");
@@ -185,13 +204,23 @@ class M_Jurnal extends CI_Model{
 			$res = $this->db->get('bulan_penerbitan bp')->result_array();
 			$data = array();
 			// $db = array();
-			foreach ($res as $key => $value) {
+			if($isReturnId) {
+				foreach ($res as $key => $value) {
 					foreach ($value as $k => $b) {
-							$db[$key] = $this->getNamaBulan($b);
+						$db[$key] = $b;
 					}
 					array_push($data, $db[$key]);
+				}
+				return $data;
+			} else {
+				foreach ($res as $key => $value) {
+					foreach ($value as $k => $b) {
+						$db[$key] = $this->getNamaBulan($b);
+					}
+					array_push($data, $db[$key]);
+				}
+				return implode(', ',$data);
 			}
-			return implode(', ',$data);
 	}
 
 	function getPengindeks(){
