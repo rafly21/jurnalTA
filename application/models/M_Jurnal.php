@@ -1,10 +1,10 @@
 <?php
 class M_Jurnal extends CI_Model{
 	function getFakultas($id=null){
-		$where =[
-			'id_fak'=>$id
-		];
-		$result = $this->db->get_where('fakultas',$where);
+		if($id!==NULL){
+			$this->db->where('id_fak',$id);
+		}
+		$result = $this->db->get('fakultas');
 		if($result->num_rows() > 0){
 				return $result->result();
 		}else{
@@ -375,6 +375,18 @@ function update_sk($id,$data){
 			return false;
 	}
 }
+function tampil_dept()
+{
+	$this->db->order_by('id_fak', 'ASC');
+	return $this->db->get('departemen')->result();
+
+}
+function input_dept($data)
+{
+	return $this->db->insert('departemen', $data) ? true : false;
+
+}
+
 
 
 

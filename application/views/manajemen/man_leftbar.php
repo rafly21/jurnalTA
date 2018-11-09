@@ -61,8 +61,8 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="<?php echo base_url ('./jurnal') ?>"><i class="fa fa-circle-o"></i> Jurnal Terdaftar </a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Jurnal Belum Terbit</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> ____________</a></li>
+          <!-- <li><a href="#"><i class="fa fa-circle-o"></i> Jurnal Belum Terbit</a></li> -->
+          <li><a href="<?php echo base_url ('dept') ?>"><i class="fa fa-circle-o"></i> Daftar Departemen </a></li>
           <li><a href="<?php echo base_url ('sk') ?>"><i class="fa fa-circle-o"></i> Kelola SK </a></li>
           <li><a href="<?php echo base_url ('./pengindeks') ?>"><i class="fa fa-circle-o"></i> Tambah Pengindeks</a></li>
           <li><a href="<?php echo base_url ('./lembaga') ?>"><i class="fa fa-circle-o"></i> Tambah Lembaga</a></li>
