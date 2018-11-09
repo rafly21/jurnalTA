@@ -95,6 +95,10 @@ $route['sk/insert'] = 'sk/insert_sk';
 $route['sk/delete/(:num)'] = 'sk/delete_sk/$1';
 $route['sk/edit/(:num)'] = 'sk/update_sk/$1';
 $route['sk/update/(:num)'] = 'sk/edit_sk/$1';
+$route['dept'] = 'departemen';
+$route['dept/tambah_dept'] = 'departemen/add_departemen';
+$route['dept/tambah_dept'] = 'departemen/insert_departemen';
+
 
 
 
