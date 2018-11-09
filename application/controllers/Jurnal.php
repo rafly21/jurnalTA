@@ -31,8 +31,8 @@ class Jurnal extends CI_Controller {
 		$this->form_validation->set_rules('sponsor', 'Sponsor', 'required');
 		$this->form_validation->set_rules('pengelola', 'Pengelola', 'required');
 		$this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
-		$this->form_validation->set_rules('pissn', 'P-Issn', 'required');
-		$this->form_validation->set_rules('eissn', 'E-Issn', 'required');
+		// $this->form_validation->set_rules('pissn', 'P-Issn', 'required');
+		// $this->form_validation->set_rules('eissn', 'E-Issn', 'required');
 		$this->form_validation->set_rules('english', 'English', 'required');
 		$this->form_validation->set_rules('mpgundip', 'MpgUndip', 'required');
 		$this->form_validation->set_rules('doi', 'DOI', 'required');
@@ -45,7 +45,7 @@ class Jurnal extends CI_Controller {
 		// $this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
 		// $this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan SK', 'required');
 		// $this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
-		if(!empty($this->input->post('peringkatsinta'))) {
+		if(!empty($this->input->post('sk'))) {
 			$this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
 		}
 		if(!empty($this->input->post('peringkatsinta'))) {
@@ -137,6 +137,20 @@ class Jurnal extends CI_Controller {
 		 // $data['record']=  $this->M_users->get_one($id)->row_array();
 		 $this->load->view('manajemen/v_add_jurnal',$data);
  	}
+	public function edit_jurnal($id)
+	{
+		$data['jurnal'] = $this->M_Jurnal->getJurnalById($id);
+		$data['pengelola']   = $this->M_users->get_pengelola();
+		$data['pengindeks']  = $this->M_Jurnal->getPengindeks();
+		$data['portal']	  = $this->M_Jurnal->getPortal();
+		$data['sk']		  = $this->M_Jurnal->tampil_sk();
+		$data['penerbit'] = $this->M_Jurnal->getPenerbitJurnal($id);
+		$data['jurnal_pengindeks']= $this->M_Jurnal->getJurnalPengindeks($id);
+		// $detail = $this->M_Jurnal->detail_data($a->id_jurnal);
+		$data['bulan_terbit'] = $this->M_Jurnal->getBulanTerbit($id);
+		$data['skJurnal'] = $this->M_Jurnal->getSkJurnal($id);
+		$this->load->view('manajemen/v_edit_jurnal', $data);
+	}
 
 	// // public function detail_jurnal($id)
 	// {

@@ -240,11 +240,14 @@ function getPenerbit() {
     // $(document).on('change', '#penerbit', function() {
         var penerbit = $('#penerbit').val(),
             url = "<?= base_url('api')?>/"+penerbit;
+        var id = "<?=isset($id_penerbit) ? $id_penerbit : ''?>";
+        var check = '';
+            console.log([id]);
         if(penerbit !== '' || penerbit !== null) {
           $.get(url, function(data) {
               $('#auto-penerbit').empty();
               $.each($.parseJSON(data), function(index, val){
-                  $('#auto-penerbit').append('<option value="'+val.id+'">'+val.nama+'</option>');
+                  $('#auto-penerbit').append('<option value="'+val.id+'" '+(val.id == id ? 'selected' : '')+'>'+val.nama+'</option>');
               });
           });
         }

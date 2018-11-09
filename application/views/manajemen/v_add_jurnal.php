@@ -116,7 +116,7 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">Sponsor : </label>
             <div class="col-md-9">
-              <input class="form-control" name="sponsor" value="<?=set_value('sponsor')?>" placeholder="sponsor" type="text" required/>
+              <input class="form-control" name="sponsor" value="<?=set_value('sponsor')?>" placeholder="sponsor" type="text" />
               <?php if(form_error('sponsor')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -160,7 +160,7 @@
           <div class="form-group">
             <label for="inputtelepon" class="col-sm-2 control-label">p-issn : </label>
             <div class="col-md-9">
-              <input class="form-control" name="pissn" value="<?=set_value('pissn')?>" placeholder="p-issn" type="text" required/>
+              <input class="form-control" name="pissn" value="<?=set_value('pissn')?>" placeholder="p-issn" type="text" />
               <?php if(form_error('pissn')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -173,7 +173,7 @@
           <div class="form-group">
             <label for="inputtelepon" class="col-sm-2 control-label">e-issn : </label>
             <div class="col-md-9">
-              <input class="form-control" name="eissn" value="<?=set_value('eissn')?>" placeholder="e-issn" type="text" required/>
+              <input class="form-control" name="eissn" value="<?=set_value('eissn')?>" placeholder="e-issn" type="text" />
               <?php if(form_error('eissn')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

@@ -66,6 +66,9 @@ $route['kelola_pengelola'] = 'manajemen_user/Users';
 $route['jurnal'] = 'jurnal';
 $route['jurnal/tambah_jurnal'] = 'jurnal/add_jurnal';
 $route['jurnal/submit_jurnal'] = 'jurnal/submitJurnal';
+$route['jurnal/edit_jurnal/(:num)'] = 'jurnal/edit_jurnal/$1';
+
+
 $route['pengindeks'] = 'pengindeks';
 $route['pengindeks/tambah_pengindeks'] = 'pengindeks/add_pengindeks';
 $route['pengindeks/insert'] = 'pengindeks/insert_pengindeks';
