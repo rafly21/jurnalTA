@@ -56,7 +56,7 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">Portal : </label>
             <div class="col-md-9">
-              <select class="form-control " name="portal" >
+              <select class="form-control " name="portal" required>
                 <option >-- Pilih Portal --</option>
                 <?php foreach ($portal as $a){?>
                   <option value='<?=$a->id_portal?>' <?=set_value('portal') === $a->id_portal ? 'selected' : '';?>><?=$a->nama_portal?> </option>
@@ -87,7 +87,7 @@
           <div class="form-group">
             <label for="inputpassword" class="col-sm-2 control-label">Penerbit : </label>
             <div class="col-md-9">
-              <select class="form-control" name="penerbit" id="penerbit">
+              <select class="form-control" name="penerbit" id="penerbit" required>
                 <option >-- Pilih Penerbit --</option>
                 <option value="fakultas" <?=set_value('penerbit') === 'fakultas' ? 'selected' : ''?>>Fakultas</option>
                 <option value="departemen" <?=set_value('penerbit') === 'departemen' ? 'selected' : ''?>>Departemen</option>
@@ -101,7 +101,7 @@
                 </div>
               <?php endif ?>
               <br>
-              <select class="form-control select2" name="id_penerbit" id="auto-penerbit">
+              <select class="form-control select2" name="id_penerbit" id="auto-penerbit" required>
                 <option>-- pilih penerbit --</option>
               </select>
               <?php if(form_error('id_penerbit')) : ?>
@@ -129,7 +129,7 @@
           <div class="form-group">
             <label for="inputpassword" class="col-sm-2 control-label">Pengelola : </label>
             <div class="col-md-9">
-              <select class="form-control select2" name="pengelola">
+              <select class="form-control select2" name="pengelola" required>
                 <option >-- Pilih Pengelola --</option>
                 <?php foreach ($pengelola as $p){?>
                   <option value='<?=$p->id_pengelola?>' <?=set_value('pengelola') === $p->id_pengelola ? 'selected' : ''?>><?=$p->nama?> </option>
@@ -321,7 +321,7 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">URL SINTA : </label>
             <div class="col-md-9">
-              <input class="form-control" name="urlsinta" value="<?=set_value('urlsinta')?>" placeholder="Url Sinta" type="text" required/>
+              <input class="form-control" name="urlsinta" value="<?=set_value('urlsinta')?>" placeholder="Url Sinta" type="text" />
               <span class="help-block">Contoh : http://sinta2.ristekdikti.go.id/journals/detail/?id=918</span>
               <?php if(form_error('urlsinta')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
  <?php $this->load->view('manajemen/man_head')?>
@@ -14,7 +15,7 @@
       <div class="bar">
         <section class="content-header">
           <h1>
-            Tambah Departemen
+            Edit Departemen
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -26,11 +27,11 @@
     <section class="content">
 
 
-       <form class="form-horizontal" action="<?php echo base_url("dept/insert_dept")?>" method="post">
+       <form class="form-horizontal" action="<?php echo base_url("dept/edit_dept")?>" method="post">
                     <div class="form-group">
                       <label for="judul" class="col-sm-2 control-label">Nama Departemen : </label>
                       <div class="col-md-9">
-                        <input class="form-control" name="nama" placeholder="Nama Departemen" value="<?php echo set_value('nama'); ?>"type="text"/>
+                        <input class="form-control" name="nama" placeholder="Nama Departemen" value="<?php echo $departemen->nama_dept; ?>"type="text"/>
                         <?php if(form_error('nama')) : ?>
                           <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -45,7 +46,7 @@
                         <select class="form-control " name="fakultas" >
                           <option >-- Pilih Fakultas --</option>
                           <?php foreach ($fakultas as $a){?>
-                            <option value='<?=$a->id_fak?>' <?=set_value('fakultas') === $a->id_fak ? 'selected' : '';?>><?=$a->nama_fak?> </option>
+                            <option value='<?=$a->id_fak?>' <?= $departemen->id_fak === $a->id_fak ? 'selected' : '';?>><?=$a->nama_fak?> </option>
                           <?php  } ?>
                         </select>
                         <?php if(form_error('fakultas')) : ?>

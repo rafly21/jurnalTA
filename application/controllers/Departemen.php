@@ -56,5 +56,22 @@ class Departemen extends CI_Controller {
     // var_dump($data);
     // die;
   }
+  public function edit_departemen($id)
+  {
+  $data['departemen']=$this->M_Jurnal->getDeptById($id);
+  $data['fakultas'] =$this->M_Jurnal->getFakultas();
+  // var_dump($data);
+  // die();
+  $this->load->view('manajemen/v_edit_departemen',$data);
+  }
+	public function delete_departemen($id){
+		$result =$this->M_Jurnal->delete_dept($id);
+		if ($result) {
+				$this->session->set_flashdata('success_msg', 'Departemen berhasil dihapus');
+		} else {
+				$this->session->set_flashdata('error_msg', 'Gagal menghapus departemen. Silahkan coba lagi atau hubungi administrator');
+		}
 
+		redirect('dept');
+	}
 }

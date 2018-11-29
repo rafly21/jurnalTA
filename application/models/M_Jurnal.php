@@ -66,7 +66,7 @@ class M_Jurnal extends CI_Model{
 // 		$query = $this->db->get()->result();
 // 	}
 
-	public function getPenerbitJurnal($jurnal, $isFull = null) {
+	public function getPenerbitJurnal($jurnal) {
 		$this->db->select('jenis_penerbit as jenis, id_jenis as id');
 		$this->db->join('jurnal j', 'j.id_jurnal = p.id_jurnal');
 		$this->db->where('p.id_jurnal', $jurnal);
@@ -88,24 +88,18 @@ class M_Jurnal extends CI_Model{
 			$fid = 'id_lab';
 			$fname = 'nama_lab';
 		}
-		if(!$isFull) {
-			$isFull = false;
-		}
-		return $this->getNamaPenerbit($penerbit->jenis, $fid, $fname, $penerbit->id, $isFull)[0];
+		return $this->getNamaPenerbit($penerbit->jenis, $fid, $fname, $penerbit->id)[0];
 	}
 
-	function getNamaPenerbit($table, $kolom_id, $kolom_nama, $id, $isFull = null) {
+	function getNamaPenerbit($table, $kolom_id, $kolom_nama, $id) {
 		if ($table === 'departemen') {
 			$this->db->where($kolom_id, $id);
 			$dept = $this->db->get($table)->row();
 
-			if($isFull) {
-				$this->db->where('id_fak', $dept->id_fak);
-				$fak = $this->db->get('fakultas')->row();
-				return array((object)array('nama' => $dept->nama_dept.", ".$fak->nama_fak));
-			} else {
-				return array((object)array('nama' => $dept->nama_dept));
-			}
+			$this->db->where('id_fak', $dept->id_fak);
+			$fak = $this->db->get('fakultas')->row();
+
+			return array((object)array('nama' => $dept->nama_dept.", ".$fak->nama_fak));
 		} else {
 			$this->db->select("$kolom_nama AS nama");
 			$this->db->where($kolom_id, $id);
@@ -134,19 +128,17 @@ class M_Jurnal extends CI_Model{
 		// die();
 		return $this->db->get('jurnal j')->row();
 	}
-	function getJurnalPengindeks($jurnal, $isReturnId = null){
+	function getJurnalPengindeks($jurnal, $onlyId = null){
 		$this->db->join('jurnal j', 'jp.id_jurnal = j.id_jurnal');
 		$this->db->join('pengindeks ps', 'jp.id_pengindeks = ps.id_pengindeks');
 		$this->db->where('jp.id_jurnal',$jurnal);
-		if($isReturnId) {
-			$this->db->select('jp.id_pengindeks');
+
+		if ($onlyId) {
+			$this->db->select('ps.id_pengindeks');
+			$res =	$this->db->get('jurnal_pengindeks jp')->result_array();
 			$data = array();
-			$res = $this->db->get('jurnal_pengindeks jp')->result();
 			foreach ($res as $key => $value) {
-				foreach ($value as $k => $b) {
-					$db[$key] = $b;
-				}
-				array_push($data, $db[$key]);
+					array_push($data, $value['id_pengindeks']);
 			}
 			return $data;
 		} else {
@@ -196,7 +188,7 @@ class M_Jurnal extends CI_Model{
 			}
 	}
 
-	public function getBulanTerbit($jurnal, $isReturnId = null) {
+	public function getBulanTerbit($jurnal) {
 			$this->db->select('bp.bulan_terbit');
 			// $this->db->group_by('bp.id_jurnal');
 		 	$this->db->join('jurnal j', "j.id_jurnal = bp.id_jurnal");
@@ -204,23 +196,24 @@ class M_Jurnal extends CI_Model{
 			$res = $this->db->get('bulan_penerbitan bp')->result_array();
 			$data = array();
 			// $db = array();
-			if($isReturnId) {
-				foreach ($res as $key => $value) {
+			foreach ($res as $key => $value) {
 					foreach ($value as $k => $b) {
-						$db[$key] = $b;
+							$db[$key] = $this->getNamaBulan($b);
 					}
 					array_push($data, $db[$key]);
-				}
-				return $data;
-			} else {
-				foreach ($res as $key => $value) {
-					foreach ($value as $k => $b) {
-						$db[$key] = $this->getNamaBulan($b);
-					}
-					array_push($data, $db[$key]);
-				}
-				return implode(', ',$data);
 			}
+			return implode(', ',$data);
+	}
+
+	public function getIdBulanTerbit($jurnal){
+		$this->db->select('bulan_terbit');
+		$this->db->where('id_jurnal',$jurnal);
+		$res = $this->db->get('bulan_penerbitan')->result_array();
+		$data = array();
+		foreach ($res as $key => $value) {
+				array_push($data, $value['bulan_terbit']);
+		}
+		return $data;
 	}
 
 	function getPengindeks(){
@@ -257,16 +250,20 @@ class M_Jurnal extends CI_Model{
 		}
 	}
 
-	function update_pengindeks($id,$data){
-		$this->db->where('id_pengindeks', $id);
-		$this->db->update('pengindeks', $data);
-		if($this->db->affected_rows() > 0)
-		{
-		    return true; // to the controller
-		} else {
-				return false;
-		}
+	public function deleteSKJurnal($jurnal) {
+		$this->db->where('id_jurnal', $jurnal);
+		$this->db->delete('sk_jurnal');
 	}
+	// function update_pengindeks($id,$data){
+	// 	$this->db->where('id_pengindeks', $id);
+	// 	$this->db->update('pengindeks', $data);
+	// 	if($this->db->affected_rows() > 0)
+	// 	{
+	// 	    return true; // to the controller
+	// 	} else {
+	// 			return false;
+	// 	}
+	// }
 	function getPengindeksById($id){
 		$this->db->where('id_pengindeks',$id);
 		return $this->db->get('pengindeks')->row();
@@ -366,7 +363,7 @@ function getSKById($id){
 
 }
 function update_sk($id,$data){
-	$this->db->where('id_sk', $id);
+	$this->db->where('id_sk',$id);
 	$this->db->update('sk', $data);
 	if($this->db->affected_rows() > 0)
 	{
@@ -383,8 +380,25 @@ function tampil_dept()
 }
 function input_dept($data)
 {
+
 	return $this->db->insert('departemen', $data) ? true : false;
 
+}
+function getDeptById($id){
+	$this->db->where('id_dept',$id);
+	return $this->db->get('departemen')->row();
+
+}
+function delete_dept($id)
+{
+	$this->db->where('id_dept', $id);
+	$this->db->delete('departemen');
+	if($this->db->affected_rows() > 0)
+	{
+			return true; // to the controller
+	} else {
+			return false;
+	}
 }
 
 
@@ -503,6 +517,94 @@ function input_dept($data)
    	// function tampil_data(){
    	// 	return $this->db->get('Users');
    	// }
+	public function update_jurnal($data,$id)
+	{
+		$this->db->where('id_jurnal',$id);
+		$this->db->update('jurnal',$data);
+		if($this->db->affected_rows() > 0)
+		{
+				return true; // to the controller
+		} else {
+				return false;
+		}
+
+	}
+	public function deletePenerbitanJurnal($id) {
+		$this->db->where('id_jurnal',$id);
+		$this->db->delete('bulan_penerbitan');
+
+	}
+	public function deleteJurnalPengindeks($id) {
+		$this->db->where('id_jurnal',$id);
+		$this->db->delete('jurnal_pengindeks');
+	}
+ 	// public function update_penerbitan($data,$field,$id) {
+	// 	$this->db->where($field,$id);
+	// 	$this->db->delete('bulan_penerbitan');
+	// 	if($this->db->affected_rows() > 0)
+	// 	{
+	// 			return $this->add_penerbitan($data);
+	// 	} else {
+	// 			return false;
+	// 	}
+
+	// }
+
+	public function update_penerbit($data,$field,$id) {
+		 $this->db->where($field,$id);
+		 $this->db->update('penerbit', $data);
+		 if($this->db->affected_rows() > 0)
+ 		{
+ 				return true; // to the controller
+ 		} else {
+ 				return false;
+ 		}
+	}
+	public function update_pengindeks($data,$field,$id) {
+		 $this->db->where($field,$id);
+		 $this->db->update('pengindeks', $data);
+		 if($this->db->affected_rows() > 0)
+ 		{
+ 				return true; // to the controller
+ 		} else {
+ 				return false;
+ 		}
+	}
+
+	public function updateJurnalPengindeks($data,$field,$id) {
+		 $this->db->where($field,$id);
+		 $this->db->delete('jurnal_pengindeks');
+		 if($this->db->affected_rows() > 0)
+	 		{
+	 			return $this->add_pengindeks($data);
+	 		} else {
+	 				return false;
+	 		}
+	}
+
+	public function updateSkJurnal($data,$field,$id) {
+		$this->db->where($field,$id);
+		$this->db->update('sk_jurnal', $data);
+		if($this->db->affected_rows() > 0)
+	 {
+			 return true; // to the controller
+	 } else {
+			 return false;
+	 }
+		}
+
+		public function delete_jurnal($id)
+		{
+			$this->db->where('id_jurnal', $id);
+			$this->db->delete('jurnal');
+			if($this->db->affected_rows() > 0)
+			{
+					return true; // to the controller
+			} else {
+					return false;
+			}
+		}
+
 
 	public function add_jurnal($data, $isReturnId = null) {
 		if($isReturnId) {

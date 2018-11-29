@@ -12,7 +12,20 @@
   <div class="content-wrapper">
       <!-- Main content -->
       <head>
-
+        <?php if($this->session->flashdata('success_msg')) : ?>
+            <div class="alert alert-success alert-dismissible" style="margin-bottom:10px;">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+              <h4><i class="icon fa fa-check"></i> Sukses !</h4>
+              <?= $this->session->flashdata('success_msg') ?>
+            </div>
+        <?php endif ?> 
+        <?php if($this->session->flashdata('error_msg')) : ?>
+          <div class="alert alert-danger alert-dismissible" style="margin-bottom:10px;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-ban"></i> Gagal !</h4>
+            <?= $this->session->flashdata('error_msg') ?>
+          </div>
+        <?php endif ?>
         <div class="bar">
           <section class="content-header">
             <h1>
@@ -76,8 +89,7 @@
 
             <a href="<?php echo base_url('jurnal/edit_jurnal/'.$a->id_jurnal); ?>" class="btn btn-sm btn-info"><b>Edit</b></a>
 
-            <a href="<?php echo base_url('jurnal'.$a->id_jurnal); ?>" class="btn btn-sm btn-danger"><b>Delete</b></a>
-
+            <a href="#mDelJurnal<?=$a->id_jurnal?>" data-toggle='modal' data-target='#mDelJurnal<?=$a->id_jurnal?>' class="btn btn-danger"><b>Delete</b></a>
             <a href="<?php echo base_url('#'); ?>" class="btn btn-sm btn-warning"><b>Riwayat SK</b></a>
 
 
@@ -214,6 +226,16 @@
                         <?= $bulan_terbit?>
                       </label>
                   </div>
+
+                  <div class="row">
+                      <label class="col-sm-4">
+                        Frekuensi
+                      </label>
+                      <label class="col-sm-8">
+                        <?= count(explode(',',$bulan_terbit))?>
+                      </label>
+                  </div>
+
                   <div class="row">
                       <label class="col-sm-4">
                         Terbit Terakhir
@@ -262,6 +284,22 @@
                </div>
               <div class="modal-footer">
                 <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="modal fade" id="mDelJurnal<?=$a->id_jurnal?>" style="padding-right: 17px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Hapus data</h4>
+              </div>
+              <div class="modal-body">
+                <p> yakin mau hapus jurnal <?php echo $a->judul ?> ? </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>
+                <a href="<?php echo base_url('jurnal/delete_jurnal/'.$a->id_jurnal);?>" class="btn btn-danger"><b>Delete</b></a>
               </div>
             </div>
           </div>

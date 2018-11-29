@@ -7,6 +7,11 @@
       }
   }
 
+  if(validation_errors())
+  {
+    echo validation_errors('<span class="error">', '</span>');
+  }
+
   $id_penerbit = $jurnal->id_jenis;
 
   // var_dump($skJurnal);
@@ -26,6 +31,20 @@
 <div class="content-wrapper">
     <!-- Main content -->
     <head>
+      <?php if($this->session->flashdata('success_msg')) : ?>
+          <div class="alert alert-success alert-dismissible" style="margin-bottom:10px;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Sukses !</h4>
+            <?= $this->session->flashdata('success_msg') ?>
+          </div>
+      <?php endif ?>
+      <?php if($this->session->flashdata('error_msg')) : ?>
+        <div class="alert alert-danger alert-dismissible" style="margin-bottom:10px;">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-ban"></i> Gagal !</h4>
+          <?= $this->session->flashdata('error_msg') ?>
+        </div>
+      <?php endif ?>
       <div class="bar">
         <section class="content-header">
           <h1>
@@ -41,7 +60,7 @@
     <section class="content">
 
 
-       <form class="form-horizontal" action="<?php echo base_url('jurnal/submit_jurnal')?>" method="post">
+       <form class="form-horizontal" action="<?php echo base_url('jurnal/update_jurnal/'.$jurnal->id_jurnal)?>" method="post">
           <div class="form-group">
             <label for="judul" class="col-sm-2 control-label">Judul : </label>
             <div class="col-md-9">
@@ -98,7 +117,9 @@
           <div class="form-group">
             <label for="inputpassword" class="col-sm-2 control-label">URL Portal : </label>
             <div class="col-md-9">
+
               <input class="form-control" name="urlportal" value="<?= set_value('urlportal') ? set_value('urlportal') : $jurnal->url?>" placeholder="URL" type="text" required/>
+              <span class="help-block">cukup diisi url paling belakang, contoh https://ejournal.undip.ac.id/index.php/jitaa, maka ditulis 'jitaa' saja</span>
               <?php if(form_error('urlportal')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -309,18 +330,18 @@
             <label for="inputpassword" class="col-sm-2 control-label">Bulan Terbit : </label>
             <div class="col-md-9">
               <select class="form-control select2" name="blnterbit[]" multiple data-placeholder='Bulan Terbit' >
-                <option value="1" <?=in_array('1', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Januari</option>
-                <option value="2" <?=in_array('2', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Februari</option>
-                <option value="3" <?=in_array('3', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Maret</option>
-                <option value="4" <?=in_array('4', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>April</option>
-                <option value="5" <?=in_array('5', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Mei</option>
-                <option value="6" <?=in_array('6', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Juni</option>
-                <option value="7" <?=in_array('7', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Juli</option>
-                <option value="8" <?=in_array('8', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Agustus</option>
-                <option value="9" <?=in_array('9', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>September</option>
-                <option value="10" <?=in_array('10', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Oktober</option>
-                <option value="11" <?=in_array('11', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>November</option>
-                <option value="12" <?=in_array('12', set_value('bulanterbit[]') ? set_value('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Desember</option>
+                <option value="1" <?=in_array('1', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Januari</option>
+                <option value="2" <?=in_array('2', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Februari</option>
+                <option value="3" <?=in_array('3', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Maret</option>
+                <option value="4" <?=in_array('4', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>April</option>
+                <option value="5" <?=in_array('5', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Mei</option>
+                <option value="6" <?=in_array('6', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Juni</option>
+                <option value="7" <?=in_array('7', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Juli</option>
+                <option value="8" <?=in_array('8', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Agustus</option>
+                <option value="9" <?=in_array('9', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>September</option>
+                <option value="10" <?=in_array('10', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Oktober</option>
+                <option value="11" <?=in_array('11', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>November</option>
+                <option value="12" <?=in_array('12', set_select('bulanterbit[]') ? set_select('bulanterbit[]') : $bulan_terbit) ? 'selected' : ''?>>Desember</option>
               </select>
               <?php if(form_error('blnterbit[]')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
@@ -360,7 +381,7 @@
             <div class="col-md-9">
               <select class="form-control select2" name="pengindeks[]" multiple data-placeholder="Pengindeks" id='pengindeks'>
                 <?php foreach ($pengindeks as $a){?>
-                  <option value='<?=$a->id_pengindeks?>' <?=in_array($a->id_pengindeks, set_value('pengindeks[]') ? set_value('pengindeks[]') : $jurnal_pengindeks_id) ? 'selected' : ''?>><?=$a->nama?></option>
+                  <option value='<?=$a->id_pengindeks?>' <?=in_array($a->id_pengindeks, set_select('pengindeks[]') ? set_select('pengindeks[]') : $jurnal_pengindeks_id) ? 'selected' : ''?>><?=$a->nama?></option>
                 <?php  } ?>
               </select>
             <div id="field-pengindeks">

@@ -78,12 +78,12 @@ class Sk extends CI_Controller {
 		// $this->form_validation->set_rules('tanggal_penetapan', 'tanggal penetapan SK', 'required');
 		// $this->form_validation->set_rules('tanggal_berakhir', 'tanggal berakhir SK', 'required');
 
-    if ($this->form_validation->run() == FALSE)
-    {
-        $this->update_sk($id);
-    }
-    else
-    {
+    // if ($this->form_validation->run() == FALSE)
+    // {
+    //     $this->update_sk($id);
+    // }
+    // else
+    // {
 
     $data = array(
 			'no_sk' => $this->input->post('sk'),
@@ -92,6 +92,9 @@ class Sk extends CI_Controller {
 			'tanggal_berakhir' => $this->input->post('akhirsk') ,
 		);
     $result = $this->M_Jurnal->update_sk($id,$data);
+
+		// var_dump([$data, $result, $id]);
+		// die();
     if ($result) {
         $this->session->set_flashdata('success_msg', 'SK berhasil diupdate');
     } else {
@@ -99,6 +102,6 @@ class Sk extends CI_Controller {
     }
     redirect('sk');
   }
-  }
+  // }
 
 }
