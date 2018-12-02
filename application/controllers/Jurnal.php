@@ -24,27 +24,32 @@ class Jurnal extends CI_Controller {
 	public function submitJurnal(){
 		$this->form_validation->set_rules('judul', 'Judul Jurnal', 'required');
 		$this->form_validation->set_rules('nomorjurnal', 'Nomor Jurnal', 'required|numeric');
-		$this->form_validation->set_rules('portal', 'Portal', 'required');
+		$this->form_validation->set_rules('portal', 'Portal', 'required|callback_validate_portal');
 		$this->form_validation->set_rules('urlportal', 'URL', 'required');
-		$this->form_validation->set_rules('penerbit', 'Penerbit', 'required');
-		$this->form_validation->set_rules('id_penerbit', 'Penerbit', 'required');
-		$this->form_validation->set_rules('sponsor', 'Sponsor', 'required');
-		$this->form_validation->set_rules('pengelola', 'Pengelola', 'required');
+		$this->form_validation->set_rules('penerbit', 'Penerbit', 'required|callback_validate_penerbit');
+		$this->form_validation->set_rules('id_penerbit', 'Penerbit', 'required|callback_validate_idpenerbit');
+		// $this->form_validation->set_rules('sponsor', 'Sponsor', 'required');
+		$this->form_validation->set_rules('pengelola', 'Pengelola', 'required|callback_validate_pengelola');
 		$this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
 		// $this->form_validation->set_rules('pissn', 'P-Issn', 'required');
 		// $this->form_validation->set_rules('eissn', 'E-Issn', 'required');
 		$this->form_validation->set_rules('english', 'English', 'required');
 		$this->form_validation->set_rules('mpgundip', 'MpgUndip', 'required');
-		$this->form_validation->set_rules('doi', 'DOI', 'required');
+		// $this->form_validation->set_rules('doi', 'DOI', 'required');
 		$this->form_validation->set_rules('thnmulai', 'Tahun Mulai', 'required|numeric|exact_length[4]');
 		$this->form_validation->set_rules('blnterbit[]', 'Bulan Terbit', 'required');
 		$this->form_validation->set_rules('terbitakhir', 'Terbit Terakhir', 'required|numeric|exact_length[4]');
 		$this->form_validation->set_rules('noterakhir', 'Jumlah Nomor Terakhir', 'required|numeric');
-		$this->form_validation->set_rules('pengindeks[]', 'Pengindeks', 'required');
+		// $this->form_validation->set_rules('pengindeks[]', 'Pengindeks', 'required');
 		$this->form_validation->set_rules('akreditasi', 'Terakreditasi', 'required');
 		// $this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
 		// $this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan SK', 'required');
 		// $this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
+		// if($this->input->post('portal') === 0) {
+		// 	$this->form_validation->set_message('portal', 'Portal mohon diisi');
+		// }
+
+
 		if(!empty($this->input->post('sk'))) {
 			$this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
 		}
@@ -163,42 +168,45 @@ class Jurnal extends CI_Controller {
 
 	public function update_jurnal($id)
 	{
-
 		$this->form_validation->set_rules('judul', 'Judul Jurnal', 'required');
 		$this->form_validation->set_rules('nomorjurnal', 'Nomor Jurnal', 'required|numeric');
-		$this->form_validation->set_rules('portal', 'Portal', 'required');
+		$this->form_validation->set_rules('portal', 'Portal', 'required|callback_validate_portal');
 		$this->form_validation->set_rules('urlportal', 'URL', 'required');
-		$this->form_validation->set_rules('penerbit', 'Penerbit', 'required');
-		$this->form_validation->set_rules('id_penerbit', 'Penerbit', 'required');
-		$this->form_validation->set_rules('sponsor', 'Sponsor', 'required');
-		$this->form_validation->set_rules('pengelola', 'Pengelola', 'required');
+		$this->form_validation->set_rules('penerbit', 'Penerbit', 'required|callback_validate_penerbit');
+		$this->form_validation->set_rules('id_penerbit', 'Penerbit', 'required|callback_validate_idpenerbit');
+		// $this->form_validation->set_rules('sponsor', 'Sponsor', 'required');
+		$this->form_validation->set_rules('pengelola', 'Pengelola', 'required|callback_validate_pengelola');
 		$this->form_validation->set_rules('singkatan', 'Singkatan', 'required');
 		// $this->form_validation->set_rules('pissn', 'P-Issn', 'required');
 		// $this->form_validation->set_rules('eissn', 'E-Issn', 'required');
 		$this->form_validation->set_rules('english', 'English', 'required');
 		$this->form_validation->set_rules('mpgundip', 'MpgUndip', 'required');
-		$this->form_validation->set_rules('doi', 'DOI', 'required');
+		// $this->form_validation->set_rules('doi', 'DOI', 'required');
 		$this->form_validation->set_rules('thnmulai', 'Tahun Mulai', 'required|numeric|exact_length[4]');
 		$this->form_validation->set_rules('blnterbit[]', 'Bulan Terbit', 'required');
 		$this->form_validation->set_rules('terbitakhir', 'Terbit Terakhir', 'required|numeric|exact_length[4]');
 		$this->form_validation->set_rules('noterakhir', 'Jumlah Nomor Terakhir', 'required|numeric');
-		$this->form_validation->set_rules('pengindeks[]', 'Pengindeks', 'required');
+		// $this->form_validation->set_rules('pengindeks[]', 'Pengindeks', 'required');
 		$this->form_validation->set_rules('akreditasi', 'Terakreditasi', 'required');
 		// $this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
 		// $this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan SK', 'required');
 		// $this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
+		// if($this->input->post('portal') === 0) {
+		// 	$this->form_validation->set_message('portal', 'Portal mohon diisi');
+		// }
+
+
 		if(!empty($this->input->post('sk'))) {
 			$this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
 		}
 		if(!empty($this->input->post('peringkatsinta'))) {
 			$this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required|alpha_numeric');
 		}
-		$this->form_validation->set_rules('urlsinta', 'URL SINTA', 'required|valid_url');
+		$this->form_validation->set_rules('urlsinta', 'URL SINTA', 'valid_url');
 		if ($this->form_validation->run() == FALSE)
 		{
 			$this->edit_jurnal($id);
-		}
-		else
+		} else
 		{
 			// var_dump($this->M_Jurnal->getJenisPenerbit());
 			// die();
@@ -220,7 +228,7 @@ class Jurnal extends CI_Controller {
 				'url' => $this->input->post('urlportal'),
 				'url_sinta' => $this->input->post('urlsinta'),
 			);
-			
+
 			$result = false;
 
 			if(!empty($this->input->post('peringkatsinta'))) {
@@ -290,11 +298,11 @@ class Jurnal extends CI_Controller {
 					}
 				}
 
-				// if ($result) {
-				// 		$this->session->set_flashdata('success_msg', 'jurnal berhasil ditambahkan');
-				// } else {
-				// 		$this->session->set_flashdata('error_msg', 'Gagal menambah jurnal. Silahkan coba lagi atau hubungi administrator');
-				// }
+				if ($result) {
+						$this->session->set_flashdata('success_msg', 'jurnal berhasil diedit');
+				} else {
+						$this->session->set_flashdata('error_msg', 'Gagal edit jurnal. Silahkan coba lagi atau hubungi administrator');
+				}
 
 			redirect('jurnal');
 		}
@@ -314,6 +322,43 @@ class Jurnal extends CI_Controller {
 		redirect('jurnal');
 
 
+	}
+
+
+	public function validate_portal($portal) {
+		if($portal === "0") {
+			$this->form_validation->set_message('validate_portal', 'Mohon isi kolom portal');
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public function validate_penerbit($penerbit) {
+		if($penerbit === "kosong") {
+			$this->form_validation->set_message('validate_penerbit', 'Mohon isi kolom penerbit');
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public function validate_idpenerbit($idpenerbit) {
+		if($idpenerbit === "0") {
+			$this->form_validation->set_message('validate_idpenerbit', 'Mohon isi kolom penerbit');
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public function validate_pengelola($pengelola) {
+		if($pengelola === "0") {
+			$this->form_validation->set_message('validate_pengelola', 'Mohon isi kolom pengelola');
+			return false;
+		} else {
+			return true;
+		}
 	}
 	// // public function detail_jurnal($id)
 	// {

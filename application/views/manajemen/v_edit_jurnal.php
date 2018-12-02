@@ -7,10 +7,10 @@
       }
   }
 
-  if(validation_errors())
-  {
-    echo validation_errors('<span class="error">', '</span>');
-  }
+  // if(validation_errors())
+  // {
+  //   echo validation_errors('<span class="error">', '</span>');
+  // }
 
   $id_penerbit = $jurnal->id_jenis;
 
@@ -92,14 +92,14 @@
             <div class="col-md-9">
               <?php if(!empty(set_value('portal'))):?>
                 <select class="form-control " name="portal" >
-                  <option >-- Pilih Portal --</option>
+                  <option value="0" selected >-- Pilih Portal --</option>
                   <?php foreach ($portal as $a){?>
                     <option value='<?=$a->id_portal?>' <?=set_value('portal') === $a->id_portal ? 'selected' : '';?>><?=$a->nama_portal?> </option>
                   <?php  } ?>
                 </select>
               <?php else:?>
                 <select class="form-control " name="portal" >
-                  <option >-- Pilih Portal --</option>
+                  <option value="0" selected >-- Pilih Portal --</option>
                   <?php foreach ($portal as $a){?>
                     <option value='<?=$a->id_portal?>' <?=$jurnal->id_portal === $a->id_portal ? 'selected' : '';?>><?=$a->nama_portal?> </option>
                   <?php  } ?>
@@ -134,7 +134,7 @@
             <div class="col-md-9">
               <?php if(!empty(set_value('penerbit'))):?>
                 <select class="form-control" name="penerbit" id="penerbit">
-                  <option >-- Pilih Penerbit --</option>
+                  <option value="0" selected>-- Pilih Penerbit --</option>
                   <option value="fakultas" <?=set_value('penerbit') === 'fakultas' ? 'selected' : ''?>>Fakultas</option>
                   <option value="departemen" <?=set_value('penerbit') === 'departemen' ? 'selected' : ''?>>Departemen</option>
                   <option value="lab" <?=set_value('penerbit') === 'lab' ? 'selected' : ''?>>Lab</option>
@@ -142,7 +142,7 @@
                 </select>
               <?php else:?>
                 <select class="form-control" name="penerbit" id="penerbit">
-                  <option >-- Pilih Penerbit --</option>
+                  <option value="0" selected>-- Pilih Penerbit --</option>
                   <option value="fakultas" <?=$jurnal->jenis_penerbit === 'fakultas' ? 'selected' : ''?>>Fakultas</option>
                   <option value="departemen" <?=$jurnal->jenis_penerbit === 'departemen' ? 'selected' : ''?>>Departemen</option>
                   <option value="lab" <?=$jurnal->jenis_penerbit === 'lab' ? 'selected' : ''?>>Lab</option>
@@ -185,7 +185,7 @@
             <label for="inputpassword" class="col-sm-2 control-label">Pengelola : </label>
             <div class="col-md-9">
               <select class="form-control select2" name="pengelola">
-                <option >-- Pilih Pengelola --</option>
+                <option value="0" selected>-- Pilih Pengelola --</option>
                 <?php foreach ($pengelola as $p){?>
                     <?php if(!empty(set_value('pengelola'))) :?>
                         <option value='<?=$p->id_pengelola?>' <?=set_value('pengelola') === $p->id_pengelola ? 'selected' : ''?>><?=$p->nama?> </option>
@@ -305,7 +305,7 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">DOI : </label>
             <div class="col-md-9">
-              <input class="form-control" name="doi" value="<?= set_value('doi') ? set_value('doi') : $jurnal->doi; ?>" placeholder="DOI" type="text" required/>
+              <input class="form-control" name="doi" value="<?= set_value('doi') ? set_value('doi') : $jurnal->doi; ?>" placeholder="DOI" type="text" />
               <?php if(form_error('doi')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -451,7 +451,7 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">URL SINTA : </label>
             <div class="col-md-9">
-              <input class="form-control" name="urlsinta" value="<?= set_value('urlsinta') ? set_value('urlsinta') : $jurnal->url_sinta; ?>" placeholder="Url Sinta" type="text" required/>
+              <input class="form-control" name="urlsinta" value="<?= set_value('urlsinta') ? set_value('urlsinta') : $jurnal->url_sinta; ?>" placeholder="Url Sinta" type="text" />
               <span class="help-block">Contoh : http://sinta2.ristekdikti.go.id/journals/detail/?id=918</span>
               <?php if(form_error('urlsinta')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">

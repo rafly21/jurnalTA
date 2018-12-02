@@ -69,6 +69,8 @@ $route['jurnal/submit_jurnal'] = 'jurnal/submitJurnal';
 $route['jurnal/edit_jurnal/(:num)'] = 'jurnal/edit_jurnal/$1';
 $route['jurnal/update_jurnal/(:num)'] = 'jurnal/update_jurnal/$1';
 $route['jurnal/delete/(:num)'] = 'jurnal/delete_jurnal/$1';
+$route['jurnal_guest'] = 'jurnal_guest';
+
 
 
 
