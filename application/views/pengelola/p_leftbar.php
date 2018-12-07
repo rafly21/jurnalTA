@@ -60,6 +60,7 @@
       </li>
 
 
+
       <li class="treeview">
         <a href="#">
           <i class="fa fa-share"></i> <span>Multilevel</span>
@@ -93,8 +94,13 @@
           <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
         </ul>
       </li>
+      <li>
 
     </ul>
+
   </section>
+  <div style="padding:1rem">
+    <a href="/JurnalTA/logout"class="btn btn-primary btn-block btn-flat" style="opacity:1"><i class=""></i> sign out </a>
+</div>
   <!-- /.sidebar -->
 </aside>

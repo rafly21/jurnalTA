@@ -12,7 +12,7 @@
   <div class="content-wrapper">
       <!-- Main content -->
       <head>
-      
+
         <div class="bar">
           <section class="content-header">
             <h1>
@@ -29,9 +29,11 @@
         </div>
       </head>
       <section class="content">
+        <a href="<?php echo base_url('./jurnal/add_jurnal'); ?>" class="btn btn-success"><b>Filtering Jurnal</b></a>
+  </br>
       </br>
       </br>
-      <table id="tableuser" class="table table-bordered table-striped scroll" style="background-color:white;">
+      <table id="tableguest" class="table table-bordered table-striped scroll" style="background-color:white;">
       <thead>
         <tr>
           <th>No.</th>

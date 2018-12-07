@@ -96,41 +96,64 @@
           <li><a href="<?php echo base_url ('./tambah_pengelola') ?>"><i class="fa fa-circle-o"></i> Tambah Pengelola</a></li>
         </ul>
       </li>
-      <li class="treeview">
+      <!-- <li class="treeview">
         <a href="#">
-          <i class="fa fa-share"></i> <span>Multilevel</span>
+          <i class="fa fa-share"></i> <span>Filtering Data Jurnal</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
           <li class="treeview">
-            <a href="#"><i class="fa fa-circle-o"></i> Level One
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-              <li class="treeview">
-                <a href="#"><i class="fa fa-circle-o"></i> Level Two
+              <a href="#"><i class="fa fa-circle-o"></i> Menurut Bahasa
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="#"><i class="fa fa-circle-o"></i> INGGRIS</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> INDONESIA</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#"><i class="fa fa-circle-o"></i> Menurut Portal
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                   </span>
                 </a>
                 <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
+                  <li><a href="#"><i class="fa fa-circle-o"></i> ejournal1</a></li>
+                  <li><a href="#"><i class="fa fa-circle-o"></i> ejournal2</a></li>
                 </ul>
               </li>
-            </ul>
-          </li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
+
+              <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Status Akreditasi
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                    <li><a href="#"><i class="fa fa-circle-o"></i> S1</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> S2</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> S3</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> S4</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> S5</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> S6</a></li>
+
+
+                  </ul>
+                </li>
         </ul>
-      </li>
+
+      </li> -->
 
     </ul>
+
   </section>
+  <div style="padding:1rem">
+    <a href="/JurnalTA/logout"class="btn btn-primary btn-block btn-flat" style="opacity:1"><i class=""></i> sign out </a>
+</div>
   <!-- /.sidebar -->
 </aside>

@@ -20,7 +20,7 @@ class Auth extends CI_Controller {
 
 	public function index(){
 		//echo "hello";
-		$this->load->view('auth');
+		$this->load->view('guest/home');
 	}
 
 	public function auth_process(){
@@ -54,8 +54,9 @@ class Auth extends CI_Controller {
 				}
 		}
 		else {
-		      echo '<script>alert("Username atau Password salah. Harap cek kembali.");</script>';
-					$this->index();
+			$this->session->set_flashdata('error_login','Username atau Password salah. Harap cek kembali.');
+		      // echo '<script>alert("Username atau Password salah. Harap cek kembali.");</script>';
+					redirect ("home");
 				}
 
 	}
@@ -66,7 +67,7 @@ class Auth extends CI_Controller {
 			} else if($this->session->userdata('permission') === "pengelola"){
 				redirect ("pengelola");
 			} else {
-				redirect ("auth");
+				redirect ("home");
 			}
 		}
 

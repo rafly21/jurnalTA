@@ -7,12 +7,27 @@ class Jurnal_Guest extends CI_Controller {
 	$this->load->model(['M_Jurnal','M_users']);
 	$this->load->helper('url');
 	$this->load->library('form_validation');
-		
+
 	}
-	public function index()
+	public function index($param=null)
 	{
+		// var_dump ($param);
+		// die();
+		if ($param!=null){
+			if ($param == 'acr'){
+				$data['data'] = $this->M_Jurnal->tampil_dataacr();
+			}
+			if ($param == 'eng'){
+				$data['data'] = $this->M_Jurnal->tampil_data_eng();
+
+			}
+
+		}
+		else {
+				$data['data'] = $this->M_Jurnal->tampil_data();
+		}
 		// $return = $this->M_Jurnal->tampil_data();
-		$data['data'] = $this->M_Jurnal->tampil_data();
+
     // $data['data2'] = $this->M_Jurnal->tampil_data2();
     // var_dump($data);
     // die;

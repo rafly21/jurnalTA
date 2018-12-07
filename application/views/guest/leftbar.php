@@ -17,6 +17,14 @@
       <li class="active treeview menu-open">
         </li>
       </ul>
+
+      <?php if($this->session->flashdata('error_login')) : ?>
+        <div class="alert alert-danger alert-dismissible" style="margin-bottom:10px;">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-ban"></i> login gagal !</h4>
+          <?= $this->session->flashdata('error_login') ?>
+        </div>
+      <?php endif ?>
       <!-- <form action="" method="get" class="" style="padding:1rem;"> -->
 
     <form action="<?php echo base_url('auth_process') ?>"style="padding:1rem;" method="post">

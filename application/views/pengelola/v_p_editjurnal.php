@@ -20,13 +20,13 @@
 ?>
 <!DOCTYPE html>
 <html>
- <?php $this->load->view('manajemen/man_head')?>
+ <?php $this->load->view('pengelola/p_head')?>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-<?php $this->load->view('manajemen/man_header')?>
+<?php $this->load->view('pengelola/p_header')?>
 <!-- Left side column. contains the logo and sidebar -->
-<?php $this->load->view('manajemen/man_leftbar')?>
+<?php $this->load->view('pengelola/p_leftbar')?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Main content -->
@@ -51,8 +51,8 @@
             Edit Jurnal
           </h1>
           <ol class="breadcrumb">
-            <li><a href="<?php echo base_url()?>jurnal"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Edit Jurnal </li>
+            <li><a href="<?php echo base_url('jurnal-p')?>"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Edit Jurnal</li>
           </ol>
         </section>
       </div>
@@ -60,7 +60,7 @@
     <section class="content">
 
 
-       <form class="form-horizontal" action="<?php echo base_url('jurnal/update_jurnal/'.$jurnal->id_jurnal)?>" method="post">
+       <form class="form-horizontal" action="<?php echo base_url('pengelola/update_jurnal/'.$jurnal->id_jurnal)?>" method="post">
           <div class="form-group">
             <label for="judul" class="col-sm-2 control-label">Judul : </label>
             <div class="col-md-9">
@@ -91,14 +91,14 @@
             <label for="#" class="col-sm-2 control-label">Portal : </label>
             <div class="col-md-9">
               <?php if(!empty(set_value('portal'))):?>
-                <select class="form-control " name="portal" required id="select-portal">
+                <select class="form-control " name="portal" required id="select-portal" >
                   <option value="0" selected >-- Pilih Portal --</option>
                   <?php foreach ($portal as $a){?>
                     <option value='<?=$a->id_portal?>' <?=set_value('portal') === $a->id_portal ? 'selected' : '';?>><?=$a->nama_portal?> </option>
                   <?php  } ?>
                 </select>
               <?php else:?>
-                <select class="form-control " name="portal" id="select-portal">
+                <select class="form-control " name="portal"  id="select-portal">
                   <option value="0" selected >-- Pilih Portal --</option>
                   <?php foreach ($portal as $a){?>
                     <option value='<?=$a->id_portal?>' <?=$jurnal->id_portal === $a->id_portal ? 'selected' : '';?>><?=$a->nama_portal?> </option>
@@ -181,7 +181,7 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="inputpassword" class="col-sm-2 control-label">Pengelola : </label>
             <div class="col-md-9">
               <select class="form-control select2" name="pengelola">
@@ -201,7 +201,7 @@
                 </div>
               <?php endif ?>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <label for="inputemail" class="col-sm-2 control-label">Singkatan : </label>
@@ -470,7 +470,7 @@
     </section>
 </div>
 
-<?php $this->load->view('manajemen/man_footer.php')?>
+<?php $this->load->view('pengelola/p_footer.php')?>
 </div>
 <!-- ./wrapper -->
 </body>

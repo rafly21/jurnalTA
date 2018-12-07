@@ -14,7 +14,32 @@ class Jurnal extends CI_Controller {
 	public function index()
 	{
 		// $return = $this->M_Jurnal->tampil_data();
-		$data['data'] = $this->M_Jurnal->tampil_data();
+		$filter['portal'] = $this->input->get('portal') !== 'undefined' ? $this->input->get('portal') : null;
+		$filter['akreditasi'] = $this->input->get('akreditasi') !== 'undefined' ? $this->input->get('akreditasi') : null;
+		$filter['penerbit'] = $this->input->get('penerbit') !== 'undefined' ? $this->input->get('penerbit') : null;
+		$filter['tahun_mulai'] = $this->input->get('tahun_mulai') !== 'undefined' ? $this->input->get('tahun_mulai') : null;
+		$filter['blnterbit'] = $this->input->get('blnterbit') !== 'undefined' ? $this->input->get('blnterbit') : null;
+		$filter['bahasa'] = $this->input->get('bahasa') !== 'undefined' ? $this->input->get('bahasa') : null;
+		$filter['pengindeks'] = $this->input->get('pengindeks') !== 'undefined' ? $this->input->get('pengindeks') : null;
+		$filter['DOI'] = $this->input->get('DOI') !== 'undefined' ? $this->input->get('DOI') : null;
+		$filter['eissn'] = $this->input->get('eissn') !== 'undefined' ? $this->input->get('eissn') : null;
+// var_dump($filter);
+// die();
+		if(!empty($_GET)) {
+			$data['data'] = $this->M_Jurnal->tampil_data($filter);
+		} else {
+			$data['data'] = $this->M_Jurnal->tampil_data();
+		}
+
+		$data['portal'] = $this->M_Jurnal->getPortal();
+		$data['fakultas'] = $this->M_Jurnal->getFakultas();
+		$data['pengindeks'] = $this->M_Jurnal->getPengindeks();
+
+
+
+
+
+
     // $data['data2'] = $this->M_Jurnal->tampil_data2();
     // var_dump($data);
     // die;
@@ -281,6 +306,9 @@ class Jurnal extends CI_Controller {
 						);
 					$result .=		$this->M_Jurnal->add_pengindeks($dataPengindeks);
 					}
+				}
+				else {
+					$this->M_Jurnal->deleteJurnalPengindeks($id);
 				}
 				// var_dump($dataPengindeks);
 				// die();

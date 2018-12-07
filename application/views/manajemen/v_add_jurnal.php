@@ -17,8 +17,8 @@
             Tambah Jurnal
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?php echo base_url()?>jurnal">Jurnal Terdaftar</a></li>
+            <li><a href="<?php echo base_url()?>jurnal"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Tambah Jurnal </li>
           </ol>
         </section>
       </div>
@@ -56,7 +56,7 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">Portal : </label>
             <div class="col-md-9">
-              <select class="form-control " name="portal" required>
+              <select class="form-control " name="portal" required id="select-portal">
                 <option value="0" selected>-- Pilih Portal --</option>
                 <?php foreach ($portal as $a){?>
                   <option value='<?=$a->id_portal?>' <?=set_value('portal') === $a->id_portal ? 'selected' : '';?>><?=$a->nama_portal?> </option>
@@ -75,7 +75,7 @@
             <label for="inputpassword" class="col-sm-2 control-label">URL Portal : </label>
             <div class="col-md-9">
               <input class="form-control" name="urlportal" value="<?=set_value('urlportal')?>" placeholder="URL" type="text" required/>
-              <span class="help-block"> Cukup diisi slash terakhir, contoh https://ejournal.undip.ac.id/index.php/medianers, cukup ditulis 'medianers' saja </span>
+              <span class="help-block" id="portal-help"> </span>
               <?php if(form_error('urlportal')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -253,9 +253,9 @@
                 <option value="7">Juli</option>
                 <option value="8">Agustus</option>
                 <option value="9">September</option>
-                <option value="10">>Oktober</option>
-                <option value="11">>November</option>
-                <option value="12">>Desember</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
               </select>
               <?php if(form_error('blnterbit[]')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">

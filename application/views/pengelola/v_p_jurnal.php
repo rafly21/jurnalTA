@@ -29,8 +29,15 @@
         <div class="bar">
           <section class="content-header">
             <h1>
-              Daftar Jurnal Yang Dikelola
-              <small>EJournal Universitas Diponegoro</small>
+              Daftar Jurnal Yang Dikelola    <span class="hidden-xs"><?php
+                if (!empty($this->session->userdata())){
+                  echo $this->session->userdata('name') ;
+                  
+                }
+
+
+                ?></span>
+
             </h1>
             <ol class="breadcrumb">
               <li><a href="Pengelola"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -61,24 +68,214 @@
         foreach($data as $a) {
 
           $penerbit = $this->M_Jurnal->getPenerbitJurnal($a->id_jurnal);
+          $pengindeks= $this->M_Jurnal->getJurnalPengindeks($a->id_jurnal);
+          $detail = $this->M_Jurnal->detail_data($a->id_jurnal);
+          $bulan_terbit = $this->M_Jurnal->getBulanTerbit($a->id_jurnal);
+          $skJurnal = $this->M_Jurnal->getSkJurnal($a->id_jurnal);
 
           ?>
 
         <tr>
           <td><?php echo $no++ ?></td>
           <td><font size="4px"><div class="label label-default"><?php echo $a->judul ?></div></font></td>
-          <td><font size="4px"><div class="label label-default"><?php echo $a->singkatan ?></div></font></td>
-          <td><font size="4px"><div class="label label-default"><?php echo $penerbit->nama ?></div></font></td>
-
-         
-
+          <td><?php echo $a->singkatan ?></td>
+          <td><?=$penerbit->nama?></td>
+          <!-- <td><?php echo $a->nama ?></td> -->
           <td>
-            <a href="<?php echo base_url('#'); ?>" class="btn btn-info"><b>Detail</b></a>
-            &nbsp;
-            <a href="<?php echo base_url('#'); ?>" class="btn btn-info"><b>Edit</b></a>
+            <span data-toggle="tooltip" title="Detail Jurnal" data-placement="top"><a href="#mDetailJurnal<?=$a->id_jurnal?>" data-toggle="modal" data-target="#mDetailJurnal<?=$a->id_jurnal?> " class="btn btn-sm btn-default "><i class="fa fa-bars" aria-hidden="true"></i></a></span>
 
-          </td>
+            <a href="<?php echo base_url('pengelola/edit_jurnal/'.$a->id_jurnal); ?>" class="btn btn-sm btn-info"><b>Edit</b></a>
+</td>
+
+
           </tr>
+          <div class="modal fade" id="mDetailJurnal<?=$a->id_jurnal?>" style="padding-right: 17px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Detail Jurnal <?=$a->judul?> </h4>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <label class="col-sm-4">
+                          Judul
+                      </label>
+                      <label class="col-sm-8">
+                          <?=$detail->judul?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          Nomor Jurnal
+                      </label>
+                      <label class="col-sm-8">
+                          <?=$detail->no_jurnal?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          Portal
+                      </label>
+                      <label class="col-sm-8">
+                          <?=$detail->nama_portal?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          URL Portal
+                      </label>
+                      <label class="col-sm-8">
+                          <?=$detail->base_url.'/'.$detail->url?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          Penerbit
+                      </label>
+                      <label class="col-sm-8">
+                        <?=$penerbit->nama?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          Singkatan
+                      </label>
+                      <label class="col-sm-8">
+                        <?=$detail->singkatan?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <!-- <label class="col-sm-4">
+                          Pengelola
+                      </label> -->
+                      <!-- <label class="col-sm-8">
+                        <?=$a->nama?>
+                      </label> -->
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          Sponsor
+                      </label>
+                      <label class="col-sm-8">
+                        <?=$detail->sponsor?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          P-Issn
+                      </label>
+                      <label class="col-sm-8">
+                        <?=$detail->p_issn?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          E-Issn
+                      </label>
+                      <label class="col-sm-8">
+                        <?=$detail->e_issn?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          Berbahasa Inggris?
+                      </label>
+                      <label class="col-sm-8">
+                        <?=$detail->english === '1' ? "Ya" : "Tidak" ?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                          MpgUndip?
+                      </label>
+                      <label class="col-sm-8">
+                        <?=$detail->english === '1' ? "Ya" : "Tidak" ?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                        DOI
+                      </label>
+                      <label class="col-sm-8">
+                        <?=$detail->doi?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                        Tahun Mulai
+                      </label>
+                      <label class="col-sm-8">
+                        <?=$detail->thn_mulai?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                        Bulan Terbit
+                      </label>
+                      <label class="col-sm-8">
+                        <?= $bulan_terbit?>
+                      </label>
+                  </div>
+
+                  <div class="row">
+                      <label class="col-sm-4">
+                        Frekuensi
+                      </label>
+                      <label class="col-sm-8">
+                        <?= count(explode(',',$bulan_terbit))?>
+                      </label>
+                  </div>
+
+                  <div class="row">
+                      <label class="col-sm-4">
+                        Terbit Terakhir
+                      </label>
+                      <label class="col-sm-8">
+                        <?= $detail->terbit_terakhir?>
+                      </label>
+                  </div>
+                  <?php foreach ($pengindeks as $p): ?>
+                    <div class="row">
+                        <label class="col-sm-4">
+                          <?=$p->nama?>
+                        </label>
+                        <label class="col-sm-8">
+                          <?= $p->url_pengindeks?>
+                        </label>
+                    </div>
+                  <?php endforeach; ?>
+                  <?php if($skJurnal !== null): ?>
+                  <div class="row">
+                      <label class="col-sm-4">
+                        SK
+                      </label>
+                      <label class="col-sm-8">
+                        <?= $skJurnal->no_sk?>
+                      </label>
+                  </div>
+                  <div class="row">
+                      <label class="col-sm-4">
+                        Peringkat SINTA
+                      </label>
+                      <label class="col-sm-8">
+                        <?= $detail->peringkat_sinta?>
+                      </label>
+                  </div>
+                  <?php endif; ?>
+                  <div class="row">
+                      <label class="col-sm-4">
+                        URL SINTA
+                      </label>
+                      <label class="col-sm-8">
+                        <?= $detail->url_sinta?>
+                      </label>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>
+                  </div>
+
+               </div>
+
 
         <?php } ?>
       </tbody>
@@ -88,6 +285,12 @@
 
   <?php $this->load->view('pengelola/p_footer')?>
 </div>
+<script>
+$(document).ready(function(){
+    $('.tooltip').tooltip();
+});
+</script>
+
 <!-- ./wrapper -->
 </body>
 </html>

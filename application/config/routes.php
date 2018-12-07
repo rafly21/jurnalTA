@@ -69,7 +69,10 @@ $route['jurnal/submit_jurnal'] = 'jurnal/submitJurnal';
 $route['jurnal/edit_jurnal/(:num)'] = 'jurnal/edit_jurnal/$1';
 $route['jurnal/update_jurnal/(:num)'] = 'jurnal/update_jurnal/$1';
 $route['jurnal/delete/(:num)'] = 'jurnal/delete_jurnal/$1';
-$route['jurnal_guest'] = 'jurnal_guest';
+// $route['jurnal_guest'] = 'jurnal_guest';
+$route['jurnal_guest/(:any)'] = 'jurnal_guest/index/$1';
+$route['jurnal/filter'] = 'jurnal/index';
+
 
 
 
@@ -108,29 +111,8 @@ $route['dept/update_dept'] = 'departemen/update_departemen';
 $route['dept/delete_dept/(:num)'] = 'departemen/delete_departemen/$1';
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$route['pengelola/edit_jurnal/(:num)'] = 'jurnal_pengelola/edit_jurnal/$1';
+$route['pengelola/update_jurnal/(:num)'] = 'jurnal_pengelola/update_jurnal/$1';
 
 
 

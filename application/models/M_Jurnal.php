@@ -107,12 +107,65 @@ class M_Jurnal extends CI_Model{
 		}
 	}
 
-	function tampil_data() {
+	function tampil_data($filter=null) {
+		if($filter !== null) {
+			 // $this->db->join('bulan_penerbitan bp', 'bp.id_jurnal = j.id_jurnal');
+			 // $this->db->join('jurnal_pengindeks jp', 'jp.id_jurnal = j.id_jurnal');
+			 // $this->db->join('pengindeks pn', 'pn.id_pengindeks = jp.id_pengindeks');
+
+			 if($filter['portal'] !== null) {
+				  $this->db->where('j.id_portal', $filter['portal']);
+			 }
+			 if($filter['akreditasi'] !== null) {
+				  $this->db->where('j.peringkat_sinta', $filter['akreditasi']);
+			 }
+			 // if(isset($filter['penerbit'])) {
+				//   $this->db->where('id_portal', $filter['penerbit']);
+			 // }
+			 if($filter['tahun_mulai'] !== null) {
+				  $this->db->where('j.thn_mulai', $filter['tahun_mulai']);
+			 }
+			 if($filter['blnterbit'] !== null) {
+				 $this->db->join('bulan_penerbitan bp', 'bp.id_jurnal = j.id_jurnal');
+				  $this->db->where_in('bp.bulan_terbit', $filter['blnterbit']);
+			 }
+			 if($filter['bahasa'] !== null) {
+				  $this->db->where('j.english', $filter['bahasa']);
+			 }
+			 if($filter['pengindeks'] !== null) {
+				 $this->db->join('jurnal_pengindeks jp', 'jp.id_jurnal = j.id_jurnal');
+				  $this->db->where_in('jp.id_pengindeks', $filter['pengindeks']);
+			 }
+
+		}
+		$this->db->distinct();
 		$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');
 		$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
 		$this->db->order_by('j.id_jurnal','asc');
 		return $this->db->get('jurnal j')->result();
 	}
+	function tampil_dataacr()
+	{
+		$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');
+		$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
+		$this->db->join('sk_jurnal sj', 'sj.id_jurnal = j.id_jurnal');
+
+		// $this->db->where('j.id_jurnal', $id);
+
+		$this->db->order_by('j.id_jurnal','asc');
+
+		return $this->db->get('jurnal j')->result();
+	}
+
+	function tampil_data_eng()
+	{
+		$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');
+		$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
+		$this->db->order_by('j.id_jurnal','asc');
+		$this->db->where('english',1);
+		return $this->db->get('jurnal j')->result();
+	}
+
 	function detail_data($id){
 		// $this->db->select()
 		$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');

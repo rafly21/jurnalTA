@@ -18,7 +18,7 @@
               <h4><i class="icon fa fa-check"></i> Sukses !</h4>
               <?= $this->session->flashdata('success_msg') ?>
             </div>
-        <?php endif ?> 
+        <?php endif ?>
         <?php if($this->session->flashdata('error_msg')) : ?>
           <div class="alert alert-danger alert-dismissible" style="margin-bottom:10px;">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -33,7 +33,7 @@
               <small>EJournal Universitas Diponegoro</small>
             </h1>
             <ol class="breadcrumb">
-              <li><a href="Manajemen"><i class="fa fa-dashboard"></i> Home</a></li>
+              <li><a href="<?php echo base_url('/jurnal'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
               <li class="active">Jurnal Terdaftar </li>
             </ol>
           </section>
@@ -42,10 +42,12 @@
         </div>
       </head>
       <section class="content">
-            <a href="<?php echo base_url('./jurnal/add_jurnal'); ?>" class="btn btn-success"><b>Tambah Jurnal</b></a>
+        <a href="<?php echo base_url('./jurnal/add_jurnal'); ?>" class="btn btn-success"><b>Tambah Jurnal</b></a>
+        <button id="toggle-filter" class="btn btn-primary" data-action="show"><b>Filter Jurnal</b></button>
       </br>
       </br>
-      <table id="tableuser" class="table table-bordered table-striped scroll" style="background-color:white;">
+      <?php $filter = array('fakultas' => $fakultas,'portal' => $portal, 'pengindeks' => $pengindeks  ); $this->load->view('manajemen/v_filter', $filter); ?>
+      <table id="tes1" class="table table-bordered table-striped scroll" style="background-color:white;">
       <thead>
         <tr>
           <th>No.</th>
@@ -135,7 +137,7 @@
                           URL Portal
                       </label>
                       <label class="col-sm-8">
-                          <?=$detail->base_url.'/'.$detail->url?>
+                          <?=$detail->base_url.$detail->url?>
                       </label>
                   </div>
                   <div class="row">

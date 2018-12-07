@@ -206,6 +206,11 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/select2/dist/js/select2.full.min.js"></script>
+
+<!-- DataTables -->
+<script src="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
 <!-- FastClick -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
@@ -215,10 +220,12 @@
 <!-- jvectormap  -->
 <script src="<?php echo base_url('assets/template/back/plugins') ?>/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="<?php echo base_url('assets/template/back/plugins') ?>/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+
 <!-- SlimScroll -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- ChartJS -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/Chart.js/Chart.js"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="<?php echo base_url('assets/template/back/dist') ?>/js/pages/dashboard2.js"></script> -->
 <!-- AdminLTE for demo purposes -->
@@ -233,6 +240,28 @@ $(document).ready(function() {
     removeFieldPengindeks();
     $(document).on('change', '#penerbit', function() {
         getPenerbit();
+    });
+    $(document).on('change', '#select-portal', function(e) {
+        showPortalHelpBlock();
+    });
+    $('#tes1').dataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+    });
+    $('#toggle-filter').click(function() {
+        var widget = $('#filter-box-widget'),
+            action = $(this).attr('data-action');
+        if(action === 'show') {
+          widget.slideDown(300);
+          $(this).attr('data-action', 'hide');
+        } else {
+          widget.slideUp(300);
+          $(this).attr('data-action', 'show');
+        }
     });
 });
 
@@ -254,7 +283,7 @@ function getPenerbit() {
 
 function showFormAkreditasi() {
     var radioBtn = $('.radio-akreditasi'),
-        elem = '<div class="form-group"><label for="#" class="col-sm-2 control-label">SK Akreditasi : </label><div class="col-md-9"><select class="form-control select2" name="sk" data-placeholder="SK" id="sk" required><option>-- Pilih SK --</option><?php foreach ($sk as $s){?><option value="<?=$s->id_sk?>"><?=$s->no_sk?></option><?php  } ?></select></div></div><div class="form-group"><label for="#" class="col-sm-2 control-label">Peringkat SINTA : </label><div class="col-md-9"><input class="form-control" name="peringkatsinta" value="<?=set_value('peringkatsinta')?>" placeholder="Peringkat Sinta" type="text" required/><?php if(form_error('peringkatsinta')) : ?><div class="alert alert-danger alert-dismissible" style="margin-top:10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><?php echo form_error('peringkatsinta'); ?></div><?php endif ?></div></div>';
+        elem = '<div class="form-group"><label for="#" class="col-sm-2 control-label">SK Akreditasi : </label><div class="col-md-9"><select class="form-control select2" name="sk" data-placeholder="SK" id="sk" required><option>-- Pilih SK --</option><?php if(isset($sk)) {foreach ($sk as $s){?><option value="<?=$s->id_sk?>"><?=$s->no_sk?></option><?php  }} ?></select></div></div><div class="form-group"><label for="#" class="col-sm-2 control-label">Peringkat SINTA : </label><div class="col-md-9"><input class="form-control" name="peringkatsinta" value="<?=set_value('peringkatsinta')?>" placeholder="Peringkat Sinta" type="text" required/><?php if(form_error('peringkatsinta')) : ?><div class="alert alert-danger alert-dismissible" style="margin-top:10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><?php echo form_error('peringkatsinta'); ?></div><?php endif?></div></div>';
     radioBtn.on('change', function(){
         if ($('#aky').is(':checked')) {
             // $('#akreditasi').removeClass('hidden');
@@ -264,6 +293,19 @@ function showFormAkreditasi() {
             $('#akreditasi').empty();
         }
     });
+}
+
+function showPortalHelpBlock() {
+    var portalOpt = $('#select-portal'),
+        isOther = portalOpt.val() === '4' ? true : false,
+        help = $('#portal-help');
+
+      help.empty();
+      if(isOther) {
+         help.html("Mohon isikan full URL, contoh <b>https://ejournal.undip.ac.id/index.php/medianers</b>.");
+      } else {
+        help.html("Cukup diisi slash terakhir, contoh https://ejournal.undip.ac.id/index.php/medianers, cukup ditulis <b>'medianers'</b> saja ");
+      }
 }
 
 // function appendFieldPengindex() {

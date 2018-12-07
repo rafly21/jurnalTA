@@ -15,6 +15,8 @@
 
 
   <link rel="stylesheet" href="<?php echo base_url('assets/template/back/bower_components') ?>/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
 
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/template/back/dist') ?>/css/AdminLTE.min.css">
@@ -28,7 +30,7 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  
+
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
