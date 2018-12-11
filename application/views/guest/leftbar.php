@@ -69,6 +69,13 @@
           <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> FAQ</a></li>
         </ul>
       </li>
+      <li>
+        <a href="<?php echo base_url ('jurnal/grafik') ?>">
+          <i class="fa fa-th"></i> <span>Jurnal Dalam Grafik</span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+      </li>
     </ul>
 
 

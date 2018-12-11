@@ -54,12 +54,12 @@
               <!-- /.row -->
             </li>
             <!-- Menu Footer-->
-            <li class="user-footer">
+            <!-- <li class="user-footer">
 
               <div class="pull-right">
                 <a href="/JurnalTA/logout" class="btn btn-default btn-flat">Sign out</a>
               </div>
-            </li>
+            </li> -->
           </ul>
         </li>
         <!-- Control Sidebar Toggle Button -->

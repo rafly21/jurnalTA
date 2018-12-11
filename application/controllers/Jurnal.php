@@ -46,6 +46,12 @@ class Jurnal extends CI_Controller {
 		// echo json_encode($data);
 		$this->load->view('manajemen/v_jurnal',$data);
 	}
+	public function grafikJurnal(){
+
+
+		$this->load->view('manajemen/grafik');
+
+	}
 	public function submitJurnal(){
 		$this->form_validation->set_rules('judul', 'Judul Jurnal', 'required');
 		$this->form_validation->set_rules('nomorjurnal', 'Nomor Jurnal', 'required|numeric');

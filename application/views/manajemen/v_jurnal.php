@@ -77,8 +77,9 @@
           $detail = $this->M_Jurnal->detail_data($a->id_jurnal);
           $bulan_terbit = $this->M_Jurnal->getBulanTerbit($a->id_jurnal);
           $skJurnal = $this->M_Jurnal->getSkJurnal($a->id_jurnal);
+          $riwayatsk = $this->M_Jurnal->getSkJurnal($a->id_jurnal , true );
 
-          // var_dump($pengindeks);
+          // var_dump(count($riwayatsk));
         ?>
         <tr>
           <td><?php echo $no++ ?></td>
@@ -92,7 +93,11 @@
             <a href="<?php echo base_url('jurnal/edit_jurnal/'.$a->id_jurnal); ?>" class="btn btn-sm btn-info"><b>Edit</b></a>
 
             <a href="#mDelJurnal<?=$a->id_jurnal?>" data-toggle='modal' data-target='#mDelJurnal<?=$a->id_jurnal?>' class="btn btn-danger"><b>Delete</b></a>
-            <a href="<?php echo base_url('#'); ?>" class="btn btn-sm btn-warning"><b>Riwayat SK</b></a>
+            <?php if (empty($skJurnal)){ ?>
+              <span class="btn btn-sm btn-warning disabled" disabled><b>Riwayat SK</b></span>
+            <?php } else {?>
+            <a href="#mRiwayatSK<?=$a->id_jurnal?>" data-toggle='modal' data-target='#mRiwayatSK<?=$a->id_jurnal?>' class="btn btn-sm btn-warning"><b>Riwayat SK</b></a>
+          <?php } ?>
 
 
 
@@ -283,6 +288,7 @@
                       </label>
                   </div>
 
+
                </div>
               <div class="modal-footer">
                 <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>
@@ -290,6 +296,43 @@
             </div>
           </div>
           </div>
+          <div class="modal fade" id="mRiwayatSK<?=$a->id_jurnal?>" style="padding-right: 17px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Riwayat SK <?=$a->judul?> </h4>
+              </div>
+              <div class="modal-body">
+                <div class="row" style="margin-bottom:1rem;">
+                    <label class="col-sm-4">
+                        Last Update : <?=$riwayatsk[0]->tanggal_mulai?>
+                    </label>
+                    <a href="#" class="btn btn-primary pull-right" style="margin-right:15px">Perbarui SK</a>
+                </div>
+                <div class="row" style="padding-left:15px; padding-right:15px; font-weight:bold;">
+                  <div class="col-xs-3" style="border: 1px solid #acacac; padding:10px;">Riwayat SK</div>
+                  <div class="col-xs-3" style="border: 1px solid #acacac; padding:10px;">Nomor SK</div>
+                  <div class="col-xs-3" style="border: 1px solid #acacac; padding:10px;">Tanggal Mulai</div>
+                  <div class="col-xs-3" style="border: 1px solid #acacac; padding:10px;">Tanggal Berakhir</div>
+                </div>
+                <?php
+                // var_dump($data);
+                $n= count($riwayatsk);
+                foreach($riwayatsk as $key => $a) {?>
+                  <div class="row" style="padding-left:15px; padding-right:15px; font-weight:bold;">
+                    <div class="col-xs-3" style="padding:10px;"><?php echo $key === 0 ? "SK Terbaru" : "SK ke-".$n ?></div>
+                    <div class="col-xs-3" style="padding:10px;"><?php echo $a->no_sk ?></div>
+                    <div class="col-xs-3" style="padding:10px;"><?php echo $a->tanggal_mulai ?></div>
+                    <div class="col-xs-3" style="padding:10px;"><?php echo $a->tanggal_berakhir ?></div>
+                  </div>
+                <?php $n--; } ?>
+              </div>
+              <div class="modal-footer">
+                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">tutup</button>
+              </div>
+            </div>
+          </div>
+        </div>
           <div class="modal fade" id="mDelJurnal<?=$a->id_jurnal?>" style="padding-right: 17px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -300,12 +343,13 @@
                 <p> yakin mau hapus jurnal <?php echo $a->judul ?> ? </p>
               </div>
               <div class="modal-footer">
-                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>
+                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">tutup</button>
                 <a href="<?php echo base_url('jurnal/delete_jurnal/'.$a->id_jurnal);?>" class="btn btn-danger"><b>Delete</b></a>
               </div>
             </div>
           </div>
           </div>
+
         <?php } ?>
       </tbody>
       </table>

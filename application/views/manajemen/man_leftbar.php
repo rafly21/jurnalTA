@@ -70,18 +70,12 @@
 
         </ul>
       </li>
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-bar-chart"></i> <span>Jurnal Dalam Grafik </span>
+      <li>
+        <a href="<?php echo base_url ('jurnal/grafik') ?>">
+          <i class="fa fa-th"></i> <span>Jurnal Dalam Grafik</span>
           <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-circle-o"></i> ____________</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> ____________</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> ____________</a></li>
-        </ul>
       </li>
       <li class="treeview">
         <a href="#">
