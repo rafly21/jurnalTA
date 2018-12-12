@@ -73,6 +73,10 @@ $route['jurnal/delete/(:num)'] = 'jurnal/delete_jurnal/$1';
 $route['jurnal_guest/(:any)'] = 'jurnal_guest/index/$1';
 $route['jurnal/filter'] = 'jurnal/index';
 $route['jurnal/grafik'] = 'jurnal/grafikJurnal';
+$route['jurnal/riwayat/(:num)'] = 'jurnal/riwayatSK/$1';
+$route['jurnal/riwayat/create'] = 'jurnal/perbaruiSK';
+
+
 
 
 

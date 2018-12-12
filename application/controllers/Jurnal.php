@@ -318,13 +318,13 @@ class Jurnal extends CI_Controller {
 				}
 				// var_dump($dataPengindeks);
 				// die();
-
 				$is_akreditasi = $this->input->post('akreditasi');
 				if($is_akreditasi === "true") {
+					$skjr = $this->M_Jurnal->getSkJurnal($id);
 					$dataSK = array(
 						'id_sk' => $this->input->post('sk'),
 					);
-					$result .=	$this->M_Jurnal->updateSkJurnal($dataSK,'id_jurnal',$id);
+					$result .=	$this->M_Jurnal->updateSkJurnal($dataSK,'id_sk_jurnal',$skjr->id_sk_jurnal);
 				} else {
 					$skjr = $this->M_Jurnal->getSkJurnal($id);
 					if(!empty($skjr)) {
@@ -393,6 +393,39 @@ class Jurnal extends CI_Controller {
 		} else {
 			return true;
 		}
+	}
+	public function riwayatSK($jurnal){
+		$data['riwayatsk'] = $this->M_Jurnal->getSkJurnal($jurnal, true);
+		$data['sk']		  = $this->M_Jurnal->tampil_sk();
+		$data['jurnal'] = $jurnal;
+
+		$this->load->view('manajemen/v_riwayat', $data);
+
+
+	}
+	public function perbaruiSK(){
+		$this->form_validation->set_rules('sk', 'NO SK', 'required');
+    if ($this->form_validation->run()== FALSE)
+    {
+      $this->riwayatSK();
+    }
+    else
+    {
+      $data = array(
+          'id_sk' => $this->input->post('sk'),
+					'id_jurnal' => $this->input->post('jurnal')
+        );
+        $result=$this->M_Jurnal->addSkJurnal($data);
+        if ($result) {
+            $this->session->set_flashdata('success_msg', 'SK berhasil diperbarui');
+        } else {
+            $this->session->set_flashdata('error_msg', 'Gagal memperbarui sk. Silahkan coba lagi atau hubungi administrator');
+        }
+
+        redirect('jurnal/riwayat/'.$data['id_jurnal']);
+    }
+
+
 	}
 	// // public function detail_jurnal($id)
 	// {
