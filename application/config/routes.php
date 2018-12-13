@@ -75,6 +75,9 @@ $route['jurnal/filter'] = 'jurnal/index';
 $route['jurnal/grafik'] = 'jurnal/grafikJurnal';
 $route['jurnal/riwayat/(:num)'] = 'jurnal/riwayatSK/$1';
 $route['jurnal/riwayat/create'] = 'jurnal/perbaruiSK';
+$route['jurnal_guest/riwayat/(:num)'] = 'jurnal_guest/riwayatSK/$1';
+$route['jurnal_guest/riwayat/create'] = 'jurnal_guest/perbaruiSK';
+
 
 
 

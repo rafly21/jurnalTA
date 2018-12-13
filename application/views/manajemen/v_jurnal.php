@@ -1,3 +1,4 @@
+<?php //var_dump($pengindeks); die; ?>
 <!DOCTYPE html>
 <html>
  <?php $this->load->view('manajemen/man_head')?>
@@ -44,9 +45,18 @@
       <section class="content">
         <a href="<?php echo base_url('./jurnal/add_jurnal'); ?>" class="btn btn-success"><b>Tambah Jurnal</b></a>
         <button id="toggle-filter" class="btn btn-primary" data-action="show"><b>Filter Jurnal</b></button>
+        <div class="pull-right">
+          <label for="">Export ke : </label>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default" id="export-csv">CSV</button>
+            <button type="button" class="btn btn-success" id="export-excel">Excel</button>
+            <!-- <button type="button" class="btn btn-danger" id="export-pdf">Pdf</button>
+            <button type="button" class="btn btn-primary" id="export-print">Print</button> -->
+          </div>
+        </div>
       </br>
       </br>
-      <?php $filter = array('fakultas' => $fakultas,'portal' => $portal, 'pengindeks' => $pengindeks  ); $this->load->view('manajemen/v_filter', $filter); ?>
+      <?php $filter = array('fakultas' => $fakultas,'portal' => $portal, 'pengindeks' => $indeks  ); $this->load->view('manajemen/v_filter', $filter); ?>
       <table id="tes1" class="table table-bordered table-striped scroll" style="background-color:white;">
       <thead>
         <tr>
@@ -355,6 +365,9 @@
       // var_dump($data1);
       ?><br><?php
        ?>
+       <div class="table-responsive">
+         <?php $this->load->view('manajemen/tabel_download', ['data' => $data, 'indeks' => $indeks])?>
+       </div>
 
       </section>
   </div>

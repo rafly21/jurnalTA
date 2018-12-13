@@ -33,7 +33,7 @@ class Jurnal extends CI_Controller {
 
 		$data['portal'] = $this->M_Jurnal->getPortal();
 		$data['fakultas'] = $this->M_Jurnal->getFakultas();
-		$data['pengindeks'] = $this->M_Jurnal->getPengindeks();
+		$data['indeks'] = $this->M_Jurnal->getPengindeks();
 
 
 

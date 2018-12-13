@@ -16,6 +16,7 @@
 
   <link rel="stylesheet" href="<?php echo base_url('assets/template/back/bower_components') ?>/select2/dist/css/select2.min.css">
   <link rel="stylesheet" href="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" >
 
 
   <!-- Theme style -->

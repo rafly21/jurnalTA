@@ -210,7 +210,13 @@
 <!-- DataTables -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
@@ -251,6 +257,35 @@ $(document).ready(function() {
       'ordering'    : true,
       'info'        : true,
       'autoWidth'   : true,
+      // dom: 'Bfrtip',
+      // buttons: [
+      //     'copy', 'csv', 'excel', 'pdf', 'print'
+      // ]
+    });
+    $('#download').wrap('<div id="hide" style="display:none;"/>')
+    var downloadTable = $('#download').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+      ]
+    });
+    $('#export-csv').on('click', function(e) {
+        downloadTable.button(".buttons-csv").trigger();
+    });
+    $('#export-excel').on('click', function(e) {
+        downloadTable.button(".buttons-excel").trigger();
+    });
+    $('#export-pdf').on('click', function(e) {
+        downloadTable.button(".buttons-pdf").trigger();
+    });
+    $('#export-print').on('click', function(e) {
+        downloadTable.button(".buttons-print").trigger();
     });
     $('#toggle-filter').click(function() {
         var widget = $('#filter-box-widget'),

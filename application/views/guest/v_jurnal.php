@@ -77,7 +77,7 @@
             <?php if (empty($skJurnal)){ ?>
               <span class="btn btn-sm btn-warning disabled" disabled><b>Riwayat SK</b></span>
             <?php } else {?>
-            <a href="#mRiwayatSK<?=$a->id_jurnal?>" data-toggle='modal' data-target='#mRiwayatSK<?=$a->id_jurnal?>' class="btn btn-sm btn-warning"><b>Riwayat SK</b></a>
+              <a href="<?php echo base_url('jurnal_guest/riwayat/'.$a->id_jurnal); ?>" class="btn btn-sm btn-warning"><b>Riwayat SK</b></a>
             <?php } ?>
 
 
