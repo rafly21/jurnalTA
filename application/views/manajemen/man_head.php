@@ -15,6 +15,9 @@
 
 
   <link rel="stylesheet" href="<?php echo base_url('assets/template/back/bower_components') ?>/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css" >
+
 
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/template/back/dist') ?>/css/AdminLTE.min.css">
@@ -28,10 +31,15 @@
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-  
+
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style type="text/css">
+      span.select2-selection.select2-selection--single < span#select2-hiya-container {
+        height: 70px;
+      }
+  </style>
 </head>
 
 <!-- MODAL POPUP start -->

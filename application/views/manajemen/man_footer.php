@@ -1,3 +1,4 @@
+<?php //var_dump($gFakultas) ?>
 <footer class="main-footer">
   <div class="pull-right hidden-xs">
     <b>Version</b> 2.4.0
@@ -206,6 +207,17 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/select2/dist/js/select2.full.min.js"></script>
+
+<!-- DataTables -->
+<script src="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
@@ -215,16 +227,21 @@
 <!-- jvectormap  -->
 <script src="<?php echo base_url('assets/template/back/plugins') ?>/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="<?php echo base_url('assets/template/back/plugins') ?>/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+
 <!-- SlimScroll -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- ChartJS -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/Chart.js/Chart.js"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="<?php echo base_url('assets/template/back/dist') ?>/js/pages/dashboard2.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/template/back/dist') ?>/js/demo.js"></script>
 <script>
 $(document).ready(function() {
+    var graphData = '<?=isset($graphData) ? $graphData : null?>'
+    var graphData2 = '<?=isset($graphData2) ? $graphData2 : null?>'
+    // console.log(jajajaja);
     $('#myModal').modal('show');
     getPenerbit();
     $('.select2').select2();
@@ -234,6 +251,96 @@ $(document).ready(function() {
     $(document).on('change', '#penerbit', function() {
         getPenerbit();
     });
+    $(document).on('change', '#select-portal', function(e) {
+        showPortalHelpBlock();
+    });
+    $('#tes1').dataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      // dom: 'Bfrtip',
+      // buttons: [
+      //     'copy', 'csv', 'excel', 'pdf', 'print'
+      // ]
+    });
+    $('#download').wrap('<div id="hide" style="display:none;"/>')
+    var downloadTable = $('#download').DataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+      ]
+    });
+    $('#export-csv').on('click', function(e) {
+        downloadTable.button(".buttons-csv").trigger();
+    });
+    $('#export-excel').on('click', function(e) {
+        downloadTable.button(".buttons-excel").trigger();
+    });
+    $('#export-pdf').on('click', function(e) {
+        downloadTable.button(".buttons-pdf").trigger();
+    });
+    $('#export-print').on('click', function(e) {
+        downloadTable.button(".buttons-print").trigger();
+    });
+    $('#toggle-filter').click(function() {
+        var widget = $('#filter-box-widget'),
+            action = $(this).attr('data-action');
+        if(action === 'show') {
+          widget.slideDown(300);
+          $(this).attr('data-action', 'hide');
+        } else {
+          widget.slideUp(300);
+          $(this).attr('data-action', 'show');
+        }
+    });
+
+
+    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+    var pieChart       = new Chart(pieChartCanvas)
+    var PieData        = JSON.parse(graphData)
+    var pieOptions     = {
+      //Boolean - Whether we should show a stroke on each segment
+      segmentShowStroke    : true,
+      //String - The colour of each segment stroke
+      segmentStrokeColor   : '#fff',
+      //Number - The width of each segment stroke
+      segmentStrokeWidth   : 2,
+      //Number - The percentage of the chart that we cut out of the middle
+      percentageInnerCutout: 50, // This is 0 for Pie charts
+      //Number - Amount of animation steps
+      animationSteps       : 100,
+      //String - Animation easing effect
+      animationEasing      : 'easeOutBounce',
+      //Boolean - Whether we animate the rotation of the Doughnut
+      animateRotate        : true,
+      //Boolean - Whether we animate scaling the Doughnut from the centre
+      animateScale         : false,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive           : true,
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio  : true,
+      //String - A legend template
+      legendTemplate       : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<segments.length; i++){%><li><span style="background-color:<%=segments[i].fillColor%>"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>'
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    pieChart.Doughnut(PieData, pieOptions);
+
+    var pieChartCanvas2 = $('#pieChart2').get(0).getContext('2d')
+    var pieChart2       = new Chart(pieChartCanvas2)
+    var PieData2        = JSON.parse(graphData2)
+
+    pieChart2.Doughnut(PieData2, pieOptions);
+
 });
 
 function getPenerbit() {
@@ -254,7 +361,7 @@ function getPenerbit() {
 
 function showFormAkreditasi() {
     var radioBtn = $('.radio-akreditasi'),
-        elem = '<div class="form-group"><label for="#" class="col-sm-2 control-label">SK Akreditasi : </label><div class="col-md-9"><select class="form-control select2" name="sk" data-placeholder="SK" id="sk" required><option>-- Pilih SK --</option><?php foreach ($sk as $s){?><option value="<?=$s->id_sk?>"><?=$s->no_sk?></option><?php  } ?></select></div></div><div class="form-group"><label for="#" class="col-sm-2 control-label">Peringkat SINTA : </label><div class="col-md-9"><input class="form-control" name="peringkatsinta" value="<?=set_value('peringkatsinta')?>" placeholder="Peringkat Sinta" type="text" required/><?php if(form_error('peringkatsinta')) : ?><div class="alert alert-danger alert-dismissible" style="margin-top:10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><?php echo form_error('peringkatsinta'); ?></div><?php endif ?></div></div>';
+        elem = '<div class="form-group"><label for="#" class="col-sm-2 control-label">SK Akreditasi : </label><div class="col-md-9"><select class="form-control select2" name="sk" data-placeholder="SK" id="sk" required><option>-- Pilih SK --</option><?php if(isset($sk)) {foreach ($sk as $s){?><option value="<?=$s->id_sk?>"><?=$s->no_sk?></option><?php  }} ?></select></div></div><div class="form-group"><label for="#" class="col-sm-2 control-label">Peringkat SINTA : </label><div class="col-md-9"><input class="form-control" name="peringkatsinta" value="<?=set_value('peringkatsinta')?>" placeholder="Peringkat Sinta" type="text" required/><?php if(form_error('peringkatsinta')) : ?><div class="alert alert-danger alert-dismissible" style="margin-top:10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><?php echo form_error('peringkatsinta'); ?></div><?php endif?></div></div>';
     radioBtn.on('change', function(){
         if ($('#aky').is(':checked')) {
             // $('#akreditasi').removeClass('hidden');
@@ -264,6 +371,19 @@ function showFormAkreditasi() {
             $('#akreditasi').empty();
         }
     });
+}
+
+function showPortalHelpBlock() {
+    var portalOpt = $('#select-portal'),
+        isOther = portalOpt.val() === '4' ? true : false,
+        help = $('#portal-help');
+
+      help.empty();
+      if(isOther) {
+         help.html("Mohon isikan full URL, contoh <b>https://ejournal.undip.ac.id/index.php/medianers</b>.");
+      } else {
+        help.html("Cukup diisi slash terakhir, contoh https://ejournal.undip.ac.id/index.php/medianers, cukup ditulis <b>'medianers'</b> saja ");
+      }
 }
 
 // function appendFieldPengindex() {
@@ -312,4 +432,26 @@ function convertToSlug(Text)
 {
     return Text.toLowerCase().replace(/ /g,'_').replace(/[^\w-]+/g,'');
 }
+
+$(document).ready(function(){
+  function formatOption (option) {
+    console.log(option.element);
+    var imgsrc = $(option.element).data('img');
+    // console.log(imgsrc);
+    if (!option.id || option.id <= 0) { return option.text; }
+    var ob = '<img width="50" src="'+imgsrc+'"/>&nbsp;&nbsp;' +option.text;	// replace image source with option.img (available in JSON)
+    return ob;
+  };
+
+  $(".select2jurnal").select2({
+    // height:'resolve',
+    templateResult: formatOption,
+    templateSelection: formatOption,
+    escapeMarkup: function (m) {
+      return m;
+    }
+  });
+  $('#select2-hiya-container').parent().css("height", "70px");
+  $('#select2-hiya-container').css("padding-top", "7px");
+});
 </script>

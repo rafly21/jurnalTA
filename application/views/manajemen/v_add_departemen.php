@@ -25,8 +25,14 @@
     </head>
     <section class="content">
 
+      <form class="form-horizontal" action="<?php echo base_url()?>dept">
+          <div class="box-header with-border">
+            <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
+            <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
+          </div>
+        </form>
 
-       <form class="form-horizontal" action="<?php echo base_url("dept/tambah_dept")?>" method="post">
+       <form class="form-horizontal" action="<?php echo base_url("dept/insert_dept")?>" method="post">
                     <div class="form-group">
                       <label for="judul" class="col-sm-2 control-label">Nama Departemen : </label>
                       <div class="col-md-9">

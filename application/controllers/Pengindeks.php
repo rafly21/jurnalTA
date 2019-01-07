@@ -135,7 +135,7 @@ class Pengindeks extends CI_Controller {
       'tingkatan' => $this->input->post('tingkatan'),
       'grade' => $grade
 );
-    $result = $this->M_Jurnal->update_pengindeks($id,$data);
+    $result = $this->M_Jurnal->update_pengindeks($data,'id_pengindeks',$id);
     if ($result) {
         $this->session->set_flashdata('success_msg', 'Pengindeks berhasil diiupdate');
     } else {
