@@ -13,8 +13,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Homepage
-      <small>it all starts here</small>
+      SELAMAT DATANG LPPM
   </h1>
   <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -35,7 +34,6 @@
           </div>
       </div>
       <div class="box-body">
-          Start creating your amazing application!
       </div><!-- /.box-body -->
       <div class="box-footer">
           Footer

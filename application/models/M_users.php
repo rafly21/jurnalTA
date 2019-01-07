@@ -8,7 +8,8 @@ class M_users extends CI_Model{
 		auth.username AS username,
 		data_pengelola.nama AS nama,
 		data_pengelola.email AS email,
-		data_pengelola.no_telp AS telepon
+		data_pengelola.no_telp AS telepon,
+		data_pengelola.foto AS foto
 		FROM auth JOIN data_pengelola
 		ON auth.id_user = data_pengelola.id_user
 		WHERE permission = 'pengelola'
@@ -40,7 +41,13 @@ class M_users extends CI_Model{
 
   function update($data,$id){
   	$this->db->where('id_user', $id);
-  	$this->db->update('data_pengelola',$data);
+  	$a = $this->db->update('data_pengelola',$data);
+		if ($a) {
+			return true;
+		} else {
+			return false;
+		}
+
   }
 
 	function updatepassword($data,$id){

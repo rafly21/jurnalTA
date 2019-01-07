@@ -205,6 +205,10 @@
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url('assets/template/back/bower_components') ?>/select2/dist/js/select2.full.min.js"></script>
+
+<script src="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url('assets/template/back/bower_components') ?>/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
@@ -219,6 +223,121 @@
 <!-- ChartJS -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/Chart.js/Chart.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url('assets/template/back/dist') ?>/js/pages/dashboard2.js"></script>
+<!-- <script src="<?php echo base_url('assets/template/back/dist') ?>/js/pages/dashboard2.js"></script> -->
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/template/back/dist') ?>/js/demo.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#myModal').modal('show');
+    getPenerbit();
+    $('.select2').select2();
+    showFormAkreditasi();
+    appendFieldPengindex();
+    removeFieldPengindeks();
+    $(document).on('change', '#penerbit', function() {
+        getPenerbit();
+    });
+    $(document).on('change', '#select-portal', function(e) {
+        showPortalHelpBlock();
+    });
+    $('#tableuser').dataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+    })
+});
+
+function getPenerbit() {
+    $(document).on('change', '#penerbit', function() {
+        var penerbit = $('#penerbit').val(),
+            url = "<?= base_url('api')?>/"+penerbit;
+        var id = "<?=set_value('id_penerbit') ? set_value('id_penerbit') : ''?>";
+        if(penerbit !== '' || penerbit !== null) {
+          $.get(url, function(data) {
+              $('#auto-penerbit').empty();
+              $.each($.parseJSON(data), function(index, val){
+                  $('#auto-penerbit').append('<option value="'+val.id+'" '+(val.id == id ? "selected" : " ")+'>'+val.nama+'</option>');
+              });
+          });
+        }
+    });
+}
+
+function showFormAkreditasi() {
+    var radioBtn = $('.radio-akreditasi'),
+        elem = '<div class="form-group"><label for="#" class="col-sm-2 control-label">SK Akreditasi : </label><div class="col-md-9"><select class="form-control select2" name="sk" data-placeholder="SK" id="sk" required><option>-- Pilih SK --</option><?php if(isset($sk)) {foreach ($sk as $s){?><option value="<?=$s->id_sk?>"><?=$s->no_sk?></option><?php  }} ?></select></div></div><div class="form-group"><label for="#" class="col-sm-2 control-label">Peringkat SINTA : </label><div class="col-md-9"><input class="form-control" name="peringkatsinta" value="<?=set_value('peringkatsinta')?>" placeholder="Peringkat Sinta" type="text" required/><?php if(form_error('peringkatsinta')) : ?><div class="alert alert-danger alert-dismissible" style="margin-top:10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><?php echo form_error('peringkatsinta'); ?></div><?php endif?></div></div>';
+    radioBtn.on('change', function(){
+        if ($('#aky').is(':checked')) {
+            // $('#akreditasi').removeClass('hidden');
+            // $('#akreditasi').show();
+            $('#akreditasi').append(elem);
+        } else {
+            $('#akreditasi').empty();
+        }
+    });
+}
+
+function showPortalHelpBlock() {
+    var portalOpt = $('#select-portal'),
+        isOther = portalOpt.val() === '4' ? true : false,
+        help = $('#portal-help');
+
+      help.empty();
+      if(isOther) {
+         help.html("Mohon isikan full URL, contoh <b>https://ejournal.undip.ac.id/index.php/medianers</b>.");
+      } else {
+        help.html("Cukup diisi slash terakhir, contoh https://ejournal.undip.ac.id/index.php/medianers, cukup ditulis <b>'medianers'</b> saja ");
+      }
+}
+
+// function appendFieldPengindex() {
+//     var container = $('#field-pengindeks'),
+//         selector = $('#pengindeks');
+//
+//     $('#pengindeks').on('change', function() {
+//         var id = selector.val(),
+//             name = selector.find('option:selected').text(),
+//             name = name.split(' '),
+//             url = "";
+//
+//         // container.empty();
+//         $.each(id, function(index, val) {
+//           url = name[index];
+//         });
+//
+//         if($('#pengindex_'+url) <= 0) {
+//           container.append('<input class="form-control" name="url_pengindeks[]" id="pengindex_'+url+'" placeholder="URL '+url+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
+//         }
+//
+//     });
+// }
+function appendFieldPengindex() {
+    $('#pengindeks').on('select2:select', function(e) {
+        var name = e.params.data.text;
+        var id = convertToSlug("url pengindeks "+name),
+            index = convertToSlug(name);
+        $('#field-pengindeks').append('<input class="form-control" name="url_pengindeks['+index+']" id="'+id+'" placeholder="URL '+name+'" type="text" style="margin-top:5px; margin-bottom:5px;" />');
+    }).trigger('change');
+}
+function removeFieldPengindeks() {
+    $('#pengindeks').on('select2:unselect', function(e) {
+      var field = $('#field-pengindeks').find('input');
+          // name = name.split(' ');
+      var id = convertToSlug("url pengindeks "+e.params.data.text);
+      field.each(function() {
+          if($(this).attr('id') == id) {
+              $(this).remove();
+          }
+      });
+    }).trigger('change');
+}
+
+function convertToSlug(Text)
+{
+    return Text.toLowerCase().replace(/ /g,'_').replace(/[^\w-]+/g,'');
+}
+</script>

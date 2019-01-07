@@ -17,21 +17,26 @@
             Tambah Jurnal
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?php echo base_url()?>jurnal">Jurnal Terdaftar</a></li>
+            <li><a href="<?php echo base_url()?>jurnal"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Tambah Jurnal </li>
           </ol>
         </section>
       </div>
     </head>
     <section class="content">
-
+      <form class="form-horizontal" action="<?php echo base_url()?>jurnal">
+          <div class="box-header with-border">
+            <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
+            <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
+          </div>
+        </form>
 
        <form class="form-horizontal" action="<?php echo base_url('jurnal/submit_jurnal')?>" method="post">
           <div class="form-group">
             <label for="judul" class="col-sm-2 control-label">Judul : </label>
             <div class="col-md-9">
               <input class="form-control" name="judul" value="<?=set_value('judul')?>" placeholder="Judul" type="text" required/>
-              <?php if(form_error('nama')) : ?>
+              <?php if(form_error('judul')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <?php echo form_error('judul'); ?>
@@ -56,8 +61,8 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">Portal : </label>
             <div class="col-md-9">
-              <select class="form-control " name="portal" >
-                <option >-- Pilih Portal --</option>
+              <select class="form-control " name="portal" required id="select-portal">
+                <option value="0" selected>-- Pilih Portal --</option>
                 <?php foreach ($portal as $a){?>
                   <option value='<?=$a->id_portal?>' <?=set_value('portal') === $a->id_portal ? 'selected' : '';?>><?=$a->nama_portal?> </option>
                 <?php  } ?>
@@ -75,6 +80,7 @@
             <label for="inputpassword" class="col-sm-2 control-label">URL Portal : </label>
             <div class="col-md-9">
               <input class="form-control" name="urlportal" value="<?=set_value('urlportal')?>" placeholder="URL" type="text" required/>
+              <span class="help-block" id="portal-help"> </span>
               <?php if(form_error('urlportal')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -87,8 +93,8 @@
           <div class="form-group">
             <label for="inputpassword" class="col-sm-2 control-label">Penerbit : </label>
             <div class="col-md-9">
-              <select class="form-control" name="penerbit" id="penerbit">
-                <option >-- Pilih Penerbit --</option>
+              <select class="form-control" name="penerbit" id="penerbit" required>
+                <option value="kosong">-- Pilih Penerbit --</option>
                 <option value="fakultas" <?=set_value('penerbit') === 'fakultas' ? 'selected' : ''?>>Fakultas</option>
                 <option value="departemen" <?=set_value('penerbit') === 'departemen' ? 'selected' : ''?>>Departemen</option>
                 <option value="lab" <?=set_value('penerbit') === 'lab' ? 'selected' : ''?>>Lab</option>
@@ -101,8 +107,8 @@
                 </div>
               <?php endif ?>
               <br>
-              <select class="form-control select2" name="id_penerbit" id="auto-penerbit">
-                <option>-- pilih penerbit --</option>
+              <select class="form-control select2" name="id_penerbit" id="auto-penerbit" required>
+                <option value="0" selected>-- pilih penerbit --</option>
               </select>
               <?php if(form_error('id_penerbit')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
@@ -129,10 +135,10 @@
           <div class="form-group">
             <label for="inputpassword" class="col-sm-2 control-label">Pengelola : </label>
             <div class="col-md-9">
-              <select class="form-control select2" name="pengelola">
-                <option >-- Pilih Pengelola --</option>
+              <select class="form-control input-lg select2jurnal " name="pengelola" required id="hiya" style ='height:100px'>
+                <option value="0" selected>-- Pilih Pengelola --</option>
                 <?php foreach ($pengelola as $p){?>
-                  <option value='<?=$p->id_pengelola?>' <?=set_value('pengelola') === $p->id_pengelola ? 'selected' : ''?>><?=$p->nama?> </option>
+                  <option value='<?=$p->id_pengelola?>' <?=set_value('pengelola') === $p->id_pengelola ? 'selected' : ''?> data-img="<?=base_url($p->foto)?>"><?=$p->nama?> </option>
                 <?php  } ?>
               </select>
               <?php if(form_error('pengelola')) : ?>
@@ -193,7 +199,7 @@
                 </label>
                 &nbsp; &nbsp;
                 <label>
-                  <input type="radio" name="english"  value="0" <?=set_value('english') === "0" ? 'checked' : ''?>>
+                  <input type="radio" name="english"  value="0" <?=set_value('english') ? (set_value('english') === "0" ? 'checked' : '') : 'checked'?>>
                   TIDAK
                 </label>
               </div>
@@ -209,7 +215,7 @@
                   </label>
                   &nbsp; &nbsp;
                   <label>
-                    <input type="radio" name="mpgundip"  value="0" <?=set_value('mpgundip') === "0" ? 'checked' : ''?>>
+                    <input type="radio" name="mpgundip"  value="0" <?=set_value('english') ? (set_value('english') === "0" ? 'checked' : '') : 'checked'?>>
                     TIDAK
                   </label>
                 </div>
@@ -218,7 +224,7 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">DOI : </label>
             <div class="col-md-9">
-              <input class="form-control" name="doi" value="<?=set_value('doi')?>" placeholder="DOI" type="text" required/>
+              <input class="form-control" name="doi" value="<?=set_value('doi')?>" placeholder="DOI" type="text" />
               <?php if(form_error('doi')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -242,7 +248,7 @@
           <div class="form-group">
             <label for="inputpassword" class="col-sm-2 control-label">Bulan Terbit : </label>
             <div class="col-md-9">
-              <select class="form-control select2" name="blnterbit[]" multiple data-placeholder='Bulan Terbit' >
+              <select class="form-control select2" name="blnterbit[]" multiple data-placeholder='Bulan Terbit' required >
                 <option value="1">Januari</option>
                 <option value="2">Februari</option>
                 <option value="3">Maret</option>
@@ -252,9 +258,9 @@
                 <option value="7">Juli</option>
                 <option value="8">Agustus</option>
                 <option value="9">September</option>
-                <option value="10">>Oktober</option>
-                <option value="11">>November</option>
-                <option value="12">>Desember</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
               </select>
               <?php if(form_error('blnterbit[]')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
@@ -297,6 +303,12 @@
                   <option value='<?=$a->id_pengindeks?>'><?=$a->nama?></option>
                 <?php  } ?>
               </select>
+              <?php if(form_error('pengindeks[]')) : ?>
+                <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo form_error('pengindeks[]'); ?>
+                </div>
+              <?php endif ?>
             <div id="field-pengindeks"></div>
             </div>
           </div>
@@ -311,7 +323,7 @@
                 </label>
                 &nbsp; &nbsp;
                 <label>
-                  <input type="radio" class="radio-akreditasi" name="akreditasi" id="akn" value="false" <?=set_value('akreditasi') === "false" ? 'checked' : ''?>>
+                  <input type="radio" class="radio-akreditasi" name="akreditasi" id="akn" value="false" <?=set_value('akreditasi') ? (set_value('akreditasi') === "false" ? 'checked' : '') : 'checked'?>>
                   TIDAK
                 </label>
               </div>
@@ -321,7 +333,7 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">URL SINTA : </label>
             <div class="col-md-9">
-              <input class="form-control" name="urlsinta" value="<?=set_value('urlsinta')?>" placeholder="Url Sinta" type="text" required/>
+              <input class="form-control" name="urlsinta" value="<?=set_value('urlsinta')?>" placeholder="Url Sinta" type="text" />
               <span class="help-block">Contoh : http://sinta2.ristekdikti.go.id/journals/detail/?id=918</span>
               <?php if(form_error('urlsinta')) : ?>
                 <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">

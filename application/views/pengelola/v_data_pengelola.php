@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 
-   <?php $this->load->view('manajemen/man_head')?>
+   <?php $this->load->view('pengelola/p_head')?>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-  <?php $this->load->view('manajemen/man_header')?>
+  <?php $this->load->view('pengelola/p_header')?>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php $this->load->view('manajemen/man_leftbar')?>
+  <?php $this->load->view('pengelola/p_leftbar')?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
       <!-- Main content -->
@@ -43,7 +43,7 @@
     <?php } ?>
 
       <section class="content" >
-        <form class="form-horizontal" action="<?php echo base_url()?>kelola_pengelola">
+        <form class="form-horizontal" action="<?php echo base_url()?>pengelola">
             <div class="box-header with-border">
               <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
               <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
@@ -97,7 +97,7 @@
             </form>
           </section>
   </div>
-  <?php $this->load->view('manajemen/man_footer.php')?>
+  <?php $this->load->view('pengelola/p_footer.php')?>
 </div>
 <!-- ./wrapper -->
 </body>

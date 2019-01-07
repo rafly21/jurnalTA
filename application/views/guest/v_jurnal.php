@@ -1,32 +1,18 @@
-<?php //var_dump($pengindeks); die; ?>
 <!DOCTYPE html>
 <html>
- <?php $this->load->view('manajemen/man_head')?>
+ <?php $this->load->view('guest/head')?>
 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   <!-- Header -->
-  <?php $this->load->view('manajemen/man_header')?>
+  <?php $this->load->view('guest/header')?>
   <!-- Left side column. contains the logo and sidebar -->
-  <?php $this->load->view('manajemen/man_leftbar')?>
+  <?php $this->load->view('guest/leftbar')?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
       <!-- Main content -->
       <head>
-        <?php if($this->session->flashdata('success_msg')) : ?>
-            <div class="alert alert-success alert-dismissible" style="margin-bottom:10px;">
-              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <h4><i class="icon fa fa-check"></i> Sukses !</h4>
-              <?= $this->session->flashdata('success_msg') ?>
-            </div>
-        <?php endif ?>
-        <?php if($this->session->flashdata('error_msg')) : ?>
-          <div class="alert alert-danger alert-dismissible" style="margin-bottom:10px;">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-ban"></i> Gagal !</h4>
-            <?= $this->session->flashdata('error_msg') ?>
-          </div>
-        <?php endif ?>
+
         <div class="bar">
           <section class="content-header">
             <h1>
@@ -34,7 +20,7 @@
               <small>EJournal Universitas Diponegoro</small>
             </h1>
             <ol class="breadcrumb">
-              <li><a href="<?php echo base_url('/jurnal'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+              <li><a href="<?php echo base_url('Home'); ?>"><i class="fa fa-dashboard"></i> Home</a></li>
               <li class="active">Jurnal Terdaftar </li>
             </ol>
           </section>
@@ -43,21 +29,8 @@
         </div>
       </head>
       <section class="content">
-        <a href="<?php echo base_url('./jurnal/add_jurnal'); ?>" class="btn btn-success"><b>Tambah Jurnal</b></a>
-        <button id="toggle-filter" class="btn btn-primary" data-action="show"><b>Filter Jurnal</b></button>
-        <div class="pull-right">
-          <label for="">Export ke : </label>
-          <div class="btn-group">
-            <button type="button" class="btn btn-default" id="export-csv">CSV</button>
-            <button type="button" class="btn btn-success" id="export-excel">Excel</button>
-            <!-- <button type="button" class="btn btn-danger" id="export-pdf">Pdf</button>
-            <button type="button" class="btn btn-primary" id="export-print">Print</button> -->
-          </div>
-        </div>
-      </br>
-      </br>
-      <?php $filter = array('fakultas' => $fakultas,'portal' => $portal, 'pengindeks' => $indeks  ); $this->load->view('manajemen/v_filter', $filter); ?>
-      <table id="tes1" class="table table-bordered table-striped scroll" style="background-color:white;">
+
+      <table id="tableguest" class="table table-bordered table-striped scroll" style="background-color:white;">
       <thead>
         <tr>
           <th>No.</th>
@@ -89,7 +62,7 @@
           $skJurnal = $this->M_Jurnal->getSkJurnal($a->id_jurnal);
           $riwayatsk = $this->M_Jurnal->getSkJurnal($a->id_jurnal , true );
 
-          // var_dump(count($riwayatsk));
+          // var_dump($pengindeks);
         ?>
         <tr>
           <td><?php echo $no++ ?></td>
@@ -100,18 +73,17 @@
           <td>
             <span data-toggle="tooltip" title="Detail Jurnal" data-placement="top"><a href="#mDetailJurnal<?=$a->id_jurnal?>" data-toggle="modal" data-target="#mDetailJurnal<?=$a->id_jurnal?> " class="btn btn-sm btn-default "><i class="fa fa-bars" aria-hidden="true"></i></a></span>
 
-            <a href="<?php echo base_url('jurnal/edit_jurnal/'.$a->id_jurnal); ?>" class="btn btn-sm btn-info"><b>Edit Jurnal</b></a>
 
-            <a href="#mDelJurnal<?=$a->id_jurnal?>" data-toggle='modal' data-target='#mDelJurnal<?=$a->id_jurnal?>' class="btn btn-danger"><b>Delete</b></a>
             <?php if (empty($skJurnal)){ ?>
-              <span class="btn btn-sm btn-warning disabled" disabled><b>Perbarui SK</b></span>
+              <span class="btn btn-sm btn-warning disabled" disabled><b>Riwayat SK</b></span>
             <?php } else {?>
-            <a href="<?php echo base_url('jurnal/riwayat/'.$a->id_jurnal); ?>" class="btn btn-sm btn-warning"><b>Perbarui SK</b></a>
-          <?php } ?>
-
+              <a href="<?php echo base_url('jurnal_guest/riwayat/'.$a->id_jurnal); ?>" class="btn btn-sm btn-warning"><b>Riwayat SK</b></a>
+            <?php } ?>
 
 
           </td>
+
+
 
           </tr>
           <div class="modal fade" id="mDetailJurnal<?=$a->id_jurnal?>" style="padding-right: 17px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -150,7 +122,7 @@
                           URL Portal
                       </label>
                       <label class="col-sm-8">
-                          <?=$detail->base_url.$detail->url?>
+                          <?=$detail->base_url.'/'.$detail->url?>
                       </label>
                   </div>
                   <div class="row">
@@ -296,7 +268,6 @@
                       </label>
                   </div>
 
-
                </div>
               <div class="modal-footer">
                 <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>
@@ -341,23 +312,6 @@
             </div>
           </div>
         </div>
-          <div class="modal fade" id="mDelJurnal<?=$a->id_jurnal?>" style="padding-right: 17px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h4 class="modal-title">Hapus data</h4>
-              </div>
-              <div class="modal-body">
-                <p> yakin mau hapus jurnal <?php echo $a->judul ?> ? </p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">tutup</button>
-                <a href="<?php echo base_url('jurnal/delete_jurnal/'.$a->id_jurnal);?>" class="btn btn-danger"><b>Delete</b></a>
-              </div>
-            </div>
-          </div>
-          </div>
-
         <?php } ?>
       </tbody>
       </table>
@@ -365,14 +319,11 @@
       // var_dump($data1);
       ?><br><?php
        ?>
-       <div class="table-responsive">
-         <?php $this->load->view('manajemen/tabel_download', ['data' => $data, 'indeks' => $indeks])?>
-       </div>
 
       </section>
   </div>
 
-  <?php $this->load->view('manajemen/man_footer')?>
+  <?php $this->load->view('guest/footer')?>
 </div>
 <script>
 $(document).ready(function(){

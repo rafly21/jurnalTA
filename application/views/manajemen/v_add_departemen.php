@@ -14,28 +14,29 @@
       <div class="bar">
         <section class="content-header">
           <h1>
-            Edit Lembaga
+            Tambah Departemen
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="<?php echo base_url()?>lembaga">Lembaga</a></li>
+            <li><a href="<?php echo base_url()?>dept">Departemen</a></li>
           </ol>
         </section>
       </div>
     </head>
     <section class="content">
-      <form class="form-horizontal" action="<?php echo base_url()?>lembaga">
+
+      <form class="form-horizontal" action="<?php echo base_url()?>dept">
           <div class="box-header with-border">
             <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
             <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
           </div>
         </form>
 
-       <form class="form-horizontal" action="<?php echo base_url("lembaga/update/".$lembaga->id_lembaga)?>" method="post">
+       <form class="form-horizontal" action="<?php echo base_url("dept/insert_dept")?>" method="post">
                     <div class="form-group">
-                      <label for="judul" class="col-sm-2 control-label">Nama Lembaga : </label>
+                      <label for="judul" class="col-sm-2 control-label">Nama Departemen : </label>
                       <div class="col-md-9">
-                        <input class="form-control" name="nama_lembaga" placeholder="Nama Lembaga" value="<?php echo $lembaga->nama_lembaga; ?>"type="text"/>
+                        <input class="form-control" name="nama" placeholder="Nama Departemen" value="<?php echo set_value('nama'); ?>"type="text"/>
                         <?php if(form_error('nama')) : ?>
                           <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -44,10 +45,27 @@
                         <?php endif ?>
                       </div>
                     </div>
+                    <div class="form-group">
+                      <label for="judul" class="col-sm-2 control-label">Fakultas : </label>
+                      <div class="col-md-9">
+                        <select class="form-control " name="fakultas" >
+                          <option >-- Pilih Fakultas --</option>
+                          <?php foreach ($fakultas as $a){?>
+                            <option value='<?=$a->id_fak?>' <?=set_value('fakultas') === $a->id_fak ? 'selected' : '';?>><?=$a->nama_fak?> </option>
+                          <?php  } ?>
+                        </select>
+                        <?php if(form_error('fakultas')) : ?>
+                          <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                              <?php echo form_error('fakultas'); ?>
+                          </div>
+                        <?php endif ?>
+                      </div>
+                    </div>
 
 
                            <!-- <a onclick="return confirmSave()"> -->
-                             <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Edit lembaga</b></button>
+                             <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Tambah Departemen</b></button>
                            <!-- </a> -->
                          </div>
 

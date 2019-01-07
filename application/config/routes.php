@@ -67,6 +67,23 @@ $route['jurnal'] = 'jurnal';
 $route['jurnal/tambah_jurnal'] = 'jurnal/add_jurnal';
 $route['jurnal/submit_jurnal'] = 'jurnal/submitJurnal';
 $route['jurnal/edit_jurnal/(:num)'] = 'jurnal/edit_jurnal/$1';
+$route['jurnal/update_jurnal/(:num)'] = 'jurnal/update_jurnal/$1';
+$route['jurnal/delete/(:num)'] = 'jurnal/delete_jurnal/$1';
+// $route['jurnal_guest'] = 'jurnal_guest';
+$route['jurnal_guest/(:any)'] = 'jurnal_guest/index/$1';
+$route['jurnal/filter'] = 'jurnal/index';
+$route['jurnal/grafik'] = 'jurnal/grafikJurnal';
+$route['jurnal/riwayat/(:num)'] = 'jurnal/riwayatSK/$1';
+$route['jurnal/riwayat/create'] = 'jurnal/perbaruiSK';
+$route['jurnal_guest/riwayat/(:num)'] = 'jurnal_guest/riwayatSK/$1';
+$route['jurnal_guest/riwayat/create'] = 'jurnal_guest/perbaruiSK';
+
+
+
+
+
+
+
 
 
 $route['pengindeks'] = 'pengindeks';
@@ -95,26 +112,17 @@ $route['sk/insert'] = 'sk/insert_sk';
 $route['sk/delete/(:num)'] = 'sk/delete_sk/$1';
 $route['sk/edit/(:num)'] = 'sk/update_sk/$1';
 $route['sk/update/(:num)'] = 'sk/edit_sk/$1';
+$route['dept'] = 'departemen';
+$route['dept/tambah_dept'] = 'departemen/add_departemen';
+$route['dept/insert_dept'] = 'departemen/insert_departemen';
+$route['dept/edit_dept/(:num)'] = 'departemen/edit_departemen/$1';
+$route['dept/update_dept'] = 'departemen/update_departemen';
+$route['dept/delete_dept/(:num)'] = 'departemen/delete_departemen/$1';
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$route['pengelola/edit_jurnal/(:num)'] = 'jurnal_pengelola/edit_jurnal/$1';
+$route['pengelola/update_jurnal/(:num)'] = 'jurnal_pengelola/update_jurnal/$1';
+$route['pengelola/data_pengelola/(:num)'] = 'jurnal_pengelola/edit_dataPengelola/$id';
 
 
 
