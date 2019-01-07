@@ -122,6 +122,8 @@ $route['dept/delete_dept/(:num)'] = 'departemen/delete_departemen/$1';
 
 $route['pengelola/edit_jurnal/(:num)'] = 'jurnal_pengelola/edit_jurnal/$1';
 $route['pengelola/update_jurnal/(:num)'] = 'jurnal_pengelola/update_jurnal/$1';
+$route['pengelola/data_pengelola/(:num)'] = 'jurnal_pengelola/edit_dataPengelola/$id';
+
 
 
 

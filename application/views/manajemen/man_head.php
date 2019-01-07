@@ -35,6 +35,11 @@
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style type="text/css">
+      span.select2-selection.select2-selection--single < span#select2-hiya-container {
+        height: 70px;
+      }
+  </style>
 </head>
 
 <!-- MODAL POPUP start -->

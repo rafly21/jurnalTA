@@ -38,6 +38,8 @@
           <th>Name</th>
           <th>Email</th>
           <th>Telepon</th>
+          <th>Foto</th>
+
           <th style="padding-right:220px;">Opsi Pengelola</th>
         </tr>
       </thead>
@@ -51,6 +53,7 @@
           <td><?php echo $a->nama ?></td>
           <td><?php echo $a->email ?></td>
           <td><?php echo $a->telepon ?></td>
+          <td><img src ="<?= $a->foto !== "" ? base_url($a->foto) : 'https://via.placeholder.com/100'?>" width="100"></img></td>
 
 
 

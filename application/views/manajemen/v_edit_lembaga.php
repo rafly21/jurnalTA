@@ -14,7 +14,7 @@
       <div class="bar">
         <section class="content-header">
           <h1>
-            Tambah Lembaga
+            Edit Lembaga
           </h1>
           <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -24,7 +24,12 @@
       </div>
     </head>
     <section class="content">
-
+      <form class="form-horizontal" action="<?php echo base_url()?>lembaga">
+          <div class="box-header with-border">
+            <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
+            <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
+          </div>
+        </form>
 
        <form class="form-horizontal" action="<?php echo base_url("lembaga/update/".$lembaga->id_lembaga)?>" method="post">
                     <div class="form-group">

@@ -24,7 +24,12 @@
       </div>
     </head>
     <section class="content">
-
+      <form class="form-horizontal" action="<?php echo base_url()?>jurnal">
+          <div class="box-header with-border">
+            <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
+            <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
+          </div>
+        </form>
 
        <form class="form-horizontal" action="<?php echo base_url('jurnal/submit_jurnal')?>" method="post">
           <div class="form-group">
@@ -130,10 +135,10 @@
           <div class="form-group">
             <label for="inputpassword" class="col-sm-2 control-label">Pengelola : </label>
             <div class="col-md-9">
-              <select class="form-control select2" name="pengelola" required>
+              <select class="form-control input-lg select2jurnal " name="pengelola" required id="hiya" style ='height:100px'>
                 <option value="0" selected>-- Pilih Pengelola --</option>
                 <?php foreach ($pengelola as $p){?>
-                  <option value='<?=$p->id_pengelola?>' <?=set_value('pengelola') === $p->id_pengelola ? 'selected' : ''?>><?=$p->nama?> </option>
+                  <option value='<?=$p->id_pengelola?>' <?=set_value('pengelola') === $p->id_pengelola ? 'selected' : ''?> data-img="<?=base_url($p->foto)?>"><?=$p->nama?> </option>
                 <?php  } ?>
               </select>
               <?php if(form_error('pengelola')) : ?>

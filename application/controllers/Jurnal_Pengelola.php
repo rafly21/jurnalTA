@@ -23,6 +23,16 @@ class Jurnal_Pengelola extends CI_Controller {
 		$this->load->view('pengelola/v_p_jurnal',$data);
 
 	}
+	public function edit_dataPengelola()
+	{
+		$id=  $this->uri->segment(3);
+	  $this->load->model('M_users');
+	  // edit ini cok
+	  $data['data']   =  $this->M_users->tampil_data()->result();
+	  $data['record']=  $this->M_users->get_one($id)->row_array();
+		$this->load->view('pengelola/v_data_pengelola',$id);
+
+	}
 	public function edit_jurnal($id)
 	{
 		$data['jurnal'] = $this->M_Jurnal->getJurnalById($id);

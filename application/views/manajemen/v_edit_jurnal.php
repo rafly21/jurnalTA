@@ -58,7 +58,12 @@
       </div>
     </head>
     <section class="content">
-
+      <form class="form-horizontal" action="<?php echo base_url()?>jurnal">
+          <div class="box-header with-border">
+            <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
+            <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
+          </div>
+        </form>
 
        <form class="form-horizontal" action="<?php echo base_url('jurnal/update_jurnal/'.$jurnal->id_jurnal)?>" method="post">
           <div class="form-group">
@@ -184,13 +189,12 @@
           <div class="form-group">
             <label for="inputpassword" class="col-sm-2 control-label">Pengelola : </label>
             <div class="col-md-9">
-              <select class="form-control select2" name="pengelola">
-                <option value="0" selected>-- Pilih Pengelola --</option>
+              <select class="form-control select2jurnal" name="pengelola" id="hiya">
                 <?php foreach ($pengelola as $p){?>
                     <?php if(!empty(set_value('pengelola'))) :?>
-                        <option value='<?=$p->id_pengelola?>' <?=set_value('pengelola') === $p->id_pengelola ? 'selected' : ''?>><?=$p->nama?> </option>
+                        <option value='<?=$p->id_pengelola?>' <?=set_value('pengelola') === $p->id_pengelola ? 'selected' : ''?> data-img="<?=base_url($p->foto)?>"><?=$p->nama?> </option>
                     <?php else:?>
-                        <option value='<?=$p->id_pengelola?>' <?=$jurnal->id_pengelola === $p->id_pengelola ? 'selected' : ''?>><?=$p->nama?> </option>
+                        <option value='<?=$p->id_pengelola?>' <?=$jurnal->id_pengelola === $p->id_pengelola ? 'selected' : ''?> data-img="<?=base_url($p->foto)?>"><?=$p->nama?> </option>
                     <?php endif;?>
                 <?php  } ?>
               </select>

@@ -1,3 +1,4 @@
+<?php //var_dump($gFakultas) ?>
 <footer class="main-footer">
   <div class="pull-right hidden-xs">
     <b>Version</b> 2.4.0
@@ -238,6 +239,9 @@
 <script src="<?php echo base_url('assets/template/back/dist') ?>/js/demo.js"></script>
 <script>
 $(document).ready(function() {
+    var graphData = '<?=isset($graphData) ? $graphData : null?>'
+    var graphData2 = '<?=isset($graphData2) ? $graphData2 : null?>'
+    // console.log(jajajaja);
     $('#myModal').modal('show');
     getPenerbit();
     $('.select2').select2();
@@ -302,44 +306,7 @@ $(document).ready(function() {
 
     var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
     var pieChart       = new Chart(pieChartCanvas)
-    var PieData        = [
-      {
-        value    : 700,
-        color    : '#f56954',
-        highlight: '#f56954',
-        label    : 'Chrome'
-      },
-      {
-        value    : 500,
-        color    : '#00a65a',
-        highlight: '#00a65a',
-        label    : 'IE'
-      },
-      {
-        value    : 400,
-        color    : '#f39c12',
-        highlight: '#f39c12',
-        label    : 'FireFox'
-      },
-      {
-        value    : 600,
-        color    : '#00c0ef',
-        highlight: '#00c0ef',
-        label    : 'Safari'
-      },
-      {
-        value    : 300,
-        color    : '#3c8dbc',
-        highlight: '#3c8dbc',
-        label    : 'Opera'
-      },
-      {
-        value    : 100,
-        color    : '#d2d6de',
-        highlight: '#d2d6de',
-        label    : 'Navigator'
-      }
-    ]
+    var PieData        = JSON.parse(graphData)
     var pieOptions     = {
       //Boolean - Whether we should show a stroke on each segment
       segmentShowStroke    : true,
@@ -366,7 +333,14 @@ $(document).ready(function() {
     }
     //Create pie or douhnut chart
     // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions)
+    pieChart.Doughnut(PieData, pieOptions);
+
+    var pieChartCanvas2 = $('#pieChart2').get(0).getContext('2d')
+    var pieChart2       = new Chart(pieChartCanvas2)
+    var PieData2        = JSON.parse(graphData2)
+
+    pieChart2.Doughnut(PieData2, pieOptions);
+
 });
 
 function getPenerbit() {
@@ -458,4 +432,26 @@ function convertToSlug(Text)
 {
     return Text.toLowerCase().replace(/ /g,'_').replace(/[^\w-]+/g,'');
 }
+
+$(document).ready(function(){
+  function formatOption (option) {
+    console.log(option.element);
+    var imgsrc = $(option.element).data('img');
+    // console.log(imgsrc);
+    if (!option.id || option.id <= 0) { return option.text; }
+    var ob = '<img width="50" src="'+imgsrc+'"/>&nbsp;&nbsp;' +option.text;	// replace image source with option.img (available in JSON)
+    return ob;
+  };
+
+  $(".select2jurnal").select2({
+    // height:'resolve',
+    templateResult: formatOption,
+    templateSelection: formatOption,
+    escapeMarkup: function (m) {
+      return m;
+    }
+  });
+  $('#select2-hiya-container').parent().css("height", "70px");
+  $('#select2-hiya-container').css("padding-top", "7px");
+});
 </script>

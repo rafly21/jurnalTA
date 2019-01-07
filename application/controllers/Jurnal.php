@@ -46,10 +46,66 @@ class Jurnal extends CI_Controller {
 		// echo json_encode($data);
 		$this->load->view('manajemen/v_jurnal',$data);
 	}
+
+	function getGraphData($tahun) {
+		$byLembaga = $this->M_Jurnal->countJurnalAkreditasiByLembaga($tahun);
+		$byFakultas = $this->M_Jurnal->countJurnalAkreditasiByFakultas($tahun);
+		$byDepartemen = $this->M_Jurnal->countJurnalAkreditasiByDepartemen($tahun);
+
+		$total = 0;
+		foreach ($byLembaga as $key => $value) {
+				$total += intval($value->jumlah);
+		}
+		$data["gFakultas"][0]["label"] = "Puslit/lembaga";
+		$data["gFakultas"][0]["value"] = $total;
+
+		foreach ($byDepartemen as $key => $value) {
+				$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
+				$fakultas["label"] = $namaFakultas;
+				$fakultas["value"] = intval($value->jumlah);
+				$data["gFakultas"][$value->fakultas] = $fakultas;
+		}
+
+		foreach ($byFakultas as $key => $value) {
+				$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
+				if(isset($data["gFakultas"][$value->fakultas])) {
+						$data["gFakultas"][$value->fakultas]["value"] += $value->jumlah;
+				} else {
+					$fakultas["label"] = $namaFakultas;
+					$fakultas["value"] = intval($value->jumlah);
+					$data["gFakultas"][$value->fakultas] = $fakultas;
+				}
+		}
+
+		$result = array();
+		$colors = ["#0058B2", "#B21C12", "#E6FF19", "#8812B2", "#14CC7E", "#00C0CC", "#998C3D", "#FF5800", "#400300", "#B4BCE5", "#E5AB63", "#FF1C00", "#FFA593", "#B8E886"];
+		foreach ($data["gFakultas"] as $key => $value) {
+				$value = (object)$value;
+				$value->color = $colors[$key];
+				$value->highlight = $colors[$key];
+				array_push($result, $value);
+		}
+
+		return json_encode($result);
+	}
+
 	public function grafikJurnal(){
+		// $data['res'] = $this->M_Jurnal->getJurnalAkreditasi();
 
+		// var_dump($data['graphData']);
+		// die;
 
-		$this->load->view('manajemen/grafik');
+		// $data['res'] = array();
+		// foreach ($jurnals as $key => $jurnal) {
+		// 		$penerbit = $this->M_Jurnal->getPenerbitJurnal($jurnal->id_jurnal);
+		// 		array_push($data["res"], $push);
+		// }
+		// $data['res'] = $this->M_Jurnal->getFakultasPenerbit();
+
+		$data["graphData"] = $this->getGraphData(date('Y'));
+		$data["graphData2"] = $this->getGraphData(date('Y')-1);
+
+		$this->load->view('manajemen/grafik', $data);
 
 	}
 	public function submitJurnal(){
@@ -192,7 +248,7 @@ class Jurnal extends CI_Controller {
 		// $detail = $this->M_Jurnal->detail_data($a->id_jurnal);
 		$data['bulan_terbit'] = $this->M_Jurnal->getIdBulanTerbit($id);
 		$data['skJurnal'] = $this->M_Jurnal->getSkJurnal($id);
-		//  var_dump($data['jurnal_pengindeks_id']);
+		 // var_dump($data['pengelola']);
 		// die();
 		$this->load->view('manajemen/v_edit_jurnal', $data);
 	}

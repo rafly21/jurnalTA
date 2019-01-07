@@ -29,7 +29,7 @@
       <section class="content">
 
 
-         <form class="form-horizontal" action="<?php echo base_url()?>tambah_pengelola/submit_user" method="post">
+         <form class="form-horizontal" action="<?php echo base_url()?>tambah_pengelola/submit_user" method="post" enctype="multipart/form-data">
                       <div class="form-group">
                         <label for="inputusername" class="col-sm-2 control-label">Username : </label>
                         <div class="col-md-9">
@@ -68,6 +68,14 @@
 
                          </div>
                        </div>
+                       <div class="form-group">
+                         <label for="inputfoto" class="col-sm-2 control-label">Foto : </label>
+
+                         <div class="col-md-9">
+
+                       <input type="file" name="foto" size="20" />
+                     </div>
+                     </div>
 
                     <div>
                       <!-- <a onclick="return confirmSave()"> -->

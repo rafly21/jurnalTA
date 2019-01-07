@@ -4,7 +4,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="<?php echo base_url('assets/template/back/dist') ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <img src ="<?= !empty($this->session->userdata('foto')) ? base_url($this->session->userdata('foto')) : 'https://via.placeholder.com/100'?>" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p> <?php
@@ -37,20 +37,7 @@
 
 
 
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-question"></i>
-          <span>Tentang</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="pages/charts/chartjs.html"><i class="fa fa-circle-o"></i> Profil</a></li>
-          <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Kontak Sistem</a></li>
-          <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> FAQ</a></li>
-        </ul>
-      </li>
+
       <li>
         <a href="<?php echo base_url ('./jurnal-p') ?>">
           <i class="fa fa-th"></i> <span>Jurnal Yang Dikelola</span>
@@ -59,41 +46,15 @@
         </a>
       </li>
 
-
-
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-share"></i> <span>Multilevel</span>
+      <li>
+        <a href="<?php echo base_url ('./pengelola/data_pengelola') ?>">
+          <i class="fa fa-th"></i> <span>Data Pengelola</span>
           <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-          <li class="treeview">
-            <a href="#"><i class="fa fa-circle-o"></i> Level One
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i> Level Two</a></li>
-              <li class="treeview">
-                <a href="#"><i class="fa fa-circle-o"></i> Level Two
-                  <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                  </span>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                  <li><a href="#"><i class="fa fa-circle-o"></i> Level Three</a></li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
-        </ul>
       </li>
+
+
       <li>
 
     </ul>

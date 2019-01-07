@@ -40,11 +40,16 @@
       <li class="active">Riwayat SK</li>
   </ol>
     </section>
-    <br>
   </div>
 </head>
     <!-- Main content -->
     <section class="content">
+      <form class="form-horizontal" action="<?php echo base_url()?>jurnal">
+          <div class="box-header with-border">
+            <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
+            <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
+          </div>
+        </form>
       <div class="box box-defailt">
             <div class="box-header with-border">
               <h3 class="box-title">Perbarui SK Jurnal</h3>

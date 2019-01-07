@@ -24,7 +24,12 @@
       </div>
     </head>
     <section class="content">
-
+      <form class="form-horizontal" action="<?php echo base_url()?>sk">
+          <div class="box-header with-border">
+            <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
+            <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
+          </div>
+        </form>
 
        <form class="form-horizontal" action="<?php echo base_url("sk/insert")?>" method="post">
          <div class="form-group">
