@@ -19,9 +19,20 @@ class M_users extends CI_Model{
 	function get_pengelola(){
 		$this->db->join('auth','data_pengelola.id_user=auth.id_user');
 		$this->db->where('permission','pengelola');
-	return $this->db->get('data_pengelola')->result();
-
+		return $this->db->get('data_pengelola')->result();
 	}
+	function getJurnalPengelola($id_user){
+		$this->db->select('*');
+		$this->db->from('data_pengelola');
+		$this->db->join('jurnal', 'jurnal.id_pengelola = data_pengelola.id_pengelola');
+		// $this->db->join('auth', 'auth.id_user = data_pengelola.id_user');
+		$this->db->where('data_pengelola.id_user',$id_user);
+		$query = $this->db->get();
+		return $query->result();
+		// var_dump($query->row());
+		// die();
+	}
+
 	function get_auth($tabel, $where)
 	{
 	 return	$this->db->get_where($tabel, $where)->row();

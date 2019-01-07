@@ -37,7 +37,7 @@
 
 
 
-    
+
       <li class="treeview">
         <a href="#">
           <i class="fa fa-laptop"></i>
@@ -67,14 +67,14 @@
       <li class="treeview">
         <a href="#">
           <i class="fa fa-edit"></i>
-          <span>Manajemen Pengelola</span>
+          <span>Manajemen Ketua Editor</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="<?php echo base_url ('./kelola_pengelola') ?>"><i class="fa fa-circle-o"></i> Kelola Pengelola</a></li>
-          <li><a href="<?php echo base_url ('./tambah_pengelola') ?>"><i class="fa fa-circle-o"></i> Tambah Pengelola</a></li>
+          <li><a href="<?php echo base_url ('./kelola_pengelola') ?>"><i class="fa fa-circle-o"></i> Kelola Ketua Editor</a></li>
+          <li><a href="<?php echo base_url ('./tambah_pengelola') ?>"><i class="fa fa-circle-o"></i> Tambah Ketua Editor</a></li>
         </ul>
       </li>
       <!-- <li class="treeview">

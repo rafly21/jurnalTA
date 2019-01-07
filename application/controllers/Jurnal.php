@@ -483,6 +483,7 @@ class Jurnal extends CI_Controller {
 
 
 	}
+
 	// // public function detail_jurnal($id)
 	// {
 	// 	$data['detail']			= $this->M_Jurnal->detail_data($id);
