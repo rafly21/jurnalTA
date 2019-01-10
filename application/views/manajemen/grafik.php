@@ -28,30 +28,44 @@
       <div class="row">
         <div class="col-md-6">
           <div class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title">Distribusi Penerbit Jurnal Terakreditasi <?= date('Y') ?> </h3>
-
-
-            </div>
+            <!-- <div class="box-header with-border">
+              <h3 class="box-title">Jumlah Jurnal </h3>
+            </div> -->
             <div class="box-body">
-              <canvas id="pieChart" style="height: 315px; width: 631px;" width="1262" height="630"></canvas>
+              <div id="machart" style="width:100%; height:315px;"></div>
             </div>
             <!-- /.box-body -->
           </div>
         </div>
         <div class="col-md-6">
           <div class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title">Distribusi Penerbit Jurnal Terakreditasi <?= date('Y')-1 ?></h3>
-
-
-            </div>
             <div class="box-body">
-              <canvas id="pieChart2" style="height: 315px; width: 631px;" width="1262" height="630"></canvas>
+              <div id="penerbitJurnal" style="width:100%; height:315px;"></div>
             </div>
             <!-- /.box-body -->
           </div>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="box box-danger">
+            <!-- <div class="box-header with-border">
+              <h3 class="box-title">Jumlah Jurnal </h3>
+            </div> -->
+            <div class="box-body">
+              <div id="jurnalSinta" style="width:100%; height:315px;"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
+        <!-- <div class="col-md-6">
+          <div class="box box-danger">
+            <div class="box-body">
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div> -->
       </div>
       <!-- Info boxes -->
 

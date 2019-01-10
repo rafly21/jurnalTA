@@ -47,7 +47,7 @@ class Jurnal extends CI_Controller {
 		$this->load->view('manajemen/v_jurnal',$data);
 	}
 
-	function getGraphData($tahun) {
+	function getGraphDataJurnalAkreditasiByPenerbit($tahun=null) {
 		$byLembaga = $this->M_Jurnal->countJurnalAkreditasiByLembaga($tahun);
 		$byFakultas = $this->M_Jurnal->countJurnalAkreditasiByFakultas($tahun);
 		$byDepartemen = $this->M_Jurnal->countJurnalAkreditasiByDepartemen($tahun);
@@ -89,6 +89,82 @@ class Jurnal extends CI_Controller {
 		return json_encode($result);
 	}
 
+	function getGraphDataJurnalAkreditasiByPenerbit2($tahun=null) {
+		$byLembaga = $this->M_Jurnal->countJurnalAkreditasiByLembaga($tahun);
+		$byFakultas = $this->M_Jurnal->countJurnalAkreditasiByFakultas($tahun);
+		$byDepartemen = $this->M_Jurnal->countJurnalAkreditasiByDepartemen($tahun);
+
+		$total = 0;
+		foreach ($byLembaga as $key => $value) {
+				$total += intval($value->jumlah);
+		}
+		$data["gFakultas"][0]["name"] = "Puslit/lembaga";
+		$data["gFakultas"][0]["y"] = $total;
+
+		foreach ($byDepartemen as $key => $value) {
+				$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
+				$fakultas["name"] = $namaFakultas;
+				$fakultas["y"] = intval($value->jumlah);
+				$data["gFakultas"][$value->fakultas] = $fakultas;
+		}
+
+		foreach ($byFakultas as $key => $value) {
+				$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
+				if(isset($data["gFakultas"][$value->fakultas])) {
+						$data["gFakultas"][$value->fakultas]["y"] += $value->jumlah;
+				} else {
+					$fakultas["name"] = $namaFakultas;
+					$fakultas["y"] = intval($value->jumlah);
+					$data["gFakultas"][$value->fakultas] = $fakultas;
+				}
+		}
+
+		$result = array();
+		// $colors = ["#0058B2", "#B21C12", "#E6FF19", "#8812B2", "#14CC7E", "#00C0CC", "#998C3D", "#FF5800", "#400300", "#B4BCE5", "#E5AB63", "#FF1C00", "#FFA593", "#B8E886"];
+		foreach ($data["gFakultas"] as $key => $value) {
+			$value = (object)$value;
+			// $value->color = $colors[$key];
+			// $value->highlight = $colors[$key];
+			array_push($result, $value);
+		}
+
+		return json_encode($result);
+	}
+
+	function getGraphDataJurnalAkreditasiByYear() {
+		$year = date('Y')-4;
+		$months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+		$data = null;
+		for ($i = 0; $i < 5; $i++) {
+			$jurnal = $this->M_Jurnal->countJurnalAkreditasiByYear($year);
+			$data['years'][$i] = $year;
+			$data['jurnal'][$i] = $jurnal;
+			if ($i > 0) {
+				$data['kumulatif'][$i] = $data['jurnal'][$i-1] + $jurnal;	
+			} else {
+				$data['kumulatif'][$i] = $data['jurnal'][$i];
+			}
+			$year += 1;
+		}
+		$data['year'] = date('Y');
+		$data['month'] = $months[date('n')-1]; 
+
+		return json_encode((object)$data);
+	}
+
+	function getGraphDataJurnalAkreditasiBySinta() {
+		// $year = date('Y')-4;
+		$sinta = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
+		$data = null;
+		for ($i = 0; $i < count($sinta); $i++) {
+			$jurnal = $this->M_Jurnal->countJurnalAkreditasiBySinta($sinta[$i]);
+			$data['jumlah'][$i] = $jurnal;
+		}
+		$data['kategori'] = $sinta; 
+
+		return json_encode((object)$data);
+	}
+
 	public function grafikJurnal(){
 		// $data['res'] = $this->M_Jurnal->getJurnalAkreditasi();
 
@@ -102,8 +178,10 @@ class Jurnal extends CI_Controller {
 		// }
 		// $data['res'] = $this->M_Jurnal->getFakultasPenerbit();
 
-		$data["graphData"] = $this->getGraphData(date('Y'));
-		$data["graphData2"] = $this->getGraphData(date('Y')-1);
+		// $data["graphData"] = $this->getGraphData();
+		$data["graphDataJurnalAkreditasiByYear"] = $this->getGraphDataJurnalAkreditasiByYear();
+		$data["graphDataJurnalAkreditasiByPenerbit"] = $this->getGraphDataJurnalAkreditasiByPenerbit2();
+		$data["graphDataJurnalAkreditasiBySinta"] = $this->getGraphDataJurnalAkreditasiBySinta();
 
 		$this->load->view('manajemen/grafik', $data);
 
@@ -483,7 +561,6 @@ class Jurnal extends CI_Controller {
 
 
 	}
-
 	// // public function detail_jurnal($id)
 	// {
 	// 	$data['detail']			= $this->M_Jurnal->detail_data($id);
