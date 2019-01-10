@@ -232,6 +232,7 @@
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- ChartJS -->
 <script src="<?php echo base_url('assets/template/back/bower_components') ?>/Chart.js/Chart.js"></script>
+<script src="<?php echo base_url('assets/charts/') ?>/highcharts.js"></script>
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- <script src="<?php echo base_url('assets/template/back/dist') ?>/js/pages/dashboard2.js"></script> -->
@@ -239,8 +240,8 @@
 <script src="<?php echo base_url('assets/template/back/dist') ?>/js/demo.js"></script>
 <script>
 $(document).ready(function() {
-    var graphData = '<?=isset($graphData) ? $graphData : null?>'
-    var graphData2 = '<?=isset($graphData2) ? $graphData2 : null?>'
+    // var graphData = '<?=isset($graphData) ? $graphData : null?>';
+    // var graphDataJurnalAkreditasiByPenerbit = '<?=isset($graphDataJurnalAkreditasiByPenerbit) ? $graphDataJurnalAkreditasiByPenerbit : null?>';
     // console.log(jajajaja);
     $('#myModal').modal('show');
     getPenerbit();
@@ -304,9 +305,9 @@ $(document).ready(function() {
     });
 
 
-    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-    var pieChart       = new Chart(pieChartCanvas)
-    var PieData        = JSON.parse(graphData)
+    // var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+    // var pieChart       = new Chart(pieChartCanvas)
+    // var PieData        = JSON.parse(graphData)
     var pieOptions     = {
       //Boolean - Whether we should show a stroke on each segment
       segmentShowStroke    : true,
@@ -333,13 +334,13 @@ $(document).ready(function() {
     }
     //Create pie or douhnut chart
     // You can switch between pie and douhnut using the method below.
-    pieChart.Doughnut(PieData, pieOptions);
+    // pieChart.Doughnut(PieData, pieOptions);
 
-    var pieChartCanvas2 = $('#pieChart2').get(0).getContext('2d')
-    var pieChart2       = new Chart(pieChartCanvas2)
-    var PieData2        = JSON.parse(graphData2)
-
-    pieChart2.Doughnut(PieData2, pieOptions);
+    // var pieChartCanvas2 = $('#pieChart2').get(0).getContext('2d')
+    // var pieChart2       = new Chart(pieChartCanvas2)
+    // var PieData2        = JSON.parse(graphDataJurnalAkreditasiByPenerbit)
+    // // console.log(PieData2);
+    // pieChart2.Doughnut(PieData2, pieOptions);
 
 });
 
@@ -428,9 +429,8 @@ function removeFieldPengindeks() {
     }).trigger('change');
 }
 
-function convertToSlug(Text)
-{
-    return Text.toLowerCase().replace(/ /g,'_').replace(/[^\w-]+/g,'');
+function convertToSlug(Text){
+  return Text.toLowerCase().replace(/ /g,'_').replace(/[^\w-]+/g,'');
 }
 
 $(document).ready(function(){
@@ -453,5 +453,165 @@ $(document).ready(function(){
   });
   $('#select2-hiya-container').parent().css("height", "70px");
   $('#select2-hiya-container').css("padding-top", "7px");
+
+  // =========== highcharts ====================
+  // ------ graph akreditasi by penerbit ------
+  var graphDataJurnalAkreditasiByPenerbit = '<?=isset($graphDataJurnalAkreditasiByPenerbit) ? $graphDataJurnalAkreditasiByPenerbit : null?>';
+  var pj = JSON.parse(graphDataJurnalAkreditasiByPenerbit);
+  // console.log(pj)
+  Highcharts.chart('penerbitJurnal', {
+      chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+      },
+      title: {
+          text: 'Distribusi Penerbit Jurnal Terakreditasi 2018'
+      },
+      tooltip: {
+          pointFormat: '{series.name}: <b>{point.y}</b>'
+      },
+      plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                  enabled: true,
+                  format: '<b>{point.name}</b>: {point.y}',
+                  style: {
+                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                  },
+                  connectorColor: 'silver'
+              }
+          }
+      },
+      series: [{
+          name: 'Jumlah Jurnal',
+          data: pj
+      }]
+  });
+  // ------ graph akreditasi by tahun ---------
+  var graphDataJurnalAkreditasiByYear = '<?=isset($graphDataJurnalAkreditasiByYear) ? $graphDataJurnalAkreditasiByYear : null?>';
+  var machartData = JSON.parse(graphDataJurnalAkreditasiByYear);
+  // console.log(machartData);
+  Highcharts.chart('machart', {
+      chart: {
+          zoomType: 'xy'
+      },
+      title: {
+          text: 'Jumlah Jurnal Terakreditasi Tahun '+machartData.year
+      },
+      subtitle: {
+          text: 'Pertahun dan Kumulatif ('+machartData.month+' '+machartData.year+')'
+      },
+      xAxis: [{
+          categories: machartData.years,
+          crosshair: true,
+          title: {
+            text: 'Tahun',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            },
+          }
+      }],
+      yAxis: [{ // Primary yAxis
+          labels: {
+              format: '{value}',
+              style: {
+                  color: Highcharts.getOptions().colors[1]
+              }
+          },
+          title: {
+              text: 'Jumlah Jurnal',
+              style: {
+                  color: Highcharts.getOptions().colors[1]
+              }
+          }
+      }, { // Secondary yAxis
+          title: {
+              text: '',
+              style: {
+                  color: 'transparent'
+              }
+          },
+          labels: {
+              format: '',
+              style: {
+                  color: 'transparent'
+              }
+          },
+          opposite: true
+      }],
+      tooltip: {
+          shared: true
+      },
+      legend: {
+          layout: 'vertical',
+          align: 'left',
+          x: 120,
+          verticalAlign: 'top',
+          y: 100,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255,255,255,0.25)'
+      },
+      series: [{
+          name: 'Kumulatif',
+          type: 'column',
+          yAxis: 1,
+          data: machartData.kumulatif,
+          tooltip: {
+              valueSuffix: ''
+          }
+
+      }, {
+          name: 'Jurnal',
+          type: 'spline',
+          data: machartData.jurnal,
+          tooltip: {
+              valueSuffix: ''
+          }
+      }]
+  });
+
+  // ------------- graph akreditasi by sinta ------------
+  var graphDataJurnalAkreditasiBySinta = '<?=isset($graphDataJurnalAkreditasiBySinta) ? $graphDataJurnalAkreditasiBySinta : null?>';
+  var jurSinta = JSON.parse(graphDataJurnalAkreditasiBySinta);
+  Highcharts.chart('jurnalSinta', {
+      title: {
+          text: 'Jurnal Undip Terindeks Sinta S1-S6'
+      },
+
+      subtitle: {
+          text: ''
+      },
+
+      xAxis: {
+          categories: jurSinta.kategori,
+          title: {
+            text: 'Peringkat Sinta',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            },
+          }
+      },
+
+      yAxis: {
+          title: {
+            text: 'Jumlah Jurnal',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            },
+          }
+      },
+
+      series: [{
+          type: 'column',
+          colorByPoint: true,
+          data: jurSinta.jumlah,
+          showInLegend: false
+      }]
+  });
+  // ======== end of highcharts ===========
 });
 </script>

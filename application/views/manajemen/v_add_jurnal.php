@@ -133,10 +133,10 @@
           </div>
 
           <div class="form-group">
-            <label for="inputpassword" class="col-sm-2 control-label">Pengelola : </label>
+            <label for="inputpassword" class="col-sm-2 control-label">Ketua Editor : </label>
             <div class="col-md-9">
               <select class="form-control input-lg select2jurnal " name="pengelola" required id="hiya" style ='height:100px'>
-                <option value="0" selected>-- Pilih Pengelola --</option>
+                <option value="0" selected>-- Pilih Ketua Editor --</option>
                 <?php foreach ($pengelola as $p){?>
                   <option value='<?=$p->id_pengelola?>' <?=set_value('pengelola') === $p->id_pengelola ? 'selected' : ''?> data-img="<?=base_url($p->foto)?>"><?=$p->nama?> </option>
                 <?php  } ?>

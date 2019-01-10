@@ -71,9 +71,14 @@ class M_Jurnal extends CI_Model{
 		return $this->db->query($query)->result();
 	}
 
-	public function countJurnalAkreditasiByDepartemen($tahun) {
+	public function countJurnalAkreditasiByDepartemen($tahun=null) {
 			$this->db->select("COUNT(DISTINCT skj.id_jurnal) as jumlah, d.id_fak as fakultas");
-			$this->db->join('sk', "skj.id_sk = sk.id_sk AND YEAR(sk.tanggal_mulai) = $tahun");
+			if ($tahun !== null) {
+				$this->db->join('sk', "skj.id_sk = sk.id_sk AND YEAR(sk.tanggal_mulai) = $tahun");	
+			} else {
+				$this->db->join('sk', "skj.id_sk = sk.id_sk");
+			}
+			
 			$this->db->join('penerbit p', 'skj.id_jurnal = p.id_jurnal AND p.jenis_penerbit = "departemen"');
 			$this->db->join('departemen d', 'd.id_dept = p.id_jenis');
 			// $this->db->where('p.jenis_penerbit', 'departemen');
@@ -83,9 +88,13 @@ class M_Jurnal extends CI_Model{
 			return $this->db->get('sk_jurnal skj')->result();
 	}
 
-	public function countJurnalAkreditasiByLembaga($tahun) {
+	public function countJurnalAkreditasiByLembaga($tahun=null) {
 			$this->db->select("COUNT(DISTINCT skj.id_jurnal) as jumlah");
-			$this->db->join('sk', "skj.id_sk = sk.id_sk AND YEAR(sk.tanggal_mulai) = $tahun");
+			if ($tahun !== null) {
+				$this->db->join('sk', "skj.id_sk = sk.id_sk AND YEAR(sk.tanggal_mulai) = $tahun");	
+			} else {
+				$this->db->join('sk', "skj.id_sk = sk.id_sk");
+			}
 			// $this->db->join('sk', 'skj.id_sk = sk.id_sk');
 			$this->db->join('penerbit p', 'skj.id_jurnal = p.id_jurnal AND p.jenis_penerbit = "lembaga"');
 			// $this->db->where('p.jenis_penerbit', 'lembaga');
@@ -95,9 +104,13 @@ class M_Jurnal extends CI_Model{
 			return $this->db->get('sk_jurnal skj')->result();
 	}
 
-	public function countJurnalAkreditasiByFakultas($tahun) {
+	public function countJurnalAkreditasiByFakultas($tahun=null) {
 			$this->db->select("COUNT(DISTINCT skj.id_jurnal) as jumlah, p.id_jenis as fakultas");
-			$this->db->join('sk', "skj.id_sk = sk.id_sk AND YEAR(sk.tanggal_mulai) = $tahun");
+			if ($tahun !== null) {
+				$this->db->join('sk', "skj.id_sk = sk.id_sk AND YEAR(sk.tanggal_mulai) = $tahun");	
+			} else {
+				$this->db->join('sk', "skj.id_sk = sk.id_sk");
+			}
 			// $this->db->join('sk', 'skj.id_sk = sk.id_sk');
 			$this->db->join('penerbit p', 'skj.id_jurnal = p.id_jurnal AND p.jenis_penerbit = "fakultas"');
 			$this->db->join('fakultas f', 'f.id_fak = p.id_jenis');
@@ -106,6 +119,32 @@ class M_Jurnal extends CI_Model{
 			$this->db->group_by('f.id_fak');
 			$this->db->order_by('skj.id_sk_jurnal', 'DESC');
 			return $this->db->get('sk_jurnal skj')->result();
+	}
+	public function countJurnalAkreditasiByYear($tahun=null) {
+			$this->db->select("skj.id_jurnal");
+			$this->db->from('sk_jurnal skj');
+			if ($tahun !== null) {
+				$this->db->join('sk', "skj.id_sk = sk.id_sk AND YEAR(sk.tanggal_mulai) = $tahun");	
+			} else {
+				$this->db->join('sk', "skj.id_sk = sk.id_sk");
+			}
+			// $this->db->join('sk', 'skj.id_sk = sk.id_sk');
+			// $this->db->join('penerbit p', 'skj.id_jurnal = p.id_jurnal AND p.jenis_penerbit = "fakultas"');
+			// $this->db->join('fakultas f', 'f.id_fak = p.id_jenis');
+			// $this->db->where('p.jenis_penerbit', 'fakultas');
+			// $this->db->where('YEAR(sk.tahun_mulai)', '2018', NULL, FALSE);
+			// $this->db->group_by('f.id_fak');
+			// $this->db->order_by('skj.id_sk_jurnal', 'DESC');
+			return $this->db->count_all_results();
+	}
+
+	public function countJurnalAkreditasiBySinta($sinta=null) {
+			$this->db->select("id_jurnal");
+			$this->db->from('jurnal j');
+			if ($sinta) {
+				$this->db->where('peringkat_sinta', $sinta);	
+			}
+			return $this->db->count_all_results();
 	}
 
 	public function getJurnalAkreditasi() {
@@ -256,10 +295,12 @@ class M_Jurnal extends CI_Model{
 	}
 	function tampil_dataacr()
 	{
+		// $this->db->select('j.judul, j.no_jurnal, j.url, j.singkatan, d.nama, j.sponsor, j.p_issn, j.e_issn, j.english, j.doi, j.thn_mulai, j.terbit_terakhir, j.peringkat_sinta, j.url_sinta, sj.id_sk, p.id_penerbit, p.jenis_penerbit, p.id_jenis');
+		// $this->db->distinct();
 		$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');
 		$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
 		$this->db->join('sk_jurnal sj', 'sj.id_jurnal = j.id_jurnal');
-		$this->db->group_by('p.id_jurnal');
+		$this->db->group_by('j.id_jurnal');
 		$this->db->order_by('j.id_jurnal','asc');
 
 		return $this->db->get('jurnal j')->result();

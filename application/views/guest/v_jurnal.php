@@ -37,7 +37,7 @@
           <th>Judul</th>
           <th>Singkatan</th>
           <th>Penerbit</th>
-          <th>Pengelola</th>
+          <th>Ketua Editor</th>
           <th style="padding-right:220px;">Opsi </th>
         </tr>
       </thead>

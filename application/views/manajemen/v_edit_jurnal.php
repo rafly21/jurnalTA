@@ -187,7 +187,7 @@
           </div>
 
           <div class="form-group">
-            <label for="inputpassword" class="col-sm-2 control-label">Pengelola : </label>
+            <label for="inputpassword" class="col-sm-2 control-label">Ketua Editor : </label>
             <div class="col-md-9">
               <select class="form-control select2jurnal" name="pengelola" id="hiya">
                 <?php foreach ($pengelola as $p){?>

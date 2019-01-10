@@ -64,7 +64,7 @@
           <th>Judul</th>
           <th>Singkatan</th>
           <th>Penerbit</th>
-          <th>Pengelola</th>
+          <th>Ketua Editor</th>
           <th style="padding-right:220px;">Opsi </th>
         </tr>
       </thead>
@@ -171,7 +171,7 @@
                   </div>
                   <div class="row">
                       <label class="col-sm-4">
-                          Pengelola
+                          Ketua Editor
                       </label>
                       <label class="col-sm-8">
                         <?=$a->nama?>
