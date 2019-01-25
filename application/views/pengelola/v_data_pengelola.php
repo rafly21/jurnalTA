@@ -50,13 +50,10 @@
             </div>
           </form>
 
-          <form class="form-horizontal" action="<?php echo base_url()?>kelola_pengelola/update_user" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                  <label for="inputiduser" class="col-sm-2 control-label">Id User : </label>
-                  <div class="col-md-9">
-                    <input type="text" class="form-control" name="inputiduser" readonly value="<?php echo $record['id_user']?>">
-                  </div>
-                </div>
+          <form class="form-horizontal" action="<?php echo base_url()?>pengelola/update" method="post" enctype="multipart/form-data">
+
+                    <input type="hidden" class="form-control" name="inputiduser" readonly value="<?php echo $record['id_user']?>">
+
 
                  <div class="form-group">
                   <label for="inputnama" class="col-sm-2 control-label">Nama : </label>

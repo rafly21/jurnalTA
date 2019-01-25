@@ -32,7 +32,7 @@
           </div>
         </form>
 
-       <form class="form-horizontal" action="<?php echo base_url("dept/edit_dept")?>" method="post">
+       <form class="form-horizontal" action="<?php echo base_url("dept/update_dept/".$departemen->id_dept)?>" method="post">
                     <div class="form-group">
                       <label for="judul" class="col-sm-2 control-label">Nama Departemen : </label>
                       <div class="col-md-9">

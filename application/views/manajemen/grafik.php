@@ -59,13 +59,27 @@
             <!-- /.box-body -->
           </div>
         </div>
-        <!-- <div class="col-md-6">
+        <div class="col-md-6">
           <div class="box box-danger">
             <div class="box-body">
+              <div id="jurnalSintaFakultas" style="width:100%; height:315px;"></div>
             </div>
             <!-- /.box-body -->
           </div>
-        </div> -->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-danger">
+            <!-- <div class="box-header with-border">
+              <h3 class="box-title">Jumlah Jurnal </h3>
+            </div> -->
+            <div class="box-body">
+              <div id="jurnalPenerbitSinta" style="width:100%; height:315px;"></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+        </div>
       </div>
       <!-- Info boxes -->
 

@@ -49,9 +49,10 @@
         <tr>
           <th>no</th>
           <th>SK</th>
-          <th>Tanggal Mulai</th>
+          <th>Deskripsi</th>
           <th>Tanggal Penetapan</th>
-          <th>Tanggal Berakhir</th>
+          <th>OPSI</th>
+
         </tr>
       </thead>
       <tbody>
@@ -63,9 +64,8 @@
         <tr>
           <td><?php echo $no++ ?></td>
           <td><font size="4px"><div class="label label-default"><?php echo $a->no_sk ?></div></font></td>
-          <td><?php echo $a->tanggal_mulai ?></td>
+          <td><font size="4px"><div class="label label-default"> </div></font></td>
           <td><?php echo $a->tanggal_penetapan ?></td>
-          <td><?php echo $a->tanggal_berakhir ?></td>
 
 
 
@@ -84,7 +84,7 @@
                 <h4 class="modal-title">Hapus data</h4>
               </div>
               <div class="modal-body">
-                <p> yakin mau hapus pengindeks <?php echo $a->no_sk ?> ? </p>
+                <p> yakin mau hapus sk <?php echo $a->no_sk ?> ? </p>
               </div>
               <div class="modal-footer">
                 <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>

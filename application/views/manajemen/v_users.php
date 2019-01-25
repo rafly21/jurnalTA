@@ -78,7 +78,9 @@
 
             <a href="<?php echo base_url('kelola_pengelola/edit_user/'.$a->id_user); ?>" class="btn btn-info"><b>Edit</b></a>
 
-            <a href="<?php echo base_url('kelola_pengelola/delete_user/'.$a->id_user);?>" class="btn btn-danger" onClick="return confirmDelete();" ><b>Delete</b></a>
+            <a href="#mDelIndex<?=$a->id_user?>" data-toggle='modal' data-target='#mDelIndex<?=$a->id_user?>' class="btn btn-danger"><b>Delete</b></a>
+
+
 
             <a href="<?php echo base_url('kelola_pengelola/edit_pass/'.$a->id_user); ?>" class="btn btn-default"><b>Change Password</b></a>
           </td>
@@ -104,6 +106,22 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="modal fade" id="mDelIndex<?=$a->id_user?>" style="padding-right: 17px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Hapus data</h4>
+              </div>
+              <div class="modal-body">
+                <p> yakin mau hapus pengelola <?php echo $a->nama ?> ? </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>
+                <a href="<?php echo base_url('kelola_pengelola/delete_user/'.$a->id_user);?>" class="btn btn-danger"><b>Delete</b></a>
+              </div>
+            </div>
+          </div>
           </div>
         <?php } ?>
       </tbody>

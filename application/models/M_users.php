@@ -3,19 +3,33 @@
 class M_users extends CI_Model{
 
 	function tampil_data(){
-  	$query= "SELECT
-		data_pengelola.id_user AS id_user,
-		auth.username AS username,
-		data_pengelola.nama AS nama,
-		data_pengelola.email AS email,
-		data_pengelola.no_telp AS telepon,
-		data_pengelola.foto AS foto
-		FROM auth JOIN data_pengelola
-		ON auth.id_user = data_pengelola.id_user
-		WHERE permission = 'pengelola'
-		ORDER BY id_pengelola";
-  	return $this->db->query($query);
+  	// $query= "SELECT
+		// data_pengelola.id_user AS id_user,
+		// auth.username AS username,
+		// data_pengelola.nama AS nama,
+		// data_pengelola.email AS email,
+		// data_pengelola.no_telp AS telepon,
+		// data_pengelola.foto AS foto
+		// FROM auth JOIN data_pengelola
+		// ON auth.id_user = data_pengelola.id_user
+		// WHERE permission = 'pengelola'
+		// ORDER BY id_pengelola";
+  	// return $this->db->query($query);
+
+		$this->db->select('d.id_user as id_user, a.username as username, d.nama as nama, d.email as email, d.no_telp as telepon, d.foto as foto');
+		$this->db->join('data_pengelola d', 'a.id_user = d.id_user');
+		$this->db->where('a.permission', 'pengelola');
+		$this->db->where('a.dihapus_pada', NULL);
+		$this->db->order_by('d.id_pengelola');
+
+		return $this->db->get('auth a');
+
   }
+	function getPengelolaByid($id){
+		$this->db->where('id_pengelola',$id);
+		return $this->db->get('data_pengelola')->row_array();
+
+	}
 	function get_pengelola(){
 		$this->db->join('auth','data_pengelola.id_user=auth.id_user');
 		$this->db->where('permission','pengelola');
@@ -83,15 +97,27 @@ class M_users extends CI_Model{
    $this->db->update('data_pengelola',$data);
    }
 
-	 function delete_pengelola($id)
+	 function delete_pengelola($id,$data=null)
 	 {
-		   $query1 = $this->db->delete('auth', array('id_user' => $id));
-			 $query2 = $this->db->delete('data_pengelola', array('id_user' => $id));
-			 if($query1 && $query2){
-				 return true;
-			 }else{
-				 return false;
-			 }
+ 			if($data != null) {
+					$this->db->where('id_user', $id);
+				  $this->db->update('auth', $data);
+
+					$this->db->where('id_user', $id);
+ 					$this->db->update('data_pengelola', $data);
+ 			} else {
+				$this->db->where('id_user', $id);
+				$query1 = $this->db->delete('auth');
+
+				$this->db->where('id_user', $id);
+				$query2 = $this->db->delete('data_pengelola');
+ 			}
+ 			if($query1 && $query2)
+ 			{
+ 					return true; // to the controller
+ 			} else {
+ 					return false;
+ 			}
 	 }
 
 	 function get_where()

@@ -24,7 +24,7 @@
       </div>
     </head>
     <section class="content">
-      
+
       <form class="form-horizontal" action="<?php echo base_url()?>sk">
           <div class="box-header with-border">
             <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
@@ -46,13 +46,13 @@
            </div>
          </div>
          <div class="form-group">
-           <label for="#" class="col-sm-2 control-label">Tanggal Mulai SK : </label>
+           <label for="#" class="col-sm-2 control-label">Deskripsi : </label>
            <div class="col-md-9">
-             <input class="form-control" name="mulaisk" value="<?php echo $sk->tanggal_mulai ;?>" placeholder="SK" type="date" required/>
-             <?php if(form_error('mulaisk')) : ?>
+             <!-- <input class="form-control" name="sk" value="<?php echo $sk->no_sk; ?>" placeholder="SK" type="text" required/> -->
+             <?php if(form_error('sk')) : ?>
                <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                   <?php echo form_error('mulaisk'); ?>
+                   <?php echo form_error('sk'); ?>
                </div>
              <?php endif ?>
            </div>
@@ -69,18 +69,7 @@
              <?php endif ?>
            </div>
          </div>
-         <div class="form-group">
-           <label for="#" class="col-sm-2 control-label">Tanggal Berakhir SK : </label>
-           <div class="col-md-9">
-             <input class="form-control" name="akhirsk" value="<?php echo $sk->tanggal_berakhir; ?>" placeholder="SK" type="date" required/>
-             <?php if(form_error('akhirsk')) : ?>
-               <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
-                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                   <?php echo form_error('akhirsk'); ?>
-               </div>
-             <?php endif ?>
-           </div>
-         </div>
+
                            <!-- <a onclick="return confirmSave()"> -->
                              <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Edit SK</b></button>
                            <!-- </a> -->

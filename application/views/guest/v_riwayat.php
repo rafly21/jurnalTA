@@ -11,20 +11,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <head>
-      <?php if($this->session->flashdata('success_msg')) : ?>
-          <div class="alert alert-success alert-dismissible" style="margin-bottom:10px;">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4><i class="icon fa fa-check"></i> Sukses !</h4>
-            <?= $this->session->flashdata('success_msg') ?>
-          </div>
-      <?php endif ?>
-      <?php if($this->session->flashdata('error_msg')) : ?>
-        <div class="alert alert-danger alert-dismissible" style="margin-bottom:10px;">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <h4><i class="icon fa fa-ban"></i> Gagal !</h4>
-          <?= $this->session->flashdata('error_msg') ?>
-        </div>
-      <?php endif ?>
+
     <!-- Content Header (Page header) -->
     <div class="bar">
 
@@ -45,41 +32,65 @@
 </head>
     <!-- Main content -->
     <section class="content">
-      
+      <form class="form-horizontal" action="<?php echo base_url()?>jurnal_guest/acr">
+          <div class="box-header with-border">
+            <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
+            <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
+          </div>
+        </form>
 
       <!-- Info boxes -->
-      <div class="box">
-      <div class="box-header with-border">
-        <table id="tes5" class="table table-bordered table-striped scroll" style="background-color:white;">
-          <thead>
-            <tr>
-              <th>Riwayat SK  </th>
-              <th>No.SK</th>
-              <th>Tanggal Mulai</th>
-              <th>Tanggal berakhir</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            // var_dump($data);
-            $n= count($riwayatsk);
-            foreach($riwayatsk as $key => $a) {?>
-              <tr>
-                <td><?php echo $key === 0 ? "SK Terbaru" : "SK ke-".$n ?></td>
-                <td><?php echo $a->no_sk ?></div></font></td>
-                <td><?php echo $a->tanggal_mulai ?></td>
-                <td><?php echo $a->tanggal_berakhir ?></td>
-              </tr>
-              <?php $n--; } ?>
+      <?php if (count($riwayatsk)>0){       ?>
+  <div class="box">
+  <div class="box-header with-border">
+    <table id="tes5" class="table table-bordered table-striped scroll" style="background-color:white;">
+      <thead>
+        <tr>
+          <th>Riwayat SK  </th>
+          <th>No.SK</th>
+          <th>Tanggal Mulai</th>
+          <th>Tanggal berakhir</th>
+          <th>Peringkat SINTA</th>
+
+
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        // var_dump($riwayatsk);
+        $n= count($riwayatsk);
+        foreach($riwayatsk as $key => $a) {?>
+          <tr>
+            <td><?php echo $key === 0 ? "SK Terbaru" : "SK ke-".$n ?></td>
+            <td><?php echo $a->no_sk ?></div></font></td>
+            <td><?php echo $a->tanggal_mulai ?></td>
+            <td><?php echo $a->tanggal_berakhir ?></td>
+            <td> <?php echo $a->peringkat_sinta ?></td>
+            <td>
+
+            </td>
+
+          </tr>
+
+          <?php $n--; } ?>
 
 
 </table>
-      </div>
-      <div class="box-body">
-      </div><!-- /.box-body -->
-      <div class="box-footer">
-      </div><!-- /.box-footer-->
-  </div><!-- /.box -->
+  </div>
+  <div class="box-body">
+  </div><!-- /.box-body -->
+  <div class="box-footer">
+  </div><!-- /.box-footer-->
+</div><!-- /.box -->
+<?php }else {?>
+<div class="box">
+
+<div class="box-body">
+<p><b> JURNAL BELUM TERAKREDITASI</b></p>
+</div><!-- /.box-body -->
+</div><!-- /.box-body -->
+
+<?php }?>
       <!-- /.row -->
     </section>
     <!-- /.content -->

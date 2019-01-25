@@ -43,6 +43,7 @@ class Departemen extends CI_Controller {
       $data = array(
           'nama_dept' => $this->input->post('nama'),
           'id_fak'       => $this->input->post('fakultas'),
+					'dibuat_pada' => date('Y-m-d H:i:s')
         );
         $result=$this->M_Jurnal->input_dept($data);
         if ($result) {
@@ -64,6 +65,38 @@ class Departemen extends CI_Controller {
   // die();
   $this->load->view('manajemen/v_edit_departemen',$data);
   }
+
+	public function update_departemen($id){
+		$this->form_validation->set_rules('nama', 'nama departemen', 'required');
+		$this->form_validation->set_rules('fakultas', 'fakultas', 'required');
+
+		// $id=$this->input->post('id_lembaga');
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->edit_departemen($id);
+		}
+		else
+		{
+
+		$data = array(
+			'nama_dept' => $this->input->post('nama'),
+			'id_fak'       => $this->input->post('fakultas'),
+			'diubah_pada' => date('Y-m-d H:i:s')
+
+		);
+		$result=$this->M_Jurnal->update_dept($id,$data);
+		if ($result) {
+				$this->session->set_flashdata('success_msg', 'Departemen berhasil ditambahkan');
+		} else {
+				$this->session->set_flashdata('error_msg', 'Gagal menambah Departemen. Silahkan coba lagi atau hubungi administrator');
+		}
+
+		redirect('dept');
+}
+
+
+	}
+
 	public function delete_departemen($id){
 		$result =$this->M_Jurnal->delete_dept($id);
 		if ($result) {

@@ -35,6 +35,8 @@ class Lembaga extends CI_Controller {
     {
       $data = array(
           'nama_lembaga' => $this->input->post('nama'),
+					'dibuat_pada' => date('Y-m-d H:i:s')
+
         );
         $result=$this->M_Jurnal->input_lembaga($data);
         if ($result) {
@@ -72,10 +74,12 @@ class Lembaga extends CI_Controller {
         $this->edit_lembaga($id);
     }
     else
-    {	
+    {
 
     $data = array(
       'nama_lembaga' => $this->input->post('nama_lembaga'),
+			'diubah_pada' => date('Y-m-d H:i:s')
+
 		);
     $result = $this->M_Jurnal->update_lembaga($id,$data);
     if ($result) {

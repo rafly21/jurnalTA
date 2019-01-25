@@ -23,15 +23,119 @@ class Jurnal_Pengelola extends CI_Controller {
 		$this->load->view('pengelola/v_p_jurnal',$data);
 
 	}
-	public function edit_dataPengelola()
+	public function edit_dataPengelola($id)
 	{
-		$id=  $this->uri->segment(3);
+
 	  $this->load->model('M_users');
 	  // edit ini cok
 	  $data['data']   =  $this->M_users->tampil_data()->result();
-	  $data['record']=  $this->M_users->get_one($id)->row_array();
-		$this->load->view('pengelola/v_data_pengelola',$id);
+	  $data['record']=  $this->M_users->getPengelolaByid($id);
 
+		$this->load->view('pengelola/v_data_pengelola',$data);
+
+	}
+	public function update_dataPengelola(){
+		$this->form_validation->set_rules('inputnama', 'Nama', 'required');
+		$this->form_validation->set_rules('inputemail', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('inputtelepon', 'No. Telepon', 'required|numeric');
+		$id = $this->input->post('inputiduser');
+		$user = $this->M_users->get_one($id)->result();
+
+
+		if ($this->form_validation->run() == FALSE)
+		{
+				$this->edit_dataPengelola($user[0]->id_pengelola);
+		} else {
+			$slug = url_title($this->input->post('inputnama'), 'dash', true);
+			$filename = time()."-".$slug;
+			$config['upload_path']          = './assets/Foto/';
+			$config['allowed_types']        = 'gif|jpg|png|jpeg';
+			$config['max_size']             = 2048;
+			// $config['max_width']            = 1024;
+			// $config['max_height']           = 768;
+			$config['file_name']        = $filename;
+			$this->load->library('upload', $config);
+
+			$data=array(
+				 'id_user'=> $this->input->post('inputiduser'),
+				 'nama'=> $this->input->post('inputnama'),
+				 'email'=> $this->input->post('inputemail'),
+				 'no_telp'=> $this->input->post('inputtelepon'),
+				 'diubah_pada' => date('Y-m-d H:i:s')
+			);
+
+
+			if($_FILES["foto"]["name"]) {
+
+				 if (! $this->upload->do_upload('foto'))
+				 {
+							$this->session->set_flashdata('failedUpdateUser',$this->upload->display_errors());
+							return redirect("pengelola/data_pengelola/".$user[0]->id_pengelola);
+				 }
+				 else
+				 {
+						$file = $this->upload->data();
+						$old_foto = $user[0]->foto;
+
+						// die(var_dump($file));
+
+						$data['foto'] = 'assets/Foto/'.$file['file_name'];
+				 }
+			}
+
+
+	 	  	$up = $this->M_users->update($data,$id);
+	 			if ($up) {
+		 			if($file !== null && $old_foto !== "") {
+		 				unlink("./".$old_foto);
+		 			}
+		 			$this->session->set_flashdata('successUpdateUser','ok');
+		 			$this->session->unset_userdata(['name', 'foto']);
+		 			$this->session->set_userdata(['name' => $data['nama'], 'foto' => $data['foto']]);
+		 		} else {
+		 			$this->session->set_flashdata('failedUpdateUser','ERROR : Gagal update user !');
+		 		}
+
+	 	  return redirect('pengelola');
+
+		// 	if ( ! $this->upload->do_upload('foto'))
+	 	// 	 {
+	 	// 		 $this->session->set_flashdata('failedUpdateUser',$this->upload->display_errors());
+		// 		 return redirect("pengelola/data_pengelola/".$user[0]->id_pengelola);
+	 	// 	 }
+	 	// 	 else
+	 	// 	 {
+	 	// 		 // $id = $this->input->post('inputiduser');
+	 	// 			$file = $this->upload->data();
+	 	// 			// $user = $this->M_users->get_one($id)->result();
+	 	// 			$old_foto = $user[0]->foto;
+		//
+	 	//     $data=array(
+	 	// 			'id_user'=> $this->input->post('inputiduser'),
+	 	// 			'nama'=> $this->input->post('inputnama'),
+	 	// 			'email'=> $this->input->post('inputemail'),
+	 	// 			'no_telp'=> $this->input->post('inputtelepon'),
+	 	// 			'foto' => 'assets/Foto/'.$file['file_name'],
+	 	// 			'diubah_pada' => date('Y-m-d H:i:s')
+		//
+	 	//     );
+		//
+	 	//   $up = $this->M_users->update($data,$id);
+	 	// 	if ($up) {
+	 	// 		if($old_foto !== "") {
+	 	// 			unlink("./".$old_foto);
+	 	// 		}
+	 	// 		$this->session->set_flashdata('successUpdateUser','ok');
+		// 		$this->session->unset_userdata('name');
+	 	// 		$this->session->set_userdata(['name' => $data['nama']]);
+	 	// 	} else {
+	 	// 		$this->session->set_flashdata('failedUpdateUser','ERROR : Gagal update user !');
+	 	// 	}
+		//
+	 	//   return redirect('pengelola');
+	 	// }
+		//
+		}
 	}
 	public function edit_jurnal($id)
 	{

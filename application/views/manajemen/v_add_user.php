@@ -33,14 +33,26 @@
                       <div class="form-group">
                         <label for="inputusername" class="col-sm-2 control-label">Username : </label>
                         <div class="col-md-9">
-                          <input class="form-control" name="inputusername" placeholder="Username" type="text" required/>
+                          <input class="form-control" name="inputusername" value="<?=set_value('inputusername')?>" placeholder="Username" type="text" required/>
+                          <?php if(form_error('inputusername')) : ?>
+                            <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <?php echo form_error('inputusername'); ?>
+                            </div>
+                          <?php endif ?>
                         </div>
                       </div>
 
                        <div class="form-group">
                         <label for="inputpassword" class="col-sm-2 control-label">Password : </label>
                         <div class="col-md-9">
-                          <input class="form-control" name="inputpassword" placeholder="Password" type="password" required/>
+                          <input class="form-control" name="inputpassword" value="<?=set_value('inputpassword')?>"placeholder="Password" type="password" required/>
+                          <?php if(form_error('inputpassword')) : ?>
+                            <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <?php echo form_error('inputpassword'); ?>
+                            </div>
+                          <?php endif ?>
                         </div>
                         </div>
 
@@ -49,14 +61,26 @@
                        <div class="form-group">
                         <label for="inputnama" class="col-sm-2 control-label">Nama : </label>
                         <div class="col-md-9">
-                          <input class="form-control" name="inputnama" placeholder="Nama" type="text" required/>
+                          <input class="form-control" name="inputnama" value="<?=set_value('inputnama')?>" placeholder="Nama" type="text" required/>
+                          <?php if(form_error('inputnama')) : ?>
+                            <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <?php echo form_error('inputnama'); ?>
+                            </div>
+                          <?php endif ?>
                         </div>
                         </div>
 
                        <div class="form-group">
                         <label for="inputemail" class="col-sm-2 control-label">Email : </label>
                         <div class="col-md-9">
-                          <input class="form-control" name="inputemail" placeholder="Email" type="text" required/>
+                          <input class="form-control" name="inputemail" value="<?=set_value('inputemail')?>" placeholder="Email" type="text" required/>
+                          <?php if(form_error('inputemail')) : ?>
+                            <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <?php echo form_error('inputemail'); ?>
+                            </div>
+                          <?php endif ?>
 
                          </div>
                         </div>
@@ -64,8 +88,14 @@
                         <div class="form-group">
                         <label for="inputtelepon" class="col-sm-2 control-label">Telepon : </label>
                         <div class="col-md-9">
-                          <input class="form-control" name="inputtelepon" placeholder="Telepon" type="text" required/>
+                          <input class="form-control" name="inputtelepon" value="<?=set_value('inputtelepon')?>" placeholder="Telepon" type="text" required/>
 
+                          <?php if(form_error('inputtelepon')) : ?>
+                            <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <?php echo form_error('inputtelepon'); ?>
+                            </div>
+                          <?php endif ?>
                          </div>
                        </div>
                        <div class="form-group">
@@ -73,7 +103,13 @@
 
                          <div class="col-md-9">
 
-                       <input type="file" name="foto" size="20" />
+                       <input type="file" name="foto" value="<?=set_value('foto')?>" size="20" />
+                       <?php if(form_error('foto')) : ?>
+                         <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                             <?php echo form_error('foto'); ?>
+                         </div>
+                       <?php endif ?>
                      </div>
                      </div>
 

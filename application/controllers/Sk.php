@@ -41,6 +41,8 @@ class Sk extends CI_Controller {
           'tanggal_mulai' => $this->input->post('mulaisk') ,
           'tanggal_penetapan' => $this->input->post('tetapsk') ,
           'tanggal_berakhir' => $this->input->post('akhirsk') ,
+					'dibuat_pada' => date('Y-m-d H:i:s')
+
         );
         $result=$this->M_Jurnal->input_sk($data);
         if ($result) {
@@ -90,6 +92,8 @@ class Sk extends CI_Controller {
 			'tanggal_mulai' => $this->input->post('mulaisk') ,
 			'tanggal_penetapan' => $this->input->post('tetapsk') ,
 			'tanggal_berakhir' => $this->input->post('akhirsk') ,
+			'diubah_pada' => date('Y-m-d H:i:s')
+
 		);
     $result = $this->M_Jurnal->update_sk($id,$data);
 

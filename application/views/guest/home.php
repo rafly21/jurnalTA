@@ -29,8 +29,7 @@
       <div class="box-header with-border">
           <h3 class="box-title"></h3>
           <div class="box-tools pull-right">
-              <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-              <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+
           </div>
       </div>
       <div class="box-body">
@@ -99,8 +98,66 @@
        </div><!-- /.box-body -->
       <div class="box-footer">
 
-      </div><!-- /.box-footer-->
+      </div>
+
+      <!-- /.box-footer-->
   </div><!-- /.box -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="box box-danger">
+        <!-- <div class="box-header with-border">
+          <h3 class="box-title">Jumlah Jurnal </h3>
+        </div> -->
+        <div class="box-body">
+          <div id="machart" style="width:100%; height:315px;"></div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="box box-danger">
+        <div class="box-body">
+          <div id="penerbitJurnal" style="width:100%; height:315px;"></div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="box box-danger">
+        <!-- <div class="box-header with-border">
+          <h3 class="box-title">Jumlah Jurnal </h3>
+        </div> -->
+        <div class="box-body">
+          <div id="jurnalSinta" style="width:100%; height:315px;"></div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="box box-danger">
+        <div class="box-body">
+          <div id="jurnalSintaFakultas" style="width:100%; height:315px;"></div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-danger">
+        <!-- <div class="box-header with-border">
+          <h3 class="box-title">Jumlah Jurnal </h3>
+        </div> -->
+        <div class="box-body">
+          <div id="jurnalPenerbitSinta" style="width:100%; height:315px;"></div>
+        </div>
+        <!-- /.box-body -->
+      </div>
+    </div>
+  </div>
       <!-- /.row -->
     </section>
     <!-- /.content -->

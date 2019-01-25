@@ -74,11 +74,8 @@
             <span data-toggle="tooltip" title="Detail Jurnal" data-placement="top"><a href="#mDetailJurnal<?=$a->id_jurnal?>" data-toggle="modal" data-target="#mDetailJurnal<?=$a->id_jurnal?> " class="btn btn-sm btn-default "><i class="fa fa-bars" aria-hidden="true"></i></a></span>
 
 
-            <?php if (empty($skJurnal)){ ?>
-              <span class="btn btn-sm btn-warning disabled" disabled><b>Riwayat SK</b></span>
-            <?php } else {?>
               <a href="<?php echo base_url('jurnal_guest/riwayat/'.$a->id_jurnal); ?>" class="btn btn-sm btn-warning"><b>Riwayat SK</b></a>
-            <?php } ?>
+
 
 
           </td>
@@ -255,7 +252,7 @@
                         Peringkat SINTA
                       </label>
                       <label class="col-sm-8">
-                        <?= $detail->peringkat_sinta?>
+                        <?= $skJurnal->peringkat_sinta?>
                       </label>
                   </div>
                   <?php endif; ?>

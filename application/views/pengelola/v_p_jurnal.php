@@ -32,7 +32,7 @@
               Daftar Jurnal Yang Dikelola    <span class="hidden-xs"><?php
                 if (!empty($this->session->userdata())){
                   echo $this->session->userdata('name') ;
-                  
+
                 }
 
 
@@ -258,7 +258,7 @@
                         Peringkat SINTA
                       </label>
                       <label class="col-sm-8">
-                        <?= $detail->peringkat_sinta?>
+                        <?= $skJurnal->peringkat_sinta?>
                       </label>
                   </div>
                   <?php endif; ?>

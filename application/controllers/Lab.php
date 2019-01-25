@@ -35,6 +35,8 @@ class Lab extends CI_Controller {
     {
       $data = array(
           'nama_lab' => $this->input->post('nama_lab'),
+					'diubah_pada' => date('Y-m-d H:i:s')
+
         );
         $result=$this->M_Jurnal->input_lab($data);
         if ($result) {
@@ -76,6 +78,8 @@ class Lab extends CI_Controller {
 
     $data = array(
       'nama_lab' => $this->input->post('nama_lab'),
+			'diubah_pada' => date('Y-m-d H:i:s')
+
 		);
     $result = $this->M_Jurnal->update_lab($id,$data);
     if ($result) {

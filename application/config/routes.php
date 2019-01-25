@@ -75,6 +75,9 @@ $route['jurnal/filter'] = 'jurnal/index';
 $route['jurnal/grafik'] = 'jurnal/grafikJurnal';
 $route['jurnal/riwayat/(:num)'] = 'jurnal/riwayatSK/$1';
 $route['jurnal/riwayat/create'] = 'jurnal/perbaruiSK';
+$route['jurnal/riwayat/delete/(:num)'] = 'jurnal/deleteSK/$1';
+$route['jurnal/riwayat/submit/'] = 'jurnal/submitSK/';
+
 $route['jurnal_guest/riwayat/(:num)'] = 'jurnal_guest/riwayatSK/$1';
 $route['jurnal_guest/riwayat/create'] = 'jurnal_guest/perbaruiSK';
 
@@ -116,13 +119,15 @@ $route['dept'] = 'departemen';
 $route['dept/tambah_dept'] = 'departemen/add_departemen';
 $route['dept/insert_dept'] = 'departemen/insert_departemen';
 $route['dept/edit_dept/(:num)'] = 'departemen/edit_departemen/$1';
-$route['dept/update_dept'] = 'departemen/update_departemen';
+$route['dept/update_dept/(:num)'] = 'departemen/update_departemen/$1';
 $route['dept/delete_dept/(:num)'] = 'departemen/delete_departemen/$1';
 
 
+$route['pengelola'] = 'Pengelola';
 $route['pengelola/edit_jurnal/(:num)'] = 'jurnal_pengelola/edit_jurnal/$1';
 $route['pengelola/update_jurnal/(:num)'] = 'jurnal_pengelola/update_jurnal/$1';
-$route['pengelola/data_pengelola/(:num)'] = 'jurnal_pengelola/edit_dataPengelola/$id';
+$route['pengelola/data_pengelola/(:num)'] = 'jurnal_pengelola/edit_dataPengelola/$1';
+$route['pengelola/update'] = 'jurnal_pengelola/update_dataPengelola';
 
 
 

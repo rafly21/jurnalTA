@@ -103,11 +103,9 @@
             <a href="<?php echo base_url('jurnal/edit_jurnal/'.$a->id_jurnal); ?>" class="btn btn-sm btn-info"><b>Edit Jurnal</b></a>
 
             <a href="#mDelJurnal<?=$a->id_jurnal?>" data-toggle='modal' data-target='#mDelJurnal<?=$a->id_jurnal?>' class="btn btn-danger"><b>Delete</b></a>
-            <?php if (empty($skJurnal)){ ?>
-              <span class="btn btn-sm btn-warning disabled" disabled><b>Perbarui SK</b></span>
-            <?php } else {?>
+
+
             <a href="<?php echo base_url('jurnal/riwayat/'.$a->id_jurnal); ?>" class="btn btn-sm btn-warning"><b>Perbarui SK</b></a>
-          <?php } ?>
 
 
 
@@ -283,7 +281,7 @@
                         Peringkat SINTA
                       </label>
                       <label class="col-sm-8">
-                        <?= $detail->peringkat_sinta?>
+                        <?= $skJurnal->peringkat_sinta?>
                       </label>
                   </div>
                   <?php endif; ?>
@@ -348,7 +346,7 @@
                 <h4 class="modal-title">Hapus data</h4>
               </div>
               <div class="modal-body">
-                <p> yakin mau hapus jurnal <?php echo $a->judul ?> ? </p>
+                <p> yakin mau hapus jurnal <?php echo $detail->judul ?> ? </p>
               </div>
               <div class="modal-footer">
                 <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">tutup</button>

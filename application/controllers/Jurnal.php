@@ -46,146 +46,199 @@ class Jurnal extends CI_Controller {
 		// echo json_encode($data);
 		$this->load->view('manajemen/v_jurnal',$data);
 	}
+	// ================================ GRAPH ==============================================
 
-	function getGraphDataJurnalAkreditasiByPenerbit($tahun=null) {
-		$byLembaga = $this->M_Jurnal->countJurnalAkreditasiByLembaga($tahun);
-		$byFakultas = $this->M_Jurnal->countJurnalAkreditasiByFakultas($tahun);
-		$byDepartemen = $this->M_Jurnal->countJurnalAkreditasiByDepartemen($tahun);
 
-		$total = 0;
-		foreach ($byLembaga as $key => $value) {
-				$total += intval($value->jumlah);
-		}
-		$data["gFakultas"][0]["label"] = "Puslit/lembaga";
-		$data["gFakultas"][0]["value"] = $total;
 
-		foreach ($byDepartemen as $key => $value) {
-				$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
-				$fakultas["label"] = $namaFakultas;
-				$fakultas["value"] = intval($value->jumlah);
-				$data["gFakultas"][$value->fakultas] = $fakultas;
-		}
+		function getGraphDataJurnalAkreditasiByPenerbitSinta($tahun=null) {
+			$sinta = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
+			$faks = $this->M_Jurnal->getFakultas();
+			$categories = array();
+			$resultSeries = array();
 
-		foreach ($byFakultas as $key => $value) {
-				$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
-				if(isset($data["gFakultas"][$value->fakultas])) {
-						$data["gFakultas"][$value->fakultas]["value"] += $value->jumlah;
-				} else {
-					$fakultas["label"] = $namaFakultas;
-					$fakultas["value"] = intval($value->jumlah);
-					$data["gFakultas"][$value->fakultas] = $fakultas;
+			if (empty($categories)) {
+				$categories[0] = "Puslit/lembaga";
+			}
+
+			foreach ($faks as $v) {
+				$categories[$v->id_fak] = $v->nama_fak;
+			}
+
+			for ($i = 0; $i < count($sinta); $i++) {
+				$byLembaga = $this->M_Jurnal->countJurnalAkreditasiByLembaga($tahun, $sinta[$i]);
+				$byFakultas = $this->M_Jurnal->countJurnalAkreditasiByFakultas($tahun, $sinta[$i]);
+				$byDepartemen = $this->M_Jurnal->countJurnalAkreditasiByDepartemen($tahun, $sinta[$i]);
+				$series = array_fill(0, count($categories), 0);
+				for ($j = 0; $j < count($categories) ; $j++) {
+					$series[$j] = 0;
 				}
+
+				if (!empty($byLembaga)) {
+					foreach ($byLembaga as $key => $v) {
+						if (isset($series[0])) {
+							$series[0] += intval($v->jumlah);
+						} else {
+							$series[0] = intval($v->jumlah);
+						}
+					}
+				}
+
+				if (!empty($byDepartemen)) {
+					foreach ($byDepartemen as $key => $v) {
+						if (isset($series[$v->fakultas])) {
+							$series[$v->fakultas] += intval($v->jumlah);
+						} else {
+							$series[$v->fakultas] = intval($v->jumlah);
+						}
+					}
+				}
+
+				if (!empty($byFakultas)) {
+					foreach ($byFakultas as $key => $v) {
+						if (isset($series[$v->fakultas])) {
+							$series[$v->fakultas] += intval($v->jumlah);
+						} else {
+							$series[$v->fakultas] = intval($v->jumlah);
+						}
+					}
+				}
+
+				array_push($resultSeries, [
+					'name' => $sinta[$i],
+					'data' => $series,
+				]);
+
+			}
+
+			return json_encode([
+				'categories' => $categories,
+				'series' => $resultSeries
+			]);
 		}
 
-		$result = array();
-		$colors = ["#0058B2", "#B21C12", "#E6FF19", "#8812B2", "#14CC7E", "#00C0CC", "#998C3D", "#FF5800", "#400300", "#B4BCE5", "#E5AB63", "#FF1C00", "#FFA593", "#B8E886"];
-		foreach ($data["gFakultas"] as $key => $value) {
-				$value = (object)$value;
-				$value->color = $colors[$key];
-				$value->highlight = $colors[$key];
-				array_push($result, $value);
-		}
+		function getGraphDataJurnalAkreditasiByPenerbit($tahun=null) {
+			$byLembaga = $this->M_Jurnal->countJurnalAkreditasiByLembaga($tahun);
+			$byFakultas = $this->M_Jurnal->countJurnalAkreditasiByFakultas($tahun);
+			$byDepartemen = $this->M_Jurnal->countJurnalAkreditasiByDepartemen($tahun);
 
-		return json_encode($result);
-	}
+			$total = 0;
+			foreach ($byLembaga as $key => $value) {
+					$total += intval($value->jumlah);
+			}
+			$data["gFakultas"][0]["name"] = "Puslit/lembaga";
+			$data["gFakultas"][0]["y"] = $total;
 
-	function getGraphDataJurnalAkreditasiByPenerbit2($tahun=null) {
-		$byLembaga = $this->M_Jurnal->countJurnalAkreditasiByLembaga($tahun);
-		$byFakultas = $this->M_Jurnal->countJurnalAkreditasiByFakultas($tahun);
-		$byDepartemen = $this->M_Jurnal->countJurnalAkreditasiByDepartemen($tahun);
-
-		$total = 0;
-		foreach ($byLembaga as $key => $value) {
-				$total += intval($value->jumlah);
-		}
-		$data["gFakultas"][0]["name"] = "Puslit/lembaga";
-		$data["gFakultas"][0]["y"] = $total;
-
-		foreach ($byDepartemen as $key => $value) {
-				$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
-				$fakultas["name"] = $namaFakultas;
-				$fakultas["y"] = intval($value->jumlah);
-				$data["gFakultas"][$value->fakultas] = $fakultas;
-		}
-
-		foreach ($byFakultas as $key => $value) {
-				$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
-				if(isset($data["gFakultas"][$value->fakultas])) {
-						$data["gFakultas"][$value->fakultas]["y"] += $value->jumlah;
-				} else {
+			foreach ($byDepartemen as $key => $value) {
+					$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
 					$fakultas["name"] = $namaFakultas;
 					$fakultas["y"] = intval($value->jumlah);
 					$data["gFakultas"][$value->fakultas] = $fakultas;
-				}
-		}
-
-		$result = array();
-		// $colors = ["#0058B2", "#B21C12", "#E6FF19", "#8812B2", "#14CC7E", "#00C0CC", "#998C3D", "#FF5800", "#400300", "#B4BCE5", "#E5AB63", "#FF1C00", "#FFA593", "#B8E886"];
-		foreach ($data["gFakultas"] as $key => $value) {
-			$value = (object)$value;
-			// $value->color = $colors[$key];
-			// $value->highlight = $colors[$key];
-			array_push($result, $value);
-		}
-
-		return json_encode($result);
-	}
-
-	function getGraphDataJurnalAkreditasiByYear() {
-		$year = date('Y')-4;
-		$months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-		$data = null;
-		for ($i = 0; $i < 5; $i++) {
-			$jurnal = $this->M_Jurnal->countJurnalAkreditasiByYear($year);
-			$data['years'][$i] = $year;
-			$data['jurnal'][$i] = $jurnal;
-			if ($i > 0) {
-				$data['kumulatif'][$i] = $data['jurnal'][$i-1] + $jurnal;	
-			} else {
-				$data['kumulatif'][$i] = $data['jurnal'][$i];
 			}
-			$year += 1;
+
+			foreach ($byFakultas as $key => $value) {
+					$namaFakultas = $this->M_Jurnal->getFakultas($value->fakultas)[0]->nama_fak;
+					if(isset($data["gFakultas"][$value->fakultas])) {
+							$data["gFakultas"][$value->fakultas]["y"] += $value->jumlah;
+					} else {
+						$fakultas["name"] = $namaFakultas;
+						$fakultas["y"] = intval($value->jumlah);
+						$data["gFakultas"][$value->fakultas] = $fakultas;
+					}
+			}
+
+			$result = array();
+			// $colors = ["#0058B2", "#B21C12", "#E6FF19", "#8812B2", "#14CC7E", "#00C0CC", "#998C3D", "#FF5800", "#400300", "#B4BCE5", "#E5AB63", "#FF1C00", "#FFA593", "#B8E886"];
+			foreach ($data["gFakultas"] as $key => $value) {
+				$value = (object)$value;
+				// $value->color = $colors[$key];
+				// $value->highlight = $colors[$key];
+				array_push($result, $value);
+			}
+
+			return json_encode($result);
 		}
-		$data['year'] = date('Y');
-		$data['month'] = $months[date('n')-1]; 
 
-		return json_encode((object)$data);
-	}
+		function getGraphDataJurnalAkreditasiByYear() {
+			$year = date('Y')-4;
+			$months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+			$data = null;
+			for ($i = 0; $i < 5; $i++) {
+				$jurnal = $this->M_Jurnal->countJurnalAkreditasiByYear($year);
+				$data['years'][$i] = $year;
+				$data['jurnal'][$i] = $jurnal;
+				if ($i > 0) {
+					$data['kumulatif'][$i] = $data['jurnal'][$i-1] + $jurnal;
+				} else {
+					$data['kumulatif'][$i] = $data['jurnal'][$i];
+				}
+				$year += 1;
+			}
+			$data['year'] = date('Y');
+			$data['month'] = $months[date('n')-1];
 
-	function getGraphDataJurnalAkreditasiBySinta() {
-		// $year = date('Y')-4;
-		$sinta = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
-		$data = null;
-		for ($i = 0; $i < count($sinta); $i++) {
-			$jurnal = $this->M_Jurnal->countJurnalAkreditasiBySinta($sinta[$i]);
-			$data['jumlah'][$i] = $jurnal;
+			return json_encode((object)$data);
 		}
-		$data['kategori'] = $sinta; 
 
-		return json_encode((object)$data);
-	}
+		function getGraphDataJurnalAkreditasiBySinta() {
+			// $year = date('Y')-4;
+			$sinta = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
+			$data = null;
+			for ($i = 0; $i < count($sinta); $i++) {
+				$jurnal = $this->M_Jurnal->countJurnalAkreditasiBySinta($sinta[$i]);
+				$data['jumlah'][$i] = $jurnal;
+			}
+			$data['kategori'] = $sinta;
 
-	public function grafikJurnal(){
-		// $data['res'] = $this->M_Jurnal->getJurnalAkreditasi();
+			return json_encode((object)$data);
+		}
 
-		// var_dump($data['graphData']);
-		// die;
+		function getGraphDataJurnalAkreditasiByPengindeks() {
+			$pengindeks = ['DOAJ', 'ESCI', 'Scopus', 'EBSCO'];
+			$res = null;
+			// $data = $this->M_Jurnal->countJurnalAkreditasiByPengindeks($pengindeks[0]);
+			for ($i = 0; $i < count($pengindeks); $i++) {
+				$d = $this->M_Jurnal->countJurnalAkreditasiByPengindeks(strtolower($pengindeks[$i]));
+				if ($d !== null) {
+					$res['categories'][$i] = $d->nama;
+					$res['jumlah'][$i] = (int)$d->jumlah;
+				} else {
+					$res['categories'][$i] = $pengindeks[$i];
+					$res['jumlah'][$i] = 0;
+				}
+			}
+			return json_encode($res);
+		}
 
-		// $data['res'] = array();
-		// foreach ($jurnals as $key => $jurnal) {
-		// 		$penerbit = $this->M_Jurnal->getPenerbitJurnal($jurnal->id_jurnal);
-		// 		array_push($data["res"], $push);
-		// }
-		// $data['res'] = $this->M_Jurnal->getFakultasPenerbit();
+		public function grafikJurnal(){
+			// $data['res'] = $this->M_Jurnal->getJurnalAkreditasi();
 
-		// $data["graphData"] = $this->getGraphData();
-		$data["graphDataJurnalAkreditasiByYear"] = $this->getGraphDataJurnalAkreditasiByYear();
-		$data["graphDataJurnalAkreditasiByPenerbit"] = $this->getGraphDataJurnalAkreditasiByPenerbit2();
-		$data["graphDataJurnalAkreditasiBySinta"] = $this->getGraphDataJurnalAkreditasiBySinta();
+			$data["graphDataJurnalAkreditasiByPenerbitSinta"] = $this->getGraphDataJurnalAkreditasiByPenerbitSinta();
+			// var_dump($data['graphData']);
+			// die;
 
-		$this->load->view('manajemen/grafik', $data);
+			// $data['res'] = array();
+			// foreach ($jurnals as $key => $jurnal) {
+			// 		$penerbit = $this->M_Jurnal->getPenerbitJurnal($jurnal->id_jurnal);
+			// 		array_push($data["res"], $push);
+			// }
+			// $data['res'] = $this->M_Jurnal->getFakultasPenerbit();
 
-	}
+			// $data["graphData"] = $this->getGraphData();
+			$data["graphDataJurnalAkreditasiByYear"] = $this->getGraphDataJurnalAkreditasiByYear();
+			$data["graphDataJurnalAkreditasiByPenerbit"] = $this->getGraphDataJurnalAkreditasiByPenerbit();
+			$data["graphDataJurnalAkreditasiBySinta"] = $this->getGraphDataJurnalAkreditasiBySinta();
+			$data["graphDataJurnalAkreditasiByPengindeks"] = $this->getGraphDataJurnalAkreditasiByPengindeks();
+
+			// die(var_dump($data["graphDataJurnalAkreditasiByPengindeks"]));
+
+			$this->load->view('manajemen/grafik', $data);
+
+		}
+
+
+		// ================================== END OF GRAPH =====================================
+
+
 	public function submitJurnal(){
 		$this->form_validation->set_rules('judul', 'Judul Jurnal', 'required');
 		$this->form_validation->set_rules('nomorjurnal', 'Nomor Jurnal', 'required|numeric');
@@ -206,7 +259,7 @@ class Jurnal extends CI_Controller {
 		$this->form_validation->set_rules('terbitakhir', 'Terbit Terakhir', 'required|numeric|exact_length[4]');
 		$this->form_validation->set_rules('noterakhir', 'Jumlah Nomor Terakhir', 'required|numeric');
 		// $this->form_validation->set_rules('pengindeks[]', 'Pengindeks', 'required');
-		$this->form_validation->set_rules('akreditasi', 'Terakreditasi', 'required');
+
 		// $this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
 		// $this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan SK', 'required');
 		// $this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
@@ -217,6 +270,8 @@ class Jurnal extends CI_Controller {
 
 		if(!empty($this->input->post('sk'))) {
 			$this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
+			$this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
+			$this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
 		}
 		if(!empty($this->input->post('peringkatsinta'))) {
 			$this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required|alpha_numeric');
@@ -247,18 +302,18 @@ class Jurnal extends CI_Controller {
 				'id_portal' => $this->input->post('portal'),
 				'url' => $this->input->post('urlportal'),
 				'url_sinta' => $this->input->post('urlsinta'),
+				'dibuat_pada' => date('Y-m-d H:i:s')
 			);
 			$result = false;
-			if(!empty($this->input->post('peringkatsinta'))) {
-				$dataJurnal['peringkat_sinta'] = $this->input->post('peringkatsinta');
-			}
+
 			$id_jurnal = $this->M_Jurnal->add_jurnal($dataJurnal, true);
 			if($id_jurnal !== null) {
 				$bulan_terbit = $this->input->post('blnterbit');
 				foreach ($bulan_terbit as $key => $value) {
 					$dataPenerbitan = array(
 						'id_jurnal' => $id_jurnal,
-						'bulan_terbit' => $bulan_terbit[$key]
+						'bulan_terbit' => $bulan_terbit[$key],
+						'dibuat_pada' => date('Y-m-d H:i:s')
 					);
 					$result = $this->M_Jurnal->add_penerbitan($dataPenerbitan);
 				}
@@ -266,7 +321,8 @@ class Jurnal extends CI_Controller {
 				$dataPenerbit = array(
 					'id_jurnal' => $id_jurnal,
 					'jenis_penerbit' => $this->input->post('penerbit'),
-					'id_jenis' => $this->input->post('id_penerbit')
+					'id_jenis' => $this->input->post('id_penerbit'),
+					'dibuat_pada' => date('Y-m-d H:i:s')
 				);
 				$result .= $this->M_Jurnal->add_penerbit($dataPenerbit);
 
@@ -278,6 +334,7 @@ class Jurnal extends CI_Controller {
 						'id_jurnal' => $id_jurnal,
 						'id_pengindeks' => $value,
 						'url_pengindeks' => $url_pengindeks[$name],
+						'dibuat_pada' => date('Y-m-d H:i:s')
 					);
 					$result .= $this->M_Jurnal->add_pengindeks($dataPengindeks);
 				}
@@ -287,7 +344,17 @@ class Jurnal extends CI_Controller {
 					$dataSK = array(
 						'id_jurnal' => $id_jurnal,
 						'id_sk' => $this->input->post('sk'),
+						'dibuat_pada' => date('Y-m-d H:i:s')
 					);
+					if(!empty($this->input->post('peringkatsinta'))) {
+						$dataSK['peringkat_sinta'] = $this->input->post('peringkatsinta');
+					}
+					if(!empty($this->input->post('mulaisk'))) {
+						$dataSK['tanggal_mulai'] = $this->input->post('mulaisk');
+					}
+					if(!empty($this->input->post('akhirsk'))) {
+						$dataSK['tanggal_berakhir'] = $this->input->post('akhirsk');
+					}
 					$result .= $this->M_Jurnal->addSkJurnal($dataSK);
 				}
 			}
@@ -363,6 +430,8 @@ class Jurnal extends CI_Controller {
 
 		if(!empty($this->input->post('sk'))) {
 			$this->form_validation->set_rules('sk', 'SK Akreditasi', 'required');
+			$this->form_validation->set_rules('mulaisk', 'Tanggal Mulai SK', 'required');
+			$this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
 		}
 		if(!empty($this->input->post('peringkatsinta'))) {
 			$this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required|alpha_numeric');
@@ -392,13 +461,12 @@ class Jurnal extends CI_Controller {
 				'id_portal' => $this->input->post('portal'),
 				'url' => $this->input->post('urlportal'),
 				'url_sinta' => $this->input->post('urlsinta'),
+				'diubah_pada' => date('Y-m-d H:i:s')
 			);
 
 			$result = false;
 
-			if(!empty($this->input->post('peringkatsinta'))) {
-				$dataJurnal['peringkat_sinta'] = $this->input->post('peringkatsinta');
-			}
+
 			$bulan_terbit = $this->input->post('blnterbit');
 			// var_dump($bulan_terbit);
 			// die();
@@ -417,7 +485,8 @@ class Jurnal extends CI_Controller {
 					foreach ($bulan_terbit as $key => $value) {
 						$dataPenerbitan = array(
 							'id_jurnal' => $id,
-							'bulan_terbit' => $bulan_terbit[$key]
+							'bulan_terbit' => $bulan_terbit[$key],
+							'diubah_pada' => date('Y-m-d H:i:s')
 						);
 							$result .= $this->M_Jurnal->add_penerbitan($dataPenerbitan);
 					}
@@ -427,7 +496,8 @@ class Jurnal extends CI_Controller {
 
 				$dataPenerbit = array(
 					'jenis_penerbit' => $this->input->post('penerbit'),
-					'id_jenis' => $this->input->post('id_penerbit')
+					'id_jenis' => $this->input->post('id_penerbit'),
+					'diubah_pada' => date('Y-m-d H:i:s')
 				);
 				// var_dump($dataPenerbit);
 				// die();
@@ -443,6 +513,7 @@ class Jurnal extends CI_Controller {
 							'id_jurnal' => $id,
 							'id_pengindeks' => $value,
 							'url_pengindeks' => $url_pengindeks[$name],
+							'diubah_pada' => date('Y-m-d H:i:s')
 						);
 					$result .=		$this->M_Jurnal->add_pengindeks($dataPengindeks);
 					}
@@ -452,19 +523,28 @@ class Jurnal extends CI_Controller {
 				}
 				// var_dump($dataPengindeks);
 				// die();
-				$is_akreditasi = $this->input->post('akreditasi');
-				if($is_akreditasi === "true") {
-					$skjr = $this->M_Jurnal->getSkJurnal($id);
-					$dataSK = array(
-						'id_sk' => $this->input->post('sk'),
-					);
-					$result .=	$this->M_Jurnal->updateSkJurnal($dataSK,'id_sk_jurnal',$skjr->id_sk_jurnal);
-				} else {
-					$skjr = $this->M_Jurnal->getSkJurnal($id);
-					if(!empty($skjr)) {
-						$result .=	$this->M_Jurnal->deleteSKJurnal($id);
-					}
-				}
+				// $is_akreditasi = $this->input->post('akreditasi');
+				// if($is_akreditasi === "true") {
+				// 	$skjr = $this->M_Jurnal->getSkJurnal($id);
+				// 	$dataSK = array(
+				// 		'id_sk' => $this->input->post('sk'),
+				// 	);
+				// 	if(!empty($this->input->post('peringkatsinta'))) {
+				// 		$dataSK['peringkat_sinta'] = $this->input->post('peringkatsinta');
+				// 	}
+				// 	if(!empty($this->input->post('mulaisk'))) {
+				// 		$dataSK['tanggal_mulai'] = $this->input->post('mulaisk');
+				// 	}
+				// 	if(!empty($this->input->post('akhirsk'))) {
+				// 		$dataSK['tanggal_berakhir'] = $this->input->post('akhirsk');
+				// 	}
+				// 	$result .=	$this->M_Jurnal->updateSkJurnal($dataSK,'id_sk_jurnal',$skjr->id_sk_jurnal);
+				// } else {
+				// 	$skjr = $this->M_Jurnal->getSkJurnal($id);
+				// 	if(!empty($skjr)) {
+				// 		$result .=	$this->M_Jurnal->deleteSKJurnal($id);
+				// 	}
+				// }
 
 				if ($result) {
 						$this->session->set_flashdata('success_msg', 'jurnal berhasil diedit');
@@ -477,9 +557,10 @@ class Jurnal extends CI_Controller {
 
 	}
 
+
 	public function delete_jurnal ($id)
 	{
-		$result =$this->M_Jurnal->delete_jurnal($id);
+		$result =$this->M_Jurnal->delete_jurnal($id, ['dihapus_pada' => date('Y-m-d H:i:s')]);
 
 		if ($result) {
 				$this->session->set_flashdata('success_msg', 'jurnal berhasil dihapus');
@@ -491,6 +572,25 @@ class Jurnal extends CI_Controller {
 
 
 	}
+
+	public function deleteSK ($id)
+	{
+		$jurnal= $this->M_Jurnal->getJurnalBySK($id);
+
+		$result =$this->M_Jurnal->deleteSK($id, ['dihapus_pada' => date('Y-m-d H:i:s')]);
+
+		if ($result) {
+				$this->session->set_flashdata('success_msg', 'SK berhasil dihapus');
+		} else {
+				$this->session->set_flashdata('error_msg', 'Gagal menghapus SK. Silahkan coba lagi atau hubungi administrator');
+		}
+
+		redirect('jurnal/riwayat/'. $jurnal->id_jurnal);
+
+
+	}
+
+
 
 
 	public function validate_portal($portal) {
@@ -538,16 +638,24 @@ class Jurnal extends CI_Controller {
 
 	}
 	public function perbaruiSK(){
-		$this->form_validation->set_rules('sk', 'NO SK', 'required');
-    if ($this->form_validation->run()== FALSE)
+		$this->form_validation->set_rules('sk', 'SK', 'required');
+		$this->form_validation->set_rules('peringkatsinta', 'Peringkat SINTA', 'required');
+		$this->form_validation->set_rules('tetapsk', 'Tanggal Mulai SK', 'required');
+		$this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir SK', 'required');
+		    if ($this->form_validation->run()== FALSE)
     {
-      $this->riwayatSK();
+
+      $this->riwayatSK($this->input->post('jurnal'));
     }
     else
     {
       $data = array(
           'id_sk' => $this->input->post('sk'),
-					'id_jurnal' => $this->input->post('jurnal')
+					'id_jurnal' => $this->input->post('jurnal'),
+					'peringkat_sinta' => $this->input->post('peringkatsinta'),
+					'tanggal_mulai' => $this->input->post('tetapsk'),
+					'tanggal_berakhir' => $this->input->post('akhirsk') ,
+					'dibuat_pada' => date('Y-m-d H:i:s')
         );
         $result=$this->M_Jurnal->addSkJurnal($data);
         if ($result) {

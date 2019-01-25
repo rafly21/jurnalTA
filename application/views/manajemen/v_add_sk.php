@@ -45,17 +45,18 @@
            </div>
          </div>
          <div class="form-group">
-           <label for="#" class="col-sm-2 control-label">Tanggal Mulai SK : </label>
+           <label for="#" class="col-sm-2 control-label">Deskripsi : </label>
            <div class="col-md-9">
-             <input class="form-control" name="mulaisk" value="<?=set_value('mulaisk')?>" placeholder="SK" type="date" required/>
-             <?php if(form_error('mulaisk')) : ?>
+             <input class="form-control" name="sk" value="<?=set_value('sk')?>" placeholder="Deskripsi" type="text" required/>
+             <?php if(form_error('sk')) : ?>
                <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                   <?php echo form_error('mulaisk'); ?>
+                   <?php echo form_error('sk'); ?>
                </div>
              <?php endif ?>
            </div>
          </div>
+
          <div class="form-group">
            <label for="#" class="col-sm-2 control-label">Tanggal Penetapan SK : </label>
            <div class="col-md-9">
@@ -68,18 +69,7 @@
              <?php endif ?>
            </div>
          </div>
-         <div class="form-group">
-           <label for="#" class="col-sm-2 control-label">Tanggal Berakhir SK : </label>
-           <div class="col-md-9">
-             <input class="form-control" name="akhirsk" value="<?=set_value('akhirsk')?>" placeholder="SK" type="date" required/>
-             <?php if(form_error('akhirsk')) : ?>
-               <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
-                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                   <?php echo form_error('akhirsk'); ?>
-               </div>
-             <?php endif ?>
-           </div>
-         </div>
+
                            <!-- <a onclick="return confirmSave()"> -->
                              <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Tambah lembaga</b></button>
                            <!-- </a> -->

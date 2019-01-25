@@ -63,7 +63,9 @@ class Pengindeks extends CI_Controller {
       $data = array(
           'nama' => $this->input->post('nama'),
           'tingkatan' => $this->input->post('tingkatan'),
-          'grade' => $grade
+          'grade' => $grade,
+					'diubah_pada' => date('Y-m-d H:i:s')
+
         );
 
       // var_dump($data);
@@ -133,7 +135,9 @@ class Pengindeks extends CI_Controller {
     $data = array(
       'nama' => $this->input->post('nama'),
       'tingkatan' => $this->input->post('tingkatan'),
-      'grade' => $grade
+      'grade' => $grade,
+			'diubah_pada' => date('Y-m-d H:i:s')
+
 );
     $result = $this->M_Jurnal->update_pengindeks($data,'id_pengindeks',$id);
     if ($result) {

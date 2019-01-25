@@ -399,31 +399,14 @@
           <div class="form-group">
             <label for="#" class="col-sm-2 control-label">Terakreditasi : </label>
             <div class="col-md-9 ">
-              <?php if(!empty(set_value('akreditasi'))):?>
+
                 <div class="radio">
                   <label>
-                    <input type="radio" class="radio-akreditasi" name="akreditasi" id="aky" value="true" <?=set_value('akreditasi') === "true" ? 'checked' : ''?>>
-                    YA
+                    <input type="radio" class="radio-akreditasi" name="akreditasi"  value="<?=$skJurnal !== null ? "true": "false"?>" checked= "checked" >
+                     <?=$skJurnal !== null ? "Ya": "Tidak"?>
                   </label>
-                  &nbsp; &nbsp;
-                  <label>
-                    <input type="radio" class="radio-akreditasi" name="akreditasi" id="akn" value="false" <?=set_value('akreditasi') === "false" ? 'checked' : ''?>>
-                    TIDAK
-                  </label>
+
                 </div>
-              <?php else:?>
-                <div class="radio">
-                  <label>
-                    <input type="radio" class="radio-akreditasi" name="akreditasi" id="aky" value="true" <?=$skJurnal !== null ? 'checked' : ''?>>
-                    YA
-                  </label>
-                  &nbsp; &nbsp;
-                  <label>
-                    <input type="radio" class="radio-akreditasi" name="akreditasi" id="akn" value="false" <?=$skJurnal === null ? 'checked' : ''?>>
-                    TIDAK
-                  </label>
-                </div>
-              <?php endif;?>
             </div>
           </div>
           <div id="akreditasi">
@@ -431,7 +414,7 @@
                 <div class="form-group">
                   <label for="#" class="col-sm-2 control-label">SK Akreditasi : </label>
                   <div class="col-md-9">
-                    <select class="form-control select2" name="sk" data-placeholder="SK" id="sk" required>
+                    <select class="form-control select2" disabled name="sk" data-placeholder="SK" id="sk" required>
                       <option>-- Pilih SK --</option>
                       <?php foreach ($sk as $s){?>
                         <option value="<?=$s->id_sk?>" <?=$s->id_sk === $skJurnal->id_sk ? 'selected' : '';?>><?=$s->no_sk?></option>
@@ -442,10 +425,37 @@
                 <div class="form-group">
                   <label for="#" class="col-sm-2 control-label">Peringkat SINTA : </label>
                   <div class="col-md-9">
-                    <input class="form-control" name="peringkatsinta" value="<?=$jurnal->peringkat_sinta?>" placeholder="Peringkat Sinta" type="text" required/>
-                    <?php if(form_error('peringkatsinta')) : ?>
+                    <select class="form-control select2" name="peringkatsinta" disabled data-placeholder="Peringkat SINTA" id="peringkatsinta" required>
+                      <option>-- Pilih Peringkat SINTA --</option>
+                      <option value="S1" <?= $skJurnal->peringkat_sinta === 'S1' ? 'selected' : ''; ?> >S1</option>
+                      <option value="S2" <?= $skJurnal->peringkat_sinta === 'S2' ? 'selected' : ''; ?> >S2</option>
+                      <option value="S3" <?= $skJurnal->peringkat_sinta === 'S3' ? 'selected' : ''; ?> >S3</option>
+                      <option value="S4" <?= $skJurnal->peringkat_sinta === 'S4' ? 'selected' : ''; ?> >S4</option>
+                      <option value="S5" <?= $skJurnal->peringkat_sinta === 'S5' ? 'selected' : ''; ?> >S5</option>
+                      <option value="S6" <?= $skJurnal->peringkat_sinta === 'S6' ? 'selected' : ''; ?> >S6</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="#" class="col-sm-2 control-label">Tanggal Mulai SK</label>
+                  <div class="col-md-9">
+                    <input class="form-control" name="mulaisk" disabled value="<?= set_value('mulaisk') ? set_value('mulaisk') : $skJurnal->tanggal_mulai; ?>" placeholder="SK" type="date" required/>
+                    <?php if(form_error('mulaisk')) : ?>
                       <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><?php echo form_error('peringkatsinta'); ?>
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                          <?php echo form_error('mulaisk'); ?>
+                      </div>
+                    <?php endif ?>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="#" class="col-sm-2 control-label">Tanggal Berakhir SK</label>
+                  <div class="col-md-9">
+                    <input class="form-control" name="akhirsk" disabled  value="<?= set_value('akhirsk') ? set_value('akhirsk') : $skJurnal->tanggal_berakhir; ?>" placeholder="SK" type="date" required/>
+                    <?php if(form_error('akhirsk')) : ?>
+                      <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                          <?php echo form_error('akhirsk'); ?>
                       </div>
                     <?php endif ?>
                   </div>

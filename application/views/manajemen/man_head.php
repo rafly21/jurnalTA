@@ -126,7 +126,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Host has been saved !</h4>
+          <h4 class="modal-title">Pengelola berhasil ditambah !</h4>
         </div>
         <div class="modal-footer">
           <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -139,7 +139,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Host details has been updated !</h4>
+        <h4 class="modal-title">Pengelola berhasil diperbarui !</h4>
       </div>
       <div class="modal-footer">
         <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -152,7 +152,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Host has been deleted !</h4>
+        <h4 class="modal-title">Pengelola berhasil dihapus !</h4>
       </div>
       <div class="modal-footer">
         <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -191,7 +191,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">User has been added !</h4>
+          <h4 class="modal-title">pengelola berhasil ditambahkan !</h4>
         </div>
         <div class="modal-footer">
           <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -204,7 +204,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">User details has been updated !</h4>
+          <h4 class="modal-title">pengelola berhasil diperbarui !</h4>
         </div>
         <div class="modal-footer">
           <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Close</button>

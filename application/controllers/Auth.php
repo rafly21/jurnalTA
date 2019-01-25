@@ -29,7 +29,8 @@ class Auth extends CI_Controller {
 		$password = $this->input->post('password');
 		$where = array(
 			'username' => $username,
-			'password' => md5($password)
+			'password' => md5($password),
+			'dihapus_pada' => NULL
 			);
 
 
