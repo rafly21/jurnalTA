@@ -15,7 +15,7 @@
         <div class="bar">
           <section class="content-header">
             <h1>
-              Edit Pengelola
+              Edit Ketua Editor
               <small></small>
             </h1>
             <ol class="breadcrumb">
@@ -91,7 +91,7 @@
 
                   <div>
                 <!-- <a onclick="return confirmSave()"> -->
-                  <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Save Changes</b></button>
+                  <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Simpan Perubahan</b></button>
                     <!-- </a> -->
                 </div>
             </form>

@@ -167,7 +167,7 @@ class Jurnal extends CI_Controller {
 				$data['years'][$i] = $year;
 				$data['jurnal'][$i] = $jurnal;
 				if ($i > 0) {
-					$data['kumulatif'][$i] = $data['jurnal'][$i-1] + $jurnal;
+					$data['kumulatif'][$i] = $data['kumulatif'][$i-1] + $jurnal;
 				} else {
 					$data['kumulatif'][$i] = $data['jurnal'][$i];
 				}
@@ -180,17 +180,28 @@ class Jurnal extends CI_Controller {
 		}
 
 		function getGraphDataJurnalAkreditasiBySinta() {
-			// $year = date('Y')-4;
-			$sinta = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
-			$data = null;
+		// $year = date('Y')-4;
+		$sinta = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
+		// for ($i = 0; $i < count($sinta); $i++) {
+		// 	$jurnal = $this->M_Jurnal->countJurnalAkreditasiBySinta($sinta[$i]);
+		// 	$data['jumlah'][$i] = $jurnal;
+		// }
+		$res = $this->M_Jurnal->countJurnalAkreditasiBySinta();
+		$jumlah = [0,0,0,0,0,0];
+		foreach ($res as $key => $val) {
 			for ($i = 0; $i < count($sinta); $i++) {
-				$jurnal = $this->M_Jurnal->countJurnalAkreditasiBySinta($sinta[$i]);
-				$data['jumlah'][$i] = $jurnal;
+				if($val['ps'] === $sinta[$i]) {
+					$jumlah[$i] += 1;
+				}
 			}
-			$data['kategori'] = $sinta;
-
-			return json_encode((object)$data);
 		}
+
+		// die(var_dump($jumlah[0]));
+		$data['jumlah'] = $jumlah;
+		$data['kategori'] = $sinta;
+
+		return json_encode((object)$data);
+	}
 
 		function getGraphDataJurnalAkreditasiByPengindeks() {
 			$pengindeks = ['DOAJ', 'ESCI', 'Scopus', 'EBSCO'];
@@ -649,22 +660,28 @@ class Jurnal extends CI_Controller {
     }
     else
     {
-      $data = array(
-          'id_sk' => $this->input->post('sk'),
-					'id_jurnal' => $this->input->post('jurnal'),
-					'peringkat_sinta' => $this->input->post('peringkatsinta'),
-					'tanggal_mulai' => $this->input->post('tetapsk'),
-					'tanggal_berakhir' => $this->input->post('akhirsk') ,
-					'dibuat_pada' => date('Y-m-d H:i:s')
-        );
-        $result=$this->M_Jurnal->addSkJurnal($data);
-        if ($result) {
-            $this->session->set_flashdata('success_msg', 'SK berhasil diperbarui');
-        } else {
-            $this->session->set_flashdata('error_msg', 'Gagal memperbarui sk. Silahkan coba lagi atau hubungi administrator');
-        }
+			if ($this->input->post('peringkatsinta') === 'S0'){
+				$this->session->set_flashdata('error_psinta', 'Mohon diisi terlebih dahulu');
+				$this->riwayatSK($this->input->post('jurnal'));
+			} else {
+				$data = array(
+						'id_sk' => $this->input->post('sk'),
+						'id_jurnal' => $this->input->post('jurnal'),
+						'peringkat_sinta' => $this->input->post('peringkatsinta'),
+						'tanggal_mulai' => $this->input->post('tetapsk'),
+						'tanggal_berakhir' => $this->input->post('akhirsk') ,
+						'dibuat_pada' => date('Y-m-d H:i:s')
+					);
+					$result=$this->M_Jurnal->addSkJurnal($data);
+					if ($result) {
+							$this->session->set_flashdata('success_msg', 'SK berhasil diperbarui');
+					} else {
+							$this->session->set_flashdata('error_msg', 'Gagal memperbarui sk. Silahkan coba lagi atau hubungi administrator');
+					}
 
-        redirect('jurnal/riwayat/'.$data['id_jurnal']);
+					redirect('jurnal/riwayat/'.$data['id_jurnal']);
+			}
+
     }
 
 

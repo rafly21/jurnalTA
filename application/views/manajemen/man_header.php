@@ -23,47 +23,12 @@
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="<?php echo base_url('assets/template/back/dist') ?>/img/user2-160x160.jpg" class="user-image" alt="User Image">
-            <span class="hidden-xs"><?php
-            if (!empty($this->session->userdata())){
-              echo $this->session->userdata('name') ;
-
-            }
-            ?></span>
+            <span class="hidden-xs"> LPPM </span>
           </a>
-          <ul class="dropdown-menu">
-            <!-- User image -->
-            <li class="user-header">
-              <img src="<?php echo base_url('assets/template/back/dist') ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-              <p>
-                <?php
-                if (!empty($this->session->userdata())){
-                  echo $this->session->userdata('name') ;
-
-                }
-                ?>
-              </p>
-            </li>
-            <!-- Menu Body -->
-            <li class="user-body">
-
-              <!-- /.row -->
-            </li>
-            <!-- Menu Footer-->
-            <!-- <li class="user-footer">
-              <div class="pull-left">
-                <a href="auth" class="btn btn-default btn-flat">Login</a>
-              </div>
-              <div class="pull-right">
-                <a href="/JurnalTA/logout" class="btn btn-default btn-flat">Sign out</a>
-              </div>
-            </li> -->
-          </ul>
         </li>
         <!-- Control Sidebar Toggle Button -->
-        <li>
-          <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-        </li>
+
       </ul>
     </div>
 

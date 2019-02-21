@@ -31,6 +31,9 @@ class Home extends CI_Controller {
 		$this->load->view('guest/home',$data);
 	}
 	// ================================ GRAPH ==============================================
+
+
+
 		function getGraphDataJurnalAkreditasiByPenerbitSinta($tahun=null) {
 			$sinta = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
 			$faks = $this->M_Jurnal->getFakultas();
@@ -148,7 +151,7 @@ class Home extends CI_Controller {
 				$data['years'][$i] = $year;
 				$data['jurnal'][$i] = $jurnal;
 				if ($i > 0) {
-					$data['kumulatif'][$i] = $data['jurnal'][$i-1] + $jurnal;
+					$data['kumulatif'][$i] = $data['kumulatif'][$i-1] + $jurnal;
 				} else {
 					$data['kumulatif'][$i] = $data['jurnal'][$i];
 				}
@@ -161,17 +164,28 @@ class Home extends CI_Controller {
 		}
 
 		function getGraphDataJurnalAkreditasiBySinta() {
-			// $year = date('Y')-4;
-			$sinta = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
-			$data = null;
+		// $year = date('Y')-4;
+		$sinta = ['S1', 'S2', 'S3', 'S4', 'S5', 'S6'];
+		// for ($i = 0; $i < count($sinta); $i++) {
+		// 	$jurnal = $this->M_Jurnal->countJurnalAkreditasiBySinta($sinta[$i]);
+		// 	$data['jumlah'][$i] = $jurnal;
+		// }
+		$res = $this->M_Jurnal->countJurnalAkreditasiBySinta();
+		$jumlah = [0,0,0,0,0,0];
+		foreach ($res as $key => $val) {
 			for ($i = 0; $i < count($sinta); $i++) {
-				$jurnal = $this->M_Jurnal->countJurnalAkreditasiBySinta($sinta[$i]);
-				$data['jumlah'][$i] = $jurnal;
+				if($val['ps'] === $sinta[$i]) {
+					$jumlah[$i] += 1;
+				}
 			}
-			$data['kategori'] = $sinta;
-
-			return json_encode((object)$data);
 		}
+
+		// die(var_dump($jumlah[0]));
+		$data['jumlah'] = $jumlah;
+		$data['kategori'] = $sinta;
+
+		return json_encode((object)$data);
+	}
 
 		function getGraphDataJurnalAkreditasiByPengindeks() {
 			$pengindeks = ['DOAJ', 'ESCI', 'Scopus', 'EBSCO'];

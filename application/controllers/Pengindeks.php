@@ -29,7 +29,7 @@ class Pengindeks extends CI_Controller {
     // var_dump($this->input->post());
     // die;
     $this->form_validation->set_rules('nama', 'nama pengindeks', 'required');
-    $this->form_validation->set_rules('tingkatan', 'Tingkatan', 'required');
+    // $this->form_validation->set_rules('tingkatan', 'Tingkatan', 'required');
     // $this->form_validation->set_rules('grade', 'Grade', 'required');
 
     if ($this->form_validation->run() == FALSE)
@@ -38,33 +38,11 @@ class Pengindeks extends CI_Controller {
     }
     else
     {
-      $grade="";
-      switch ($this->input->post('tingkatan')) {
-        case 'S1':
-          $grade = "Internasional Tinggi";
-          break;
-          case 'S2':
-            $grade = "Internasional Sedang";
-          break;
-          case 'S3':
-            $grade = "Internasional Rendah";
-          break;
-          case 'S4':
-            $grade = "Nasional Tinggi";
-          break;
-          case 'S5':
-            $grade = "Nasional Sedang";
-          break;
-          case 'S6':
-            $grade = "Nasional Rendah";
-          break;
-      }
+
 
       $data = array(
           'nama' => $this->input->post('nama'),
-          'tingkatan' => $this->input->post('tingkatan'),
-          'grade' => $grade,
-					'diubah_pada' => date('Y-m-d H:i:s')
+					'dibuat_pada' => date('Y-m-d H:i:s')
 
         );
 
@@ -111,31 +89,9 @@ class Pengindeks extends CI_Controller {
     }
     else
     {
-      $grade="";
-      switch ($this->input->post('tingkatan')) {
-        case 'S1':
-          $grade = "Internasional Tinggi";
-          break;
-          case 'S2':
-            $grade = "Internasional Sedang";
-          break;
-          case 'S3':
-            $grade = "Internasional Rendah";
-          break;
-          case 'S4':
-            $grade = "Nasional Tinggi";
-          break;
-          case 'S5':
-            $grade = "Nasional Sedang";
-          break;
-          case 'S6':
-            $grade = "Nasional Rendah";
-          break;
-      }
+
     $data = array(
       'nama' => $this->input->post('nama'),
-      'tingkatan' => $this->input->post('tingkatan'),
-      'grade' => $grade,
 			'diubah_pada' => date('Y-m-d H:i:s')
 
 );

@@ -14,13 +14,13 @@
         <div class="bar">
           <section class="content-header">
             <h1>
-              Tambah Pengelola
-              <small>Manajemen Pengelola</small>
+              Tambah Ketua Editor
+              <small>Manajemen Ketua Editor</small>
             </h1>
             <ol class="breadcrumb">
               <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-              <li><a href="#"> Manajemen Pengelola</a></li>
-              <li class="active">Tambah Pengelola</li>
+              <li><a href="#"> Manajemen Ketua Editor</a></li>
+              <li class="active">Tambah Ketua Editor</li>
             </ol>
           </section>
         </div>
@@ -115,7 +115,7 @@
 
                     <div>
                       <!-- <a onclick="return confirmSave()"> -->
-                        <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Add new user</b></button>
+                        <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Tambah Ketua Editor Baru</b></button>
                       <!-- </a> -->
                     </div>
 

@@ -7,33 +7,15 @@
         <img src="<?php echo base_url('assets/template/back/dist') ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p><?php
-        if (!empty($this->session->userdata())){
-          echo $this->session->userdata('name') ;
-
-        }
-
-
-        ?></p>
-        <a href="#"><i class="fa fa-circle text-success"></i> </a>
+        <p>LPPM</p>
       </div>
     </div>
     <!-- search form -->
-    <form action="#" method="get" class="sidebar-form">
-      <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Search...">
-        <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                <i class="fa fa-search"></i>
-              </button>
-            </span>
-      </div>
-    </form>
+
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
-      <li class="active treeview menu-open">
 
 
 
@@ -51,12 +33,13 @@
           <!-- <li><a href="#"><i class="fa fa-circle-o"></i> Jurnal Belum Terbit</a></li> -->
           <li><a href="<?php echo base_url ('dept') ?>"><i class="fa fa-circle-o"></i> Daftar Departemen </a></li>
           <li><a href="<?php echo base_url ('sk') ?>"><i class="fa fa-circle-o"></i> Kelola SK </a></li>
-          <li><a href="<?php echo base_url ('./pengindeks') ?>"><i class="fa fa-circle-o"></i> Tambah Pengindeks</a></li>
-          <li><a href="<?php echo base_url ('./lembaga') ?>"><i class="fa fa-circle-o"></i> Tambah Lembaga</a></li>
-          <li><a href="<?php echo base_url ('./lab') ?>"><i class="fa fa-circle-o"></i> Tambah Lab</a></li>
+          <li><a href="<?php echo base_url ('./pengindeks') ?>"><i class="fa fa-circle-o"></i> Daftar Pengindeks</a></li>
+          <li><a href="<?php echo base_url ('./lembaga') ?>"><i class="fa fa-circle-o"></i> Daftar Lembaga</a></li>
+          <li><a href="<?php echo base_url ('./lab') ?>"><i class="fa fa-circle-o"></i> Daftar Lab</a></li>
 
         </ul>
       </li>
+      <li class="header">-----------------------------------------------------</li>
       <li>
         <a href="<?php echo base_url ('jurnal/grafik') ?>">
           <i class="fa fa-th"></i> <span>Jurnal Dalam Grafik</span>
@@ -64,6 +47,8 @@
           </span>
         </a>
       </li>
+      <li class="header">-----------------------------------------------------</li>
+
       <li class="treeview">
         <a href="#">
           <i class="fa fa-edit"></i>

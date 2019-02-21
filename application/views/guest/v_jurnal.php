@@ -261,7 +261,7 @@
                         URL SINTA
                       </label>
                       <label class="col-sm-8">
-                        <?= $detail->url_sinta?>
+                      <a href ="<?= $detail->url_sinta?>" target="_blank" style= 'color:grey'><?= $detail->url_sinta?></a>  
                       </label>
                   </div>
 

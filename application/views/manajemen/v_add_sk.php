@@ -47,7 +47,7 @@
          <div class="form-group">
            <label for="#" class="col-sm-2 control-label">Deskripsi : </label>
            <div class="col-md-9">
-             <input class="form-control" name="sk" value="<?=set_value('sk')?>" placeholder="Deskripsi" type="text" required/>
+             <input class="form-control" name="desk" value="<?=set_value('desk')?>" placeholder="Deskripsi" type="text" />
              <?php if(form_error('sk')) : ?>
                <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -71,7 +71,7 @@
          </div>
 
                            <!-- <a onclick="return confirmSave()"> -->
-                             <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Tambah lembaga</b></button>
+                             <button type="submit" class="btn btn-info center-block" style="padding-left: 20%; padding-right: 20%;"><b>Tambah SK</b></button>
                            <!-- </a> -->
                          </div>
 

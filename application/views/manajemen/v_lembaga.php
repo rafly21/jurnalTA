@@ -76,7 +76,7 @@
                 <h4 class="modal-title">Hapus data</h4>
               </div>
               <div class="modal-body">
-                <p> yakin mau hapus pengindeks <?php echo $a->nama_lembaga ?> ? </p>
+                <p> yakin mau hapus  <?php echo $a->nama_lembaga ?> ? </p>
               </div>
               <div class="modal-footer">
                 <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>

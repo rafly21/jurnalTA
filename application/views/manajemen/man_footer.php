@@ -267,6 +267,30 @@ $(document).ready(function() {
       //     'copy', 'csv', 'excel', 'pdf', 'print'
       // ]
     });
+    $('#tes2').dataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      // dom: 'Bfrtip',
+      // buttons: [
+      //     'copy', 'csv', 'excel', 'pdf', 'print'
+      // ]
+    });
+    $('#tes3').dataTable({
+      'paging'      : true,
+      'lengthChange': true,
+      'searching'   : true,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : true,
+      // dom: 'Bfrtip',
+      // buttons: [
+      //     'copy', 'csv', 'excel', 'pdf', 'print'
+      // ]
+    });
     $('#download').wrap('<div id="hide" style="display:none;"/>')
     var downloadTable = $('#download').DataTable({
       'paging'      : true,
@@ -527,7 +551,9 @@ $(document).ready(function(){
              style: {
                  color: Highcharts.getOptions().colors[1]
              }
-         }
+         },
+         min:0,
+         tickInterval:5,
      }, { // Secondary yAxis
          title: {
              text: '',
@@ -541,7 +567,10 @@ $(document).ready(function(){
                  color: 'transparent'
              }
          },
-         opposite: true
+         opposite: true,
+         min:0,
+         tickInterval:5,
+
      }],
      tooltip: {
          shared: true
@@ -595,17 +624,23 @@ $(document).ready(function(){
            },
          }
      },
-
+     tooltip: {
+               // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+               pointFormat: '<span style="color:#000"></span><b>{point.y:.0f}</b><br/>'
+           },
      yAxis: {
          title: {
            text: 'Jumlah Jurnal',
            style: {
                color: Highcharts.getOptions().colors[1]
            },
-         }
+         },
+         min:0,
+         tickInterval:5,
      },
 
      series: [{
+
          type: 'column',
          colorByPoint: true,
          data: jurSinta.jumlah,
@@ -635,14 +670,19 @@ $(document).ready(function(){
            },
          }
      },
-
+     tooltip: {
+               // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+               pointFormat: '<span style="color:#000"></span><b>{point.y:.0f}</b><br/>'
+           },
      yAxis: {
          title: {
            text: 'Jumlah Jurnal',
            style: {
                color: Highcharts.getOptions().colors[1]
            },
-         }
+         },
+         min:0,
+         tickInterval:5,
      },
 
      series: [{
@@ -674,6 +714,8 @@ $(document).ready(function(){
          title: {
              text: 'Jumlah Jurnal'
          },
+         min:0,
+         tickInterval:5,
          stackLabels: {
              enabled: true,
              style: {

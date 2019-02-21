@@ -15,7 +15,7 @@
         <div class="bar">
           <section class="content-header">
             <h1>
-              Edit Pengelola
+              Edit Data Pengelola
               <small></small>
             </h1>
             <ol class="breadcrumb">

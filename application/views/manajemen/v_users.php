@@ -30,7 +30,7 @@
 
       </br>
       </br>
-      <table id="tableuser" class="table table-bordered table-striped scroll" style="background-color:white;">
+      <table id="tes2" class="table table-bordered table-striped scroll" style="background-color:white;">
       <thead>
         <tr>
           <th>No.</th>
@@ -47,9 +47,7 @@
       <tbody>
         <?php
         $no=1;
-        // var_dump($data);
-        // die();
-        foreach($data as $a) {?>
+        foreach($data as $k => $a) {?>
           <?php
             // $fakultas = $this->M_Jurnal->getFakultas($a->id_fak);
             // $departemen = $this->M_Jurnal->getDepartemen($a->id_dept);
@@ -64,7 +62,7 @@
             // var_dump(count($riwayatsk));
           ?>
         <tr>
-          <td><?php echo $no++ ?></td>
+          <td><?php echo $k+1 ?></td>
           <td><font size="4px"><div class="label label-default"><?php echo $a->username ?></div></font></td>
           <td><?php echo $a->nama ?></td>
           <td><?php echo $a->email ?></td>
@@ -103,6 +101,9 @@
                     <?php } ?>
 
                   </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Tutup</button>
                 </div>
               </div>
             </div>

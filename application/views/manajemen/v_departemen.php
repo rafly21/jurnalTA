@@ -44,11 +44,13 @@
         <a href="<?php echo base_url('./dept/tambah_dept'); ?>" class="btn btn-info"><b>Tambah Departemen</b></a>
       </br>
       </br>
-      <table id="tableuser" class="table table-bordered table-striped scroll" style="background-color:white;">
+      <table id="tes3" class="table table-bordered table-striped scroll" style="background-color:white;">
       <thead>
         <tr>
           <th>no</th>
           <th>Nama Departemen</th>
+          <th>Fakultas</th>
+          <th>OPSI</th>
 
         </tr>
       </thead>
@@ -61,6 +63,7 @@
         <tr>
           <td><?php echo $no++ ?></td>
           <td><font size="4px"><div class="label label-default"><?php echo $a->nama_dept ?></div></font></td>
+          <td><font size="4px"><div class="label label-default"><?php echo $a->nama_fak ?></div></font></td>
 
 
           <td colspan="3">

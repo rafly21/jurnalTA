@@ -148,8 +148,9 @@ class M_Jurnal extends CI_Model{
 		}
 
 		public function countJurnalAkreditasiBySinta($sinta=null) {
-			$query = $this->db->query("SELECT id_jurnal idj, (SELECT peringkat_sinta FROM sk_jurnal WHERE id_jurnal IN(idj) ORDER BY id_sk_jurnal DESC LIMIT 1) ps FROM sk_jurnal WHERE dihapus_pada IS NULL GROUP BY id_jurnal HAVING ps IS NOT NULL");
-			return $query->result_array();
+			//$query = $this->db->query("SELECT id_jurnal idj, (SELECT peringkat_sinta FROM sk_jurnal WHERE id_jurnal IN(idj) ORDER BY id_sk_jurnal DESC LIMIT 1) ps FROM sk_jurnal WHERE dihapus_pada IS NULL GROUP BY id_jurnal HAVING ps IS NOT NULL");
+			//return $query->result_array();
+
 			// $this->db->select("skj.id_jurnal");
 			// $this->db->from('sk_jurnal skj');
 			// // $this->db->join('sk_jurnal skj', 'skj.id_jurnal = j.id_jurnal');
@@ -267,16 +268,7 @@ class M_Jurnal extends CI_Model{
 		}
 	}
 
-function tampil_data($filter=null) {
-
-			$this->db->distinct();
-			$this->db->select('j.*, p.*, d.*, j.id_jurnal idj');
-			$this->db->from('jurnal j');
-			$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');
-			$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
-			$this->db->order_by('j.id_jurnal','asc');
-
-
+	function tampil_data($filter=null) {
 		if($filter !== null) {
 			 // $this->db->join('bulan_penerbitan bp', 'bp.id_jurnal = j.id_jurnal');
 			 // $this->db->join('jurnal_pengindeks jp', 'jp.id_jurnal = j.id_jurnal');
@@ -286,16 +278,13 @@ function tampil_data($filter=null) {
 				  $this->db->where('j.id_portal', $filter['portal']);
 			 }
 			 if($filter['akreditasi'] !== null) {
-				 $this->db->select('(SELECT peringkat_sinta FROM sk_jurnal WHERE id_jurnal IN(idj) ORDER BY id_sk_jurnal DESC LIMIT 1) ps');
 				 $this->db->join('sk_jurnal sj', 'sj.id_jurnal = j.id_jurnal');
 				 $this->db->where('sj.dihapus_pada', NULL);
-				 $this->db->having('ps', $filter['akreditasi']);
-				 $this->db->having('ps IS NOT NULL');
+				  $this->db->where('sj.peringkat_sinta', $filter['akreditasi']);
 
 			 }
 			 if($filter['penerbit'] !== null) {
 				 $id = $filter['penerbit'];
-				 // $this->db->select('penerbit.*');
 				 $this->db->join('penerbit', 'penerbit.id_jurnal = j.id_jurnal');
 				 $this->db->where("(penerbit.id_jenis = ANY(SELECT departemen.id_dept FROM departemen JOIN fakultas ON departemen.id_fak = fakultas.id_fak WHERE fakultas.id_fak = $id) AND penerbit.jenis_penerbit = 'departemen') OR (penerbit.id_jenis = ANY(SELECT fakultas.id_fak FROM fakultas WHERE fakultas.id_fak = $id) AND penerbit.jenis_penerbit = 'fakultas')", NULL, FALSE);
 			 }
@@ -329,8 +318,11 @@ function tampil_data($filter=null) {
 			 }
 
 		}
-
-		return $this->db->get()->result();
+		$this->db->distinct();
+		$this->db->join('penerbit p', 'p.id_jurnal = j.id_jurnal');
+		$this->db->join('data_pengelola d', 'd.id_pengelola = j.id_pengelola');
+		$this->db->order_by('j.id_jurnal','asc');
+		return $this->db->get('jurnal j')->result();
 	}
 	function tampil_dataacr()
 	{

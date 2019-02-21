@@ -27,9 +27,7 @@ class Sk extends CI_Controller {
   public function insert_sk()
   {
     $this->form_validation->set_rules('sk', 'nomor sk', 'required');
-    $this->form_validation->set_rules('mulaisk', 'Tanggal Mulai', 'required');
     $this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan', 'required');
-    $this->form_validation->set_rules('akhirsk', 'Tanggal Berakhir', 'required');
     if ($this->form_validation->run()== FALSE)
     {
       $this->add_sk();
@@ -38,9 +36,8 @@ class Sk extends CI_Controller {
     {
       $data = array(
           'no_sk' => $this->input->post('sk'),
-          'tanggal_mulai' => $this->input->post('mulaisk') ,
+          'deskripsi' => $this->input->post('desk') ,
           'tanggal_penetapan' => $this->input->post('tetapsk') ,
-          'tanggal_berakhir' => $this->input->post('akhirsk') ,
 					'dibuat_pada' => date('Y-m-d H:i:s')
 
         );
@@ -75,8 +72,8 @@ class Sk extends CI_Controller {
     $this->load->view('manajemen/v_edit_sk',$data);
   }
 	public function edit_sk($id){
-    // $this->form_validation->set_rules('no_sk', 'nomor sk', 'required');
-		// $this->form_validation->set_rules('tanggal_mulai', 'tanggal mulai SK', 'required');
+		$this->form_validation->set_rules('sk', 'nomor sk', 'required');
+    $this->form_validation->set_rules('tetapsk', 'Tanggal Penetapan', 'required');
 		// $this->form_validation->set_rules('tanggal_penetapan', 'tanggal penetapan SK', 'required');
 		// $this->form_validation->set_rules('tanggal_berakhir', 'tanggal berakhir SK', 'required');
 
@@ -89,9 +86,8 @@ class Sk extends CI_Controller {
 
     $data = array(
 			'no_sk' => $this->input->post('sk'),
-			'tanggal_mulai' => $this->input->post('mulaisk') ,
+			'deskripsi' => $this->input->post('desk') ,
 			'tanggal_penetapan' => $this->input->post('tetapsk') ,
-			'tanggal_berakhir' => $this->input->post('akhirsk') ,
 			'diubah_pada' => date('Y-m-d H:i:s')
 
 		);

@@ -78,13 +78,26 @@
                         <option value="<?=$s->id_sk?>"><?=$s->no_sk?></option>
                       <?php  } ?>
                     </select>
+                    <?php if(form_error('sk')) : ?>
+                      <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                          <?php echo form_error('sk'); ?>
+                      </div>
+                    <?php endif ?>
+                    <?php if($this->session->flashdata('error_psinta')) : ?>
+                      <div class="alert alert-danger alert-dismissible" style="margin-bottom:10px;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <?= $this->session->flashdata('error_psinta') ?>
+                      </div>
+                    <?php endif ?>
+
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="#" class="col-sm-2 control-label">Peringkat SINTA </label>
                   <div class="col-md-9">
                     <select class="form-control select" name="peringkatsinta" data-placeholder="Peringkat SINTA" id="peringkatsinta" required>
-                      <option>-- Pilih Peringkat SINTA --</option>
+                      <option value="S0">-- Pilih Peringkat SINTA --</option>
                       <option value="S1">S1</option>
                       <option value="S2">S2</option>
                       <option value="S3">S3</option>
@@ -92,6 +105,18 @@
                       <option value="S5">S5</option>
                       <option value="S6">S6</option>
                     </select>
+                    <?php if(form_error('peringkatsinta')) : ?>
+                      <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                          <?php echo form_error('peringkatsinta'); ?>
+                      </div>
+                    <?php endif ?>
+                    <?php if($this->session->flashdata('error_psinta')) : ?>
+                      <div class="alert alert-danger alert-dismissible" style="margin-bottom:10px;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <?= $this->session->flashdata('error_psinta') ?>
+                      </div>
+                    <?php endif ?>
                   </div>
                 </div>
                 <div class="form-group">

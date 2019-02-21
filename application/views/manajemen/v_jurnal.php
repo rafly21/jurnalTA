@@ -46,7 +46,7 @@
         <a href="<?php echo base_url('./jurnal/add_jurnal'); ?>" class="btn btn-success"><b>Tambah Jurnal</b></a>
         <button id="toggle-filter" class="btn btn-primary" data-action="show"><b>Filter Jurnal</b></button>
         <div class="pull-right">
-          <label for="">Export ke : </label>
+          <label for="">Export data jurnal ke : </label>
           <div class="btn-group">
             <button type="button" class="btn btn-default" id="export-csv">CSV</button>
             <button type="button" class="btn btn-success" id="export-excel">Excel</button>
@@ -297,7 +297,7 @@
 
                </div>
               <div class="modal-footer">
-                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Batal</button>
+                <button type="button" aria-label="Close" class="btn btn-primary" data-dismiss="modal">Tutup</button>
               </div>
             </div>
           </div>

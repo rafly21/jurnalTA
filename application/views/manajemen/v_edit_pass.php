@@ -15,11 +15,11 @@
           <section class="content-header">
             <h1>
               Edit Password
-              <small>User Management</small>
+              <small>Manajemen Ketua Editor</small>
             </h1>
             <ol class="breadcrumb">
               <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-              <li><a href="#"> User Management</a></li>
+              <li><a href="#"> Manajemen Ketua Editor</a></li>
               <li class="active">Edit Password</li>
             </ol>
           </section>
@@ -29,7 +29,7 @@
       <section class="content">
          <form class="form-horizontal" action="<?php echo base_url()?>kelola_pengelola">
                   <div class="box-header with-border">
-                    <h1 class="box-title"><font color="black" fill="black">Back to User Management</font></h1>
+                    <h1 class="box-title"><font color="black" fill="black">Kembali</font></h1>
                     <button class="btn btn-success fa fa-angle-double-left margin pull-left"></button>
                   </div>
                 </form>

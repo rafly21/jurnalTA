@@ -48,7 +48,7 @@
          <div class="form-group">
            <label for="#" class="col-sm-2 control-label">Deskripsi : </label>
            <div class="col-md-9">
-             <!-- <input class="form-control" name="sk" value="<?php echo $sk->no_sk; ?>" placeholder="SK" type="text" required/> -->
+             <input class="form-control" name="desk" value="<?php echo $sk->deskripsi; ?>" placeholder="SK" type="text" />
              <?php if(form_error('sk')) : ?>
                <div class="alert alert-danger alert-dismissible" style="margin-top:10px;">
                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>

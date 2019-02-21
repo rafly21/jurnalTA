@@ -49,8 +49,8 @@
         <tr>
           <th>no</th>
           <th>Pengindeks</th>
-          <th>Tingkatan</th>
-          <th>Grade</th>
+          <th>OPSI </th>
+
         </tr>
       </thead>
       <tbody>
@@ -62,8 +62,7 @@
         <tr>
           <td><?php echo $no++ ?></td>
           <td><font size="4px"><div class="label label-default"><?php echo $a->nama ?></div></font></td>
-          <td><?php echo $a->tingkatan ?></td>
-          <td><?php echo $a->grade ?></td>
+
 
 
 

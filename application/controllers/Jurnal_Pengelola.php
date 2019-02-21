@@ -197,6 +197,7 @@ class Jurnal_Pengelola extends CI_Controller {
 		} else
 		{
 			// var_dump($this->M_Jurnal->getJenisPenerbit());
+			// var_dump($_POST);
 			// die();
 			$dataJurnal = array(
 				'no_jurnal' => $this->input->post('nomorjurnal'),
@@ -215,6 +216,8 @@ class Jurnal_Pengelola extends CI_Controller {
 				'id_portal' => $this->input->post('portal'),
 				'url' => $this->input->post('urlportal'),
 				'url_sinta' => $this->input->post('urlsinta'),
+				'diubah_pada' => date('Y-m-d H:i:s')
+
 			);
 
 			$result = false;
@@ -276,18 +279,18 @@ class Jurnal_Pengelola extends CI_Controller {
 				// var_dump($dataPengindeks);
 				// die();
 
-				$is_akreditasi = $this->input->post('akreditasi');
-				if($is_akreditasi === "true") {
-					$dataSK = array(
-						'id_sk' => $this->input->post('sk'),
-					);
-					$result .=	$this->M_Jurnal->updateSkJurnal($dataSK,'id_jurnal',$id);
-				} else {
-					$skjr = $this->M_Jurnal->getSkJurnal($id);
-					if(!empty($skjr)) {
-						$result .=	$this->M_Jurnal->deleteSKJurnal($id);
-					}
-				}
+				// $is_akreditasi = $this->input->post('akreditasi');
+				// if($is_akreditasi === "true") {
+				// 	$dataSK = array(
+				// 		'id_sk' => $this->input->post('sk'),
+				// 	);
+				// 	$result .=	$this->M_Jurnal->updateSkJurnal($dataSK,'id_jurnal',$id);
+				// } else {
+				// 	$skjr = $this->M_Jurnal->getSkJurnal($id);
+				// 	if(!empty($skjr)) {
+				// 		$result .=	$this->M_Jurnal->deleteSKJurnal($id);
+				// 	}
+				// }
 
 				if ($result) {
 						$this->session->set_flashdata('success_msg', 'jurnal berhasil diedit');

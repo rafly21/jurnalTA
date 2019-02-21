@@ -64,7 +64,7 @@
         <tr>
           <td><?php echo $no++ ?></td>
           <td><font size="4px"><div class="label label-default"><?php echo $a->no_sk ?></div></font></td>
-          <td><font size="4px"><div class="label label-default"> </div></font></td>
+          <td><font size="4px"><div class="label label-default"><?php echo $a->deskripsi ?></div></font></td>
           <td><?php echo $a->tanggal_penetapan ?></td>
 
 

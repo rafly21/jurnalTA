@@ -246,157 +246,169 @@ $(document).ready(function() {
   var pj = JSON.parse(graphDataJurnalAkreditasiByPenerbit);
   // console.log(pj)
   Highcharts.chart('penerbitJurnal', {
-     chart: {
-         plotBackgroundColor: null,
-         plotBorderWidth: null,
-         plotShadow: false,
-         type: 'pie'
-     },
-     title: {
-         text: 'Distribusi Penerbit Jurnal Terakreditasi 2018'
-     },
-     tooltip: {
-         pointFormat: '{series.name}: <b>{point.y}</b>'
-     },
-     plotOptions: {
-         pie: {
-             allowPointSelect: true,
-             cursor: 'pointer',
-             dataLabels: {
-                 enabled: true,
-                 format: '<b>{point.name}</b>: {point.y}',
-                 style: {
-                     color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                 },
-                 connectorColor: 'silver'
-             }
-         }
-     },
-     series: [{
-         name: 'Jumlah Jurnal',
-         data: pj
-     }]
+      chart: {
+          plotBackgroundColor: null,
+          plotBorderWidth: null,
+          plotShadow: false,
+          type: 'pie'
+      },
+      title: {
+          text: 'Distribusi Penerbit Jurnal Terakreditasi 2018'
+      },
+      tooltip: {
+          pointFormat: '{series.name}: <b>{point.y}</b>'
+      },
+      plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                  enabled: true,
+                  format: '<b>{point.name}</b>: {point.y}',
+                  style: {
+                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                  },
+                  connectorColor: 'silver'
+              }
+          }
+      },
+      series: [{
+          name: 'Jumlah Jurnal',
+          data: pj
+      }]
   });
   // ------ graph akreditasi by tahun ---------
   var graphDataJurnalAkreditasiByYear = '<?=isset($graphDataJurnalAkreditasiByYear) ? $graphDataJurnalAkreditasiByYear : null?>';
   var machartData = JSON.parse(graphDataJurnalAkreditasiByYear);
   // console.log(machartData);
   Highcharts.chart('machart', {
-     chart: {
-         zoomType: 'xy'
-     },
-     title: {
-         text: 'Jumlah Jurnal Terakreditasi Tahun '+machartData.year
-     },
-     subtitle: {
-         text: 'Pertahun dan Kumulatif ('+machartData.month+' '+machartData.year+')'
-     },
-     xAxis: [{
-         categories: machartData.years,
-         crosshair: true,
-         title: {
-           text: 'Tahun',
-           style: {
-               color: Highcharts.getOptions().colors[1]
-           },
-         }
-     }],
-     yAxis: [{ // Primary yAxis
-         labels: {
-             format: '{value}',
-             style: {
-                 color: Highcharts.getOptions().colors[1]
-             }
-         },
-         title: {
-             text: 'Jumlah Jurnal',
-             style: {
-                 color: Highcharts.getOptions().colors[1]
-             }
-         }
-     }, { // Secondary yAxis
-         title: {
-             text: '',
-             style: {
-                 color: 'transparent'
-             }
-         },
-         labels: {
-             format: '',
-             style: {
-                 color: 'transparent'
-             }
-         },
-         opposite: true
-     }],
-     tooltip: {
-         shared: true
-     },
-     legend: {
-         layout: 'vertical',
-         align: 'left',
-         x: 120,
-         verticalAlign: 'top',
-         y: 100,
-         floating: true,
-         backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255,255,255,0.25)'
-     },
-     series: [{
-         name: 'Kumulatif',
-         type: 'column',
-         yAxis: 1,
-         data: machartData.kumulatif,
-         tooltip: {
-             valueSuffix: ''
-         }
+      chart: {
+          zoomType: 'xy'
+      },
+      title: {
+          text: 'Jumlah Jurnal Terakreditasi Tahun '+machartData.year
+      },
+      subtitle: {
+          text: 'Pertahun dan Kumulatif ('+machartData.month+' '+machartData.year+')'
+      },
+      xAxis: [{
+          categories: machartData.years,
+          crosshair: true,
+          title: {
+            text: 'Tahun',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            },
+          }
+      }],
+      yAxis: [{ // Primary yAxis
+          labels: {
+              format: '{value}',
+              style: {
+                  color: Highcharts.getOptions().colors[1]
+              }
+          },
+          title: {
+              text: 'Jumlah Jurnal',
+              style: {
+                  color: Highcharts.getOptions().colors[1]
+              }
+          },
+          min:0,
+          tickInterval:5,
+      }, { // Secondary yAxis
+          title: {
+              text: '',
+              style: {
+                  color: 'transparent'
+              }
+          },
+          labels: {
+              format: '',
+              style: {
+                  color: 'transparent'
+              }
+          },
+          opposite: true,
+          min:0,
+          tickInterval:5,
 
-     }, {
-         name: 'Jurnal',
-         type: 'spline',
-         data: machartData.jurnal,
-         tooltip: {
-             valueSuffix: ''
-         }
-     }]
+      }],
+      tooltip: {
+          shared: true
+      },
+      legend: {
+          layout: 'vertical',
+          align: 'left',
+          x: 120,
+          verticalAlign: 'top',
+          y: 100,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || 'rgba(255,255,255,0.25)'
+      },
+      series: [{
+          name: 'Kumulatif',
+          type: 'column',
+          yAxis: 1,
+          data: machartData.kumulatif,
+          tooltip: {
+              valueSuffix: ''
+          }
+
+      }, {
+          name: 'Jurnal',
+          type: 'spline',
+          data: machartData.jurnal,
+          tooltip: {
+              valueSuffix: ''
+          }
+      }]
   });
 
   // ------------- graph akreditasi by sinta ------------
   var graphDataJurnalAkreditasiBySinta = '<?=isset($graphDataJurnalAkreditasiBySinta) ? $graphDataJurnalAkreditasiBySinta : null?>';
   var jurSinta = JSON.parse(graphDataJurnalAkreditasiBySinta);
+  console.log(jurSinta);
   Highcharts.chart('jurnalSinta', {
-     title: {
-         text: 'Jurnal Undip Terindeks Sinta S1-S6'
-     },
+      title: {
+          text: 'Jurnal Undip Terindeks Sinta S1-S6'
+      },
 
-     subtitle: {
-         text: ''
-     },
+      subtitle: {
+          text: ''
+      },
 
-     xAxis: {
-         categories: jurSinta.kategori,
-         title: {
-           text: 'Peringkat Sinta',
-           style: {
-               color: Highcharts.getOptions().colors[1]
-           },
-         }
-     },
+      xAxis: {
+          categories: jurSinta.kategori,
+          title: {
+            text: 'Peringkat Sinta',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            },
+          }
+      },
+      tooltip: {
+                // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:#000"></span><b>{point.y:.0f}</b><br/>'
+            },
+      yAxis: {
+          title: {
+            text: 'Jumlah Jurnal',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            },
+          },
+          min:0,
+          tickInterval:5,
+      },
 
-     yAxis: {
-         title: {
-           text: 'Jumlah Jurnal',
-           style: {
-               color: Highcharts.getOptions().colors[1]
-           },
-         }
-     },
+      series: [{
 
-     series: [{
-         type: 'column',
-         colorByPoint: true,
-         data: jurSinta.jumlah,
-         showInLegend: false
-     }]
+          type: 'column',
+          colorByPoint: true,
+          data: jurSinta.jumlah,
+          showInLegend: false
+      }]
   });
 
   // ------------- graph akreditasi by pengindeks ------------
@@ -404,95 +416,102 @@ $(document).ready(function() {
   var jurPengindeks = JSON.parse(graphDataJurnalAkreditasiByPengindeks);
   console.log(jurPengindeks);
   Highcharts.chart('jurnalSintaFakultas', {
-     title: {
-         text: 'Jurnal Undip Terindeks DOAJ, Scopus, ESCI, EBSCO'
-     },
+      title: {
+          text: 'Jurnal Undip Terindeks DOAJ, Scopus, ESCI, EBSCO'
+      },
 
-     subtitle: {
-         text: ''
-     },
+      subtitle: {
+          text: ''
+      },
 
-     xAxis: {
-         categories: jurPengindeks.categories,
-         title: {
-           text: 'Pengindeks',
-           style: {
-               color: Highcharts.getOptions().colors[1]
-           },
-         }
-     },
+      xAxis: {
+          categories: jurPengindeks.categories,
+          title: {
+            text: 'Pengindeks',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            },
+          }
+      },
+      tooltip: {
+                // headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                pointFormat: '<span style="color:#000"></span><b>{point.y:.0f}</b><br/>'
+            },
+      yAxis: {
+          title: {
+            text: 'Jumlah Jurnal',
+            style: {
+                color: Highcharts.getOptions().colors[1]
+            },
+          },
+          min:0,
+          tickInterval:5,
+      },
 
-     yAxis: {
-         title: {
-           text: 'Jumlah Jurnal',
-           style: {
-               color: Highcharts.getOptions().colors[1]
-           },
-         }
-     },
-
-     series: [{
-         type: 'column',
-         colorByPoint: true,
-         data: jurPengindeks.jumlah,
-         showInLegend: false
-     }]
+      series: [{
+          type: 'column',
+          colorByPoint: true,
+          data: jurPengindeks.jumlah,
+          showInLegend: false
+      }]
   });
 
   //--------------- graph akreditasi by penerbit sinta ------
   var graphDataJurnalAkreditasiByPenerbitSinta = '<?=isset($graphDataJurnalAkreditasiByPenerbitSinta) ? $graphDataJurnalAkreditasiByPenerbitSinta : null?>';
   var jurPenerbitSinta = JSON.parse(graphDataJurnalAkreditasiByPenerbitSinta);
   Highcharts.chart('jurnalPenerbitSinta', {
-     chart: {
-         type: 'column'
-     },
-     title: {
-         text: 'Jurnal Undip Terakreditasi Berdasarkan Peringkat Sinta Per Penerbit'
-     },
-     xAxis: {
-         categories: jurPenerbitSinta.categories,
-         title: {
-             text: 'Penerbit'
-         },
-     },
-     yAxis: {
-         min: 0,
-         title: {
-             text: 'Jumlah Jurnal'
-         },
-         stackLabels: {
-             enabled: true,
-             style: {
-                 fontWeight: 'bold',
-                 color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-             }
-         }
-     },
-     legend: {
-         align: 'right',
-         x: -30,
-         verticalAlign: 'top',
-         y: 25,
-         floating: true,
-         backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
-         borderColor: '#CCC',
-         borderWidth: 1,
-         shadow: false
-     },
-     tooltip: {
-         headerFormat: '<b>{point.x}</b><br/>',
-         pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
-     },
-     plotOptions: {
-         column: {
-             stacking: 'normal',
-             dataLabels: {
-                 enabled: true,
-                 color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
-             }
-         }
-     },
-     series: jurPenerbitSinta.series,
+      chart: {
+          type: 'column'
+      },
+      title: {
+          text: 'Jurnal Undip Terakreditasi Berdasarkan Peringkat Sinta Per Penerbit'
+      },
+      xAxis: {
+          categories: jurPenerbitSinta.categories,
+          title: {
+              text: 'Penerbit'
+          },
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'Jumlah Jurnal'
+          },
+          min:0,
+          tickInterval:5,
+          stackLabels: {
+              enabled: true,
+              style: {
+                  fontWeight: 'bold',
+                  color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+              }
+          }
+      },
+      legend: {
+          align: 'right',
+          x: -30,
+          verticalAlign: 'top',
+          y: 25,
+          floating: true,
+          backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+          borderColor: '#CCC',
+          borderWidth: 1,
+          shadow: false
+      },
+      tooltip: {
+          headerFormat: '<b>{point.x}</b><br/>',
+          pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+      },
+      plotOptions: {
+          column: {
+              stacking: 'normal',
+              dataLabels: {
+                  enabled: true,
+                  color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+              }
+          }
+      },
+      series: jurPenerbitSinta.series,
   });
   // ======== end of highcharts ===========
 

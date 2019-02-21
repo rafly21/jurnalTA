@@ -46,20 +46,7 @@
                       </div>
                     </div>
 
-                    <div class="form-group">
-                  <label for="inputpassword" class="col-sm-2 control-label">Tingkatan : </label>
-                    <div class="col-md-9">
-                  <select class="form-control " name="tingkatan" ='Tingkatan' >
-                    <option value="">--Pilih Tingkatan--</option>
-                    <option value="S1" <?= $pengindeks->tingkatan === 'S1' ? 'selected' : ''; ?>>S1</option>
-                    <option value="S2" <?= $pengindeks->tingkatan === 'S2' ? 'selected' : ''; ?>>S2</option>
-                    <option value="S3" <?= $pengindeks->tingkatan === 'S3' ? 'selected' : ''; ?>>S3</option>
-                    <option value="S4" <?= $pengindeks->tingkatan === 'S4' ? 'selected' : ''; ?>>S4</option>
-                    <option value="S5" <?= $pengindeks->tingkatan === 'S5' ? 'selected' : ''; ?>>S5</option>
-                    <option value="S6" <?= $pengindeks->tingkatan === 'S6' ? 'selected' : ''; ?>>S6</option>
-                  </select>
-                  </div>
-                  </div>
+              
                       <!-- <div class="form-group">
                        <label for="inputpassword" class="col-sm-2 control-label">Grade : </label>
                        <div class="col-md-9">
